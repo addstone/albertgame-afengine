@@ -26,7 +26,7 @@
 
 ## 核心集成部分-message
 ### Message 应用消息
-### MessageCenter  应用消息中心
+### MessageManager  应用消息管理器
 ### MessageRoute 应用消息路由器
 ### MessageHandlerRoute 内置消息路由器实现，类型-内容消息发送路由器
 ### MessageHandler 应用消息处理器
