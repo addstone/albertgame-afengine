@@ -5,7 +5,7 @@
 
 # 特性支持的相关对象
 
-## 应用入口部分
+## 应用入口部分-entry
 ### Application 游戏应用抽象实体
 ### ServiceApplication 服务游戏应用，抽象游戏应用的实现体
 ### WindowApplication 窗口游戏应用，抽象游戏应用的的实现体
