@@ -6,7 +6,6 @@
 # 特性支持的相关对象
 
 ## Scene
-## SceneCamera
 ## SceneLoader
 ## SceneFileHelp
 

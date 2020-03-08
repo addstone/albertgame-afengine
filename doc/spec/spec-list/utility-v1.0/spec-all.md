@@ -1,9 +1,11 @@
 # utility v1.0 特性标准文档
 
 # 特性说明
-通用工具标准，包含以下工具。  
+## 通用工具标准，包含以下工具。
+
 ## 调试工具
 ## 资产工具
+## 工厂工具
 ## 进程工具
 ## 数学工具
 ## 声音管理
@@ -16,6 +18,10 @@
 
 ## 资产工具-assets
 ### AssetsUtility 资产工具类
+
+## 工厂工具-factory
+### FactoryInterface 工厂接口
+### FactoryCenter 工厂中心
 
 ## 进程工具-process
 ### Process
