@@ -7,12 +7,12 @@
 # 对象功能
 
 ## 获取/设置属性值
-## 获取/设置数值改变监听器
+## 获取/数值改变监听器列表
 
 # 对象相关类
 ## ValueChangeListener<T> 属性更改监听器
 ### 对象功能
-#### boolean change(T oldv,T newv);如果返回false，表示更改失败，否则会将属性更改成新属性
+#### void change(T oldv,T newv);属性更改前时将会调用
 
 #### 内部实现类
 	LongProperty,
