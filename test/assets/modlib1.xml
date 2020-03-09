@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modlibs>
+    <mod1>
+        <Component1>
+            <data value="#mod1"/>
+        </Component1>
+    </mod1>
+    <mod2>
+        <Component1>
+            <data value="#mod2"/>
+        </Component1>
+    </mod2>
+    <mod3>
+        <BehaviorBean>
+            <Behavior1 class="component.behavior.Behavior1">
+                <todo value="#todo"/>
+                <text value="#behavior1text"/>
+            </Behavior1>
+            <Behavior2 class="component.behavior.Behavior2">
+                <todo value="#todo"/>
+                <text value="#behavior2text"/>
+            </Behavior2>
+        </BehaviorBean>
+    </mod3>
+    <mod4>
+        <Render type="Texture">
+            <texture>#texturepath</texture>
+        </Render>
+        <Action>
+            <act type="Time" name="#act1name" gap="#gap"  action="#action1" next="#spritename"/>
+            <act type="Sprite" name="#spritename" path="#sprite-path"/>
+            <act type="Time" name="#act2name" repeat="true" gap="#gap2" action="#action2"/>
+            <act type="Time" name="#act3name" repeat="true" gap="#gap3" action="#action3"/>
+        </Action>
+    </mod4>
+</modlibs>

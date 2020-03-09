@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+    <actordata>
+        <back mod="test/scenetest2/modlibs.xml#imagemod">
+            <transform pos="0,0,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/scenetest2/back.jpg"/>
+            </datas>
+        </back>
+        <player-left mod="test/scenetest2/modlibs.xml#imagemod">
+            <transform pos="30,50,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/scenetest2/player1.png"/>
+            </datas>            
+        </player-left>
+        <player-center mod="test/scenetest2/modlibs.xml#imagemod">
+            <transform pos="400,350,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0.5,1,0,0"/>
+            <datas>
+                <imagepath value="test/scenetest2/player2.png"/>
+            </datas>            
+        </player-center>
+        <player-right mod="test/scenetest2/modlibs.xml#imagemod">
+            <transform pos="740,350,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="1,1,0,0"/>
+            <datas>
+                <imagepath value="test/scenetest2/player3.png"/>
+            </datas>            
+        </player-right>
+        <image-left mod="test/scenetest2/modlibs.xml#imagemod">
+            <transform pos="30,350,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,1,0,0"/>
+            <datas>
+                <imagepath value="test/scenetest2/title.png"/>
+            </datas>            
+        </image-left>
+        <image-center mod="test/scenetest2/modlibs.xml#imagemod">
+            <transform pos="400,350,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0.5,1,0,0"/>
+            <datas>
+                <imagepath value="test/scenetest2/title.png"/>
+            </datas>            
+        </image-center>
+        <image-right mod="test/scenetest2/modlibs.xml#imagemod">
+            <transform pos="740,350,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="1,1,0,0"/>
+            <datas>
+                <imagepath value="test/scenetest2/title.png"/>
+            </datas>            
+        </image-right>
+        <title-left mod="test/scenetest2/modlibs.xml#textmod">
+            <transform pos="30,350,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,1,0,0"/>
+            <datas>
+                <rendertext value="夏文纯一"/>
+                <rendersize value="40"/>
+            </datas>            
+        </title-left>
+        <title-center mod="test/scenetest2/modlibs.xml#textmod">
+            <transform pos="400,350,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0.5,1,0,0"/>
+            <datas>
+                <rendertext value="阿尔伯特"/>
+                <rendersize value="40"/>
+            </datas>            
+        </title-center>
+        <title-right mod="test/scenetest2/modlibs.xml#textmod">
+            <transform pos="740,350,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="1,1,0,0"/>
+            <datas>
+                <rendertext value="夏洛克"/>
+                <rendersize value="40"/>
+            </datas>            
+        </title-right>
+        <dialog-back mod="test/scenetest2/modlibs.xml#imagemod">
+            <transform pos="30,350,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/scenetest2/dialog.png"/>
+            </datas>                       
+        </dialog-back>
+        <word-line1 mod="test/scenetest2/modlibs.xml#textmod">
+            <transform pos="50,370,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <rendertext value="这是第一行"/>
+                <rendersize value="35"/>
+            </datas>             
+        </word-line1>
+        <word-line2 mod="test/scenetest2/modlibs.xml#textmod">
+            <transform pos="50,415,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <rendertext value="这是第一行"/>
+                <rendersize value="35"/>
+            </datas>             
+        </word-line2>
+        <word-line3 mod="test/scenetest2/modlibs.xml#textmod">
+            <transform pos="50,460,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <rendertext value="这是第一行"/>
+                <rendersize value="35"/>
+            </datas>             
+        </word-line3>
+        <word-line4 mod="test/scenetest2/modlibs.xml#textmod">
+            <transform pos="50,505,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <rendertext value="这是第一行"/>
+                <rendersize value="35"/>
+            </datas>             
+        </word-line4>
+    </actordata>
+    <actormap>
+        <back>
+            <player-left/>
+            <player-center/>
+            <player-right/>
+            <image-left/>
+            <image-center/>
+            <image-right/>
+            <title-left/>
+            <title-center/>
+            <title-right/>
+            <dialog-back/>
+            <word-line1/>
+            <word-line2/>
+            <word-line3/>
+            <word-line4/>
+        </back>
+    </actormap>
+</scene>

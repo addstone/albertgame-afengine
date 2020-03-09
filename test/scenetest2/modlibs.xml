@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modlibs>
+    <imagemod>
+        <Render type="Texture">
+            <texture>#imagepath</texture>
+        </Render>
+    </imagemod>
+    <textmod>
+        <Render type="Text">
+            <text>#rendertext</text>
+            <size>#rendersize</size>
+        </Render>
+    </textmod>
+</modlibs>

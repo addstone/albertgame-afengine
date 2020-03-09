@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<scene>
+  <actordata>
+    <root>
+      <transform pos="0.0,0.0,0.0,0.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,1.0" anchor="0.0,0.0,0.0,0.0"/>
+      <datas/>
+    </root>
+    <map>
+      <transform pos="0.0,0.0,0.0,0.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>
+      <datas/>
+    </map>
+    <map-content mod="test/testx/modlibs.xml#mapmod">
+      <transform pos="0.0,0.0,0.0,0.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,1.0" anchor="0.0,0.0,0.0,0.0"/>
+      <datas>
+        <mapfile value="test/testx/map.tmx"/>
+      </datas>
+    </map-content>
+    <player mod="test/testx/modlibs.xml#cutimagemod">
+      <transform pos="320.0,512.0,0.0,0.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,1.0" anchor="0.0,0.0,0.0,0.0"/>
+      <datas>
+        <cutheight value="32"/>
+        <imagepath value="test/testx/1.png"/>
+        <cutx value="0"/>
+        <cuty value="0"/>
+        <cutwidth value="32"/>
+        <render-order value="-1"/>
+      </datas>
+    </player>
+  </actordata>
+  <actormap>
+    <root>
+      <map>
+        <map-content/>
+      </map>
+      <player/>
+    </root>
+  </actormap>
+</scene>
