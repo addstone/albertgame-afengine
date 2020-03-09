@@ -14,7 +14,6 @@ UI输入标准。包含键盘、鼠标的输入管理，与UI控件的显示。
 ### UIInputFileHelp 输入配置文件帮助
 
 ## ui界面
-### UIFace UI界面
 ### UIDrawStrategy UI界面的渲染策略
 ### UIActor UI控件基类
 ### UIFaceFileHelp 界面配置文件帮助
@@ -34,3 +33,6 @@ UI输入标准。包含键盘、鼠标的输入管理，与UI控件的显示。
 ### UIInputArea 输入框
 ### UIInputLine 输入栏
 
+### UIFace UI界面
+### UIViewList 控件列表
+### UIButtonList 按钮列表
