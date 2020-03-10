@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--test/testx/render.modlibs.xml-->
+<modlibs>
+    <rectmod>
+        <Render type="Rect">
+            <shape width="#w" height="#h" arcwidth="#aw" archeight="#ah" fill="#f"/>
+            <color value="#c"/>
+        </Render>
+    </rectmod>
+    <imgmod>
+        <Render type="Texture">
+            <texture>#imgpath</texture>
+        </Render>
+    </imgmod>
+    <textmod>
+        <Render type="Text">
+            <text>#text</text>
+            <size>#size</size>
+            <color rgba="#rgba"/>
+        </Render>
+    </textmod>
+</modlibs>

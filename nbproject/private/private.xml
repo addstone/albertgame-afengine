@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/F:/workspace/artworks/code/afengine/test/assets/scenetestboot1.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/assets/inputtest1.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/assets/statictestboot.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/assets/inputtest4.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/all/scene.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/assets/boot1.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/assets/inputtest2.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/src/afengine/component/render/RenderComponentFactory.java</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/part/scene/SceneTestLogic.java</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/all/modlib.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/assets/scenetestboot2.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/assets/inputtest3.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/assets/rendertest1.xml</file>
-            <file>file:/F:/workspace/artworks/code/afengine/src/afengine/component/render/RectRenderComponent.java</file>
-            <file>file:/F:/workspace/artworks/code/afengine/test/scenetest2/test2-scene.xml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

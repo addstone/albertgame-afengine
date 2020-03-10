@@ -17,7 +17,7 @@
             </datas>            
         </actor2>
         <actor3 mod="test/all/modlib.xml#mod4">
-            <transform pos="100,1.0,1.0,1.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>            
+            <transform pos="500,1.0,1.0,1.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>            
             <datas>
                 <v1 value="v1"/>
                 <v2 value="v2"/>
@@ -25,23 +25,139 @@
                 <texturepath value="test/assets/1.png"/>
             </datas>                        
         </actor3>
-        <actor4 mod="test/all/modlib.xml#mod6">
-            <transform pos="50,1.0,1.0,1.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>     
+        
+    <actordata>
+        <rolenode>
+            <transform pos="10,10,10,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+        </rolenode>
+        <rolehead mod="test/testx/render/modlibs.xml#imgmod">
+            <transform pos="3,3,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
             <datas>
-                <rectwidth value="400"/>
-                <rectheight value="50"/>
-                <rectarcw value="10"/>
-                <rectarch value="10"/>
-                <rectcolor value="100,100,100,155"/>
-                <rectfill value="true"/>
+                <imgpath value="test/testx/render/role.png"/>
             </datas>
-        </actor4>
+        </rolehead>
+        <leveltitle mod="test/testx/render/modlibs.xml#textmod">
+            <transform pos="100,15,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <text value="LV.12"/>
+                <size value="20"/>
+                <rgba value="0,0,0,255"/>
+            </datas>
+        </leveltitle>
+        <nametitle mod="test/testx/render/modlibs.xml#textmod">
+            <transform pos="160,15,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <text value="像孩子一样笑啊"/>
+                <size value="20"/>
+                <rgba value="0,0,0,255"/>
+            </datas>
+        </nametitle>
+        <hptitle mod="test/testx/render/modlibs.xml#textmod">
+            <transform pos="120,42,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <text value="HP"/>
+                <size value="20"/>
+                <rgba value="0,0,0,255"/>
+            </datas>
+        </hptitle>
+        <mptitle mod="test/testx/render/modlibs.xml#textmod">
+            <transform pos="120,73,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <text value="MP"/>
+                <size value="20"/>
+                <rgba value="0,0,0,255"/>
+            </datas>
+        </mptitle>
+        <hp mod="test/testx/render/modlibs.xml#textmod">
+            <transform pos="160,45,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <text value="30/50"/>
+                <size value="16"/>
+                <rgba value="0,0,0,255"/>
+            </datas>
+        </hp>
+        <mp mod="test/testx/render/modlibs.xml#textmod">
+            <transform pos="160,75,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <text value="30/50"/>
+                <size value="14"/>
+                <rgba value="0,0,0,255"/>
+            </datas>
+        </mp>
+        <back mod="test/testx/render/modlibs.xml#rectmod">
+            <transform pos="0,0,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <w value="500"/>
+                <h value="200"/>
+                <aw value="5"/>
+                <ah value="5"/>
+                <c value="255,255,255,100"/>
+                <f value="true"/>
+            </datas>            
+        </back>
+        <hpback mod="test/testx/render/modlibs.xml#rectmod">
+            <transform pos="120,38,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <w value="250"/>
+                <h value="30"/>
+                <aw value="5"/>
+                <ah value="5"/>
+                <c value="0,255,0,100"/>
+                <f value="true"/>
+            </datas>            
+        </hpback>
+        <mpback mod="test/testx/render/modlibs.xml#rectmod">
+            <transform pos="120,70,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <w value="180"/>
+                <h value="30"/>
+                <aw value="5"/>
+                <ah value="5"/>
+                <c value="0,0,255,100"/>
+                <f value="true"/>
+            </datas>            
+        </mpback>
+        <hpline mod="test/testx/render/modlibs.xml#rectmod">
+            <transform pos="118,38,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <w value="252"/>
+                <h value="30"/>
+                <aw value="5"/>
+                <ah value="5"/>
+                <c value="255,255,255,200"/>
+                <f value="false"/>
+            </datas>            
+        </hpline>
+        <mpline mod="test/testx/render/modlibs.xml#rectmod">
+            <transform pos="118,70,0,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
+            <datas>
+                <w value="182"/>
+                <h value="30"/>
+                <aw value="5"/>
+                <ah value="5"/>
+                <c value="255,255,255,200"/>
+                <f value="false"/>
+            </datas>            
+        </mpline>
     </actordata>
     <actormap>
         <actor1/>
         <actor2>
             <actor3/>
-            <actor4/>
         </actor2>
+        <rolenode>
+            <back/>
+            <rolehead/>
+            <hpback/>
+            <mpback/>
+            <leveltitle/>
+            <nametitle/>
+            <hp/>
+            <mp/>
+            <hptitle/>
+            <hpline/>
+            <mptitle/>
+            <mpline/>           
+        </rolenode>        
     </actormap>
 </scene>
