@@ -26,7 +26,6 @@
             </datas>                        
         </actor3>
         
-    <actordata>
         <rolenode>
             <transform pos="10,10,10,0" rotate="0,0,0,0" scale="1,1,1,0" anchor="0,0,0,0"/>
         </rolenode>
