@@ -15,6 +15,7 @@
  */
 package afengine.component.render;
 
+import afengine.core.util.Vector;
 import afengine.core.window.IColor;
 import afengine.core.window.IGraphicsTech;
 import afengine.part.scene.SceneCamera;
@@ -76,8 +77,13 @@ public class RectRenderComponent extends RenderComponent{
         super.renderWidth=this.width;
         super.renderHeight=this.height;
 
+
         int dx=super.getRenderX(camera);
         int dy=super.getRenderY(camera);
+        Vector a = this.getActor().getTransform().anchor;
+        dx=(int) (dx-a.getX()*this.width);
+        dy=(int) (dy-a.getY()*this.height);
+
         IColor oldc=tech.getColor();
         tech.setColor(this.color);
         tech.drawRoundRect(dx, dy, width, height, arcWidth, arcHeight,fill);

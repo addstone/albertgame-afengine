@@ -3,11 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/workspace/github/albertgame-afengine/src/afengine/component/action/TimeAction.java</file>
+            <file>file:/F:/workspace/github/albertgame-afengine/test/all/modlib.xml</file>
+            <file>file:/F:/workspace/github/albertgame-afengine/test/assets/modlib1.xml</file>
             <file>file:/F:/workspace/github/albertgame-afengine/src/afengine/component/render/RenderComponentFactory.java</file>
-            <file>file:/F:/workspace/github/albertgame-afengine/test/all/scene.xml</file>
+            <file>file:/F:/workspace/github/albertgame-afengine/src/afengine/component/render/TextureRenderComponent.java</file>
             <file>file:/F:/workspace/github/albertgame-afengine/src/afengine/component/render/GraphicsTech_Java2D.java</file>
-            <file>file:/F:/workspace/github/albertgame-afengine/test/testx/render/modlibs.xml</file>
-            <file>file:/F:/workspace/github/albertgame-afengine/test/testx/render/scene.xml</file>
+            <file>file:/F:/workspace/github/albertgame-afengine/test/component/action/ActionTestLogic1.java</file>
+            <file>file:/F:/workspace/github/albertgame-afengine/src/afengine/component/render/RenderComponent.java</file>
+            <file>file:/F:/workspace/github/albertgame-afengine/src/afengine/component/render/TextRenderComponent.java</file>
+            <file>file:/F:/workspace/github/albertgame-afengine/src/afengine/part/message/MessageCenter.java</file>
+            <file>file:/F:/workspace/github/albertgame-afengine/src/afengine/component/render/RectRenderComponent.java</file>
         </group>
     </open-files>
 </project-private>
