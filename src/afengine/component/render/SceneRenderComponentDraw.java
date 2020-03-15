@@ -33,7 +33,7 @@ public class SceneRenderComponentDraw implements IDrawStrategy{
     }
     private void renderActor(Actor actor,IGraphicsTech tech,SceneCamera camera){
         RenderComponent render=(RenderComponent) actor.getComponent(RenderComponent.COMPONENT_NAME);
-        if(render!=null&&render.isInScreen(camera, tech)){
+        if(render!=null&&render.isInScreen(camera, tech)&&render.isActive()){
             render.renderComponent(camera, tech);
         }                
         List<Actor> children=actor.getChildren();        

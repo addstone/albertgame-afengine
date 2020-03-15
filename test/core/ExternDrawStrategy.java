@@ -3,6 +3,7 @@ package core;
 import afengine.component.render.GraphicsTech_Java2D;
 import afengine.core.util.XMLEngineBoot;
 import afengine.core.window.IDrawStrategy;
+import afengine.core.window.IFont;
 import afengine.core.window.IGraphicsTech;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -13,11 +14,18 @@ public class ExternDrawStrategy implements IDrawStrategy{
         XMLEngineBoot.bootEngine("test/assets/exdraw.xml");
 //      System.out.println(WindowApp.WindowAppBoot.class.getName());
     }
-    
+    IFont font=null;
     double i=0;
-    
+    boolean load=true;
     @Override
     public void draw(IGraphicsTech tech) {
+        if(load){
+            font=tech.createFont("test/action/test/text.ttf",true, IFont.FontStyle.BOLD,30);
+            load=false;
+        }
+        if(font!=null){
+            tech.drawText(400,100, font,tech.getColor(), "This is New Font");
+        }
         i+=0.1;
         if(i>255.0)
             i=0;

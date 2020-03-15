@@ -99,7 +99,7 @@ public class RenderComponentFactory implements IComponentFactory {
      * <text></text>
      * <font path=""></font>
      * <size></size>
-     * <color></color>
+     * <color rgba=""></color>
      *      //<backcolor></backcolor>
      * </Render>
      */
@@ -125,7 +125,7 @@ public class RenderComponentFactory implements IComponentFactory {
         } else if (fonte.attribute("path") != null) {
             path = ActorComponent.getRealValue(fonte.attributeValue("path"), datas);
             font = ((IGraphicsTech) ((WindowApp) AppState.getRunningApp()).
-                    getGraphicsTech()).createFont(ActorComponent.getRealValue(fonte.getText(), datas), true, IFont.FontStyle.PLAIN, siz);
+                    getGraphicsTech()).createFont(path, true, IFont.FontStyle.PLAIN, siz);
         } else {
             font = ((IGraphicsTech) ((WindowApp) AppState.getRunningApp())
                     .getGraphicsTech()).createFont("Dialog", false,

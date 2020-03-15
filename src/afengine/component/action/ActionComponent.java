@@ -66,13 +66,13 @@ public class ActionComponent extends ActorComponent{
         if(action.actionComp!=null){
             action.actionComp.removeAction(action.actionName);
         }
-        Debug.log_panel(new Text("->"+action.actionName));
+        Debug.log("->"+action.actionName);
         action.actionComp=this;
         ActAction ac = action.nextAction;
         action.start();
         while(ac!=null){
             ac.actionComp=this;
-            Debug.log_panel(new Text("->"+ac.actionName));
+            Debug.log("->"+ac.actionName);
             ac=ac.nextAction;
         }
     }
