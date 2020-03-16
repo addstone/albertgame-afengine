@@ -74,7 +74,6 @@ public class SceneCenter {
             return;
         }
 
-        this.preparedSceneMap.remove(runningScene.getName());
         runningScene.getLoader().shutdown();
         if(sceneStack.isEmpty())
         {
@@ -103,12 +102,10 @@ public class SceneCenter {
         }
 
         runningScene.getLoader().shutdown();
-        this.preparedSceneMap.remove(runningScene.getName());
 
         if(!sceneStack.isEmpty())
         {
             Scene scene = sceneStack.pop();
-            this.preparedSceneMap.remove(scene.getName());
             scene.getLoader().shutdown();
         }
 
