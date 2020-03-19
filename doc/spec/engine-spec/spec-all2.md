@@ -76,7 +76,7 @@ UIInputFileHelp //输入配置文件
 +++
 
 uiinput.control:
-UIAction.IFactory //UI动作工程
+UIAction.IFactory //UI动作工厂
 UIAction
 UIButtonBase -> UIImageButton,UITextButton,UIImageToggle
 UIImageView
@@ -88,9 +88,10 @@ UIViewList -> UIButtonList
 +++
 
 util:
-Debug
+DebugUtil
 AssetsUtil
 SoundUtil
+XMLUtil
 FactoryCenter
 FactoryInterface
 
@@ -99,6 +100,7 @@ FactoryInterface
 util.process:
 Process.State
 Process
+Process.IFactory //进程工厂
 ProcessManager
 
 +++
@@ -115,4 +117,5 @@ ValueProperty<T>.IChange
 ValuePropertyBind<T>
 ValueProperty<T>
 ValuePropertyList<T>.IChange
+ValuePropertyList<T>
 LongProperty,IntProperty,DoubleProperty,StringProperty
