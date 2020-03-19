@@ -4,7 +4,7 @@ albertgame.afengine
 
 # 特性支持的相关类和接口
 '->' 表示实现类,
-':' 表示包含一些列模块
+':' 表示包含一系列模块
 app：
 App -> ServiceApp,(WindowApp -> SimpleWindowApp)
 AppLogic
@@ -99,8 +99,8 @@ FactoryInterface
 
 util.process:
 Process.State
-Process
 Process.IFactory //进程工厂
+Process
 ProcessManager
 
 +++
