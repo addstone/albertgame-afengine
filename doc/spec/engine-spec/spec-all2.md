@@ -24,15 +24,13 @@ MessageManager
 +++
 
 graphics:
-IGraphicsTech.IDrawMethod
-IGraphicsTech.IState
-IGraphicsTech.ICreate
-IGraphicsTech.IColor
-IGraphicsTech.IFont
-IGraphicsTech.ITexture
-IGraphicsTech.IWindowAdjustListener
-IGraphicsTech.IDrawStrategy
-IGraphicsTech.IDrawStrategy.IFactory //创建渲染策略接口
+IGraphicsDraw
+IGraphicsState
+IGraphicsCreate
+IColor/IFont/ITexture
+IWindowAdjustListener
+IDrawStrategy
+IDrawStrategy.IFactory //创建渲染策略接口
 IGraphicsTech.IFactory //创建图形技术引擎的接口
 IGraphicsTech -> GraphicsTech_Java2D
 
@@ -44,7 +42,7 @@ IScreenElement.IDraw.IFactory // 创建子屏幕渲染的接口
 IScreenElement.Camera //子屏幕的照相机映射
 IScreenElement //含有一个draw
 ScreenHolder, 
-ScreenRenderStrategy //包含一个beforedraw和afterdraw
+ScreenRenderStrategy //包含一个屏幕元素渲染器，一个beforedraw和一个afterdraw
 
 +++
 
