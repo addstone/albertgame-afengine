@@ -221,7 +221,7 @@ public class TileMapRenderComponent extends RenderComponent{
             }
             return set;
          }
-         
+        
         
         public void loadTileIdMap(List<int[][]> tileidMap,List<TileImageSet> setlist,Element element,int tilewidth,int tileheight){
             Iterator<Element> eiter=element.elementIterator("layer");
