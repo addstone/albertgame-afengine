@@ -75,7 +75,7 @@ public abstract class AbProcess {
 
     public final void setUp() {
         if (state == State.UNSETUP) {
-            if (initAct()) {
+            if (!initAct()) {
                 state = State.EXCEPTION;
                 return;
             }
@@ -92,7 +92,7 @@ public abstract class AbProcess {
                 state = State.RUNNING;
                 break;
             case RUNNING:
-                updateAct(delttime);
+                updateAct(delttime);	    	
                 break;
             case END_SUCCESS:
                 success();
@@ -171,6 +171,6 @@ public abstract class AbProcess {
         return true;
     }
 
-    public abstract boolean updateAct(long delttime);
+    public abstract void updateAct(long delttime);
     
 }
