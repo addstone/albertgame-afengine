@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util.property;
+package albertgame.afengine.util;
 
 import albertgame.afengine.util.property.AbValueProperty;
 import albertgame.afengine.util.property.AbValuePropertyBind;
