@@ -21,7 +21,7 @@ public class ValuePropertyList<T> {
     }
 
     private final List<T> valueList;
-    private final List<IChange> changelistener;
+    private final List<IChange<T>> changelistener;
 
     public ValuePropertyList() {
         valueList = new LinkedList<>();
@@ -44,7 +44,7 @@ public class ValuePropertyList<T> {
         }
     }
 
-    public List<IChange> getChangelistener() {
+    public List<IChange<T>> getChangelistener() {
         return changelistener;
     }
 }

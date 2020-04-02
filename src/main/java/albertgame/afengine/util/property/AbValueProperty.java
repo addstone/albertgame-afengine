@@ -21,7 +21,7 @@ public abstract class AbValueProperty<T> {
     }
 
     private T value;
-    private final List<IChange> valueListeners;
+    private final List<IChange<T>> valueListeners;
 
     public AbValueProperty(T value) {
         this.value = value;
@@ -45,7 +45,7 @@ public abstract class AbValueProperty<T> {
         }
     }
 
-    public List<IChange> getValueListeners() {
+    public List<IChange<T>> getValueListeners() {
         return valueListeners;
     }
 }

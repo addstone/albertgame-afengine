@@ -6,6 +6,8 @@
 package albertgame.afengine.util;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -14,6 +16,16 @@ import java.util.Date;
 public class DebugUtil {
 
     private boolean on = false;
+
+    private final Map<String, String> colorMap;
+
+    public DebugUtil() {
+        colorMap = new HashMap<>();
+        colorMap.put(LogType.INFO.toString(), "36");//green-blue
+        colorMap.put(LogType.ERROR.toString(), "35");//purple-red
+        colorMap.put(LogType.WARNING.toString(), "33");//yellow
+        colorMap.put(LogType.SEVER.toString(), "31");//red
+    }
 
     public static enum LogType {
         INFO,
@@ -34,16 +46,11 @@ public class DebugUtil {
         if (!on) {
             return;
         }
-        
+
         Date date = new Date();
 
-        String outinfo=logType.toString() + date.toString() + ">" + info;
-        if(logType!=LogType.INFO&&logType!=LogType.WARNING){
-            System.err.println(outinfo);
-        }
-        else{
-            System.out.println(outinfo);
-        }
+        String outinfo = "\033[" + colorMap.get(logType.toString()) + "m" + logType.toString() +"\t"+ ">" + date.toString() + ">" + info+"\033[m";
+        System.out.println(outinfo);
         if (logType == LogType.SEVER) {
             System.exit(0);
         }
@@ -54,10 +61,10 @@ public class DebugUtil {
             System.out.println("you need open debug on to use assert");
             return false;
         }
-        
+
         if (!statement) {
             Date date = new Date();
-            System.out.println("assert:" + logType.toString() + date.toString() + ">" + info);
+            System.out.println("assert:" + logType.toString() + ">" + date.toString() + ">" + info);
             if (logType == LogType.SEVER) {
                 System.exit(0);
             }
@@ -65,7 +72,8 @@ public class DebugUtil {
         }
         return false;
     }
-    public boolean assertNotNull(Object obj,LogType logType, String info){
-        return assertEqual(obj!=null,logType,info);
+
+    public boolean assertNotNull(Object obj, LogType logType, String info) {
+        return assertEqual(obj != null, logType, info);
     }
 }

@@ -88,4 +88,10 @@ public class ProcessManager {
             }
         }
     }
+    
+    public void abortAllProcess(){
+        processList.forEach((process)->{
+            process.abort();
+        });
+    }
 }

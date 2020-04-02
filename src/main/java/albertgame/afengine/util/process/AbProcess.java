@@ -99,15 +99,15 @@ public abstract class AbProcess {
                 updateAct(delttime);	    	
                 break;
             case END_SUCCESS:
-                success();
+                successAct();
                 state = State.COULD_REMOVE;
                 break;
             case END_FAILED:
-                failed();
+                failedAct();
                 state = State.COULD_REMOVE;
                 break;
             case END_ABORT:
-                abort();
+                abortAct();
                 state = State.COULD_REMOVE;
                 break;
             case EXCEPTION:
@@ -150,7 +150,7 @@ public abstract class AbProcess {
         exceptionInfo = info;
     }
 
-    public void sucessAct() {
+    public void successAct() {
     }
 
     public void failedAct() {
@@ -168,13 +168,9 @@ public abstract class AbProcess {
     public void exceptionAct(String exceptionInfo) {
     }
 
-    public void setupAct() {
-    }
-
     public boolean initAct(){
         return true;
     }
 
     public abstract void updateAct(long delttime);
-    
 }

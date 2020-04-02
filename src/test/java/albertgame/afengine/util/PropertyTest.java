@@ -5,13 +5,7 @@
  */
 package albertgame.afengine.util;
 
-import albertgame.afengine.util.property.AbValueProperty;
-import albertgame.afengine.util.property.AbValuePropertyBind;
-import albertgame.afengine.util.property.DoubleProperty;
-import albertgame.afengine.util.property.IntProperty;
-import albertgame.afengine.util.property.LongProperty;
-import albertgame.afengine.util.property.StringProperty;
-import albertgame.afengine.util.property.ValuePropertyList;
+import albertgame.afengine.util.property.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +47,7 @@ public class PropertyTest {
         DoubleProperty value=new DoubleProperty(200.0);
         log.log(Level.INFO, "double value before change:{0}", value.get());
 
-        value.getValueListeners().add((AbValueProperty.IChange<Double>) (Double oldValue, Double newValue) -> {
+        value.getValueListeners().add((Double oldValue, Double newValue) -> {
             log.log(Level.INFO, "change! from {0} to {1}", new Object[]{oldValue, newValue});
         });
         
@@ -66,7 +60,7 @@ public class PropertyTest {
         StringProperty value=new StringProperty("albert");
         log.log(Level.INFO, "string value before change:{0}", value.get());
 
-        value.getValueListeners().add((AbValueProperty.IChange<String>) (String oldValue, String newValue) -> {
+        value.getValueListeners().add((String oldValue, String newValue) -> {
             log.log(Level.INFO, "change! from {0} to {1}", new Object[]{oldValue, newValue});
         });
         
@@ -77,7 +71,7 @@ public class PropertyTest {
     @Test
     public void testValueList(){
         ValuePropertyList<String> values=new ValuePropertyList<>();
-        values.getChangelistener().add((ValuePropertyList.IChange<String>) (List<String> valuelist, String newvalue, int newvalueIndex) -> {
+        values.getChangelistener().add((List<String> valuelist, String newvalue, int newvalueIndex) -> {
             log.log(Level.INFO, "list add value {0},at index of:{1}", new Object[]{newvalue, newvalueIndex});
         });
         
@@ -89,12 +83,12 @@ public class PropertyTest {
     public void testValueBind(){
         StringProperty value1=new StringProperty("albert");
         StringProperty value2=new StringProperty("flex");
-        AbValuePropertyBind<String> bind=new AbValuePropertyBind(value1,value2){
+        AbValuePropertyBind<String> bind=new AbValuePropertyBind<>(value1,value2){
             @Override
-            public String calcValue(Object oldvalue, AbValueProperty[] bindproperty) {
+            public String calcValue(String oldvalue, AbValueProperty<String>[] bindproperty) {
                 String res="";
-                for(AbValueProperty value:bindproperty){
-                    res+="-"+value.get().toString();
+                for(AbValueProperty<String> value:bindproperty){
+                    res+="-"+value.get();
                 }
                 return res;
             }
