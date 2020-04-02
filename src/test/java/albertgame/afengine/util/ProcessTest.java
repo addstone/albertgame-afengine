@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class ProcessTest {
 
-    private static final Logger log = Logger.getLogger(PropertyTest.class.getName());
+    private static final Logger log = Logger.getLogger(ProcessTest.class.getName());
     
     @Test
     public void testProcess(){
@@ -27,7 +27,7 @@ public class ProcessTest {
         process1=new AbProcess(1L,"process1","process1"){
             @Override
             public void updateAct(long delttime) {
-                log.log(Level.INFO,"update process2");
+                log.log(Level.INFO,"update process1");
             }
         };
         process2=new AbProcess(2L,"process2","process2"){
@@ -49,6 +49,9 @@ public class ProcessTest {
             }
         };
         
+        process1.updateProcess(30);
+        process3.updateProcess(30);
+
         manager=new ProcessManager();
         process1.setNextProcess(process2);
         process2.setNextProcess(process4);

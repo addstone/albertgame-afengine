@@ -79,11 +79,15 @@ public abstract class AbProcess {
                 state = State.EXCEPTION;
                 return;
             }
-            state = State.SETUP;
+            state = State.RUNNING;
+            updateAct(delt);
         }
     }
 
+    long delt;
+
     public final void updateProcess(long delttime) {
+        this.delt=delttime;
         switch (state) {
             case UNSETUP:
                 setUp();
