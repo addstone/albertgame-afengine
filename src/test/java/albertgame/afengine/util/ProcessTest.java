@@ -8,42 +8,44 @@ package albertgame.afengine.util;
 import albertgame.afengine.util.process.AbProcess;
 import albertgame.afengine.util.process.ProcessManager;
 import org.testng.annotations.Test;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Administrator
  */
 public class ProcessTest {
+
+    private static final Logger log = Logger.getLogger(PropertyTest.class.getName());
     
-    public static void main(String[] args){
+    @Test
+    public void testProcess(){
         ProcessManager manager;
         AbProcess process1,process2,process3,process4;
         process1=new AbProcess(1L,"process1","process1"){
             @Override
-            public boolean updateAct(long delttime) {
-                System.out.println("update process2");
-                return true;
+            public void updateAct(long delttime) {
+                log.log(Level.INFO,"update process2");
             }
         };
         process2=new AbProcess(2L,"process2","process2"){
             @Override
-            public boolean updateAct(long delttime) {
-                System.out.println("update process2");
-                return true;
+            public void updateAct(long delttime) {
+                log.log(Level.INFO,"update process2");
             }
         };
         process3=new AbProcess(3L,"process3","process3"){
             @Override
-            public boolean updateAct(long delttime) {
-                System.out.println("update process3");
-                return true;
+            public void updateAct(long delttime) {
+                log.log(Level.INFO,"update process3");
             }
         };
         process4=new AbProcess(4L,"process4","process4"){
             @Override
-            public boolean updateAct(long delttime) {
-                System.out.println("update process4");
-                return true;
+            public void updateAct(long delttime) {
+                log.log(Level.INFO,"update process4");
             }
         };
         
