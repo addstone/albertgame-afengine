@@ -16,7 +16,6 @@ import java.util.List;
 public abstract class AbValueProperty<T> {
 
     public static interface IChange<T> {
-
         void Change(T oldValue, T newValue);
     }
 

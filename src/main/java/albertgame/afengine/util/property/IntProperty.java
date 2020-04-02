@@ -12,6 +12,6 @@ package albertgame.afengine.util.property;
 public class IntProperty extends AbValueProperty<Integer>{
 
     public IntProperty(int value) {
-        super(new Integer(value));
+        super(Integer.valueOf(value));
     }
 }

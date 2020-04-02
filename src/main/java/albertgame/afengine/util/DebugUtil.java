@@ -5,6 +5,7 @@
  */
 package albertgame.afengine.util;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,11 +16,11 @@ import java.util.Map;
  */
 public class DebugUtil {
 
-    private boolean on = false;
+    private static boolean on = false;
 
-    private final Map<String, String> colorMap;
+    private static final Map<String, String> colorMap;
 
-    public DebugUtil() {
+    static{
         colorMap = new HashMap<>();
         colorMap.put(LogType.INFO.toString(), "36");//green-blue
         colorMap.put(LogType.ERROR.toString(), "35");//purple-red
@@ -34,46 +35,42 @@ public class DebugUtil {
         SEVER
     }
 
-    public void switchOn() {
+    public static void  switchOn() {
         on = true;
     }
 
-    public void switchOff() {
+    public static void  switchOff() {
         on = false;
     }
 
-    public void log(LogType logType, String info) {
+    public static void  log(LogType logType, String info) {
         if (!on) {
             return;
         }
-
+        
         Date date = new Date();
-
-        String outinfo = "\033[" + colorMap.get(logType.toString()) + "m" + logType.toString() +"\t"+ ">" + date.toString() + ">" + info+"\033[m";
+        String time=(1900+date.getYear())+"/"+date.getMonth()+"/"+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+;       String outinfo = "\033[" + colorMap.get(logType.toString()) + "m" + logType.toString() +"\t"+ ">" + time + ">" + info+"\033[m";
         System.out.println(outinfo);
         if (logType == LogType.SEVER) {
             System.exit(0);
         }
     }
 
-    public boolean assertEqual(boolean statement, LogType logType, String info) {
+    public static boolean  assertEqual(boolean statement, LogType logType, String info) {
         if (!on) {
             System.out.println("you need open debug on to use assert");
             return false;
         }
 
         if (!statement) {
-            Date date = new Date();
-            System.out.println("assert:" + logType.toString() + ">" + date.toString() + ">" + info);
-            if (logType == LogType.SEVER) {
-                System.exit(0);
-            }
+            log(logType,info);
             return true;
         }
         return false;
     }
 
-    public boolean assertNotNull(Object obj, LogType logType, String info) {
+    public static boolean  assertNotNull(Object obj, LogType logType, String info) {
         return assertEqual(obj != null, logType, info);
     }
 }

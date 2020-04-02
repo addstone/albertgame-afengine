@@ -15,23 +15,20 @@ public class DebugTest {
     
     @Test
     public void testLog(){
-        DebugUtil util=new DebugUtil();
-        util.switchOn();
-        System.out.println("\033[30m" + "就是酱紫的");
-        util.log(DebugUtil.LogType.INFO,"test Log");
-        util.log(DebugUtil.LogType.WARNING,"test warning");
-        util.log(DebugUtil.LogType.ERROR,"test error");    
+        DebugUtil.switchOn();
+        DebugUtil.log(DebugUtil.LogType.INFO,"test Log");
+        DebugUtil.log(DebugUtil.LogType.WARNING,"test warning");
+        DebugUtil.log(DebugUtil.LogType.ERROR,"test error");    
     }
     
     @Test
     public void testAssert(){
-        DebugUtil util=new DebugUtil();
-        util.switchOn();
+        DebugUtil.switchOn();
         
         int a=1,b=2;
-        util.assertEqual(a==b, DebugUtil.LogType.ERROR,"1 should equal to 2");
+        DebugUtil.assertEqual(a==b, DebugUtil.LogType.ERROR,"1 should equal to 2");
         
         String text=null;        
-        util.assertNotNull(text, DebugUtil.LogType.ERROR, "text must not null!");
+        DebugUtil.assertNotNull(text, DebugUtil.LogType.ERROR, "text must not null!");
     }
 }
