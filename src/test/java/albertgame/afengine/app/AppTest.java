@@ -5,7 +5,10 @@
  */
 package albertgame.afengine.app;
 
-import org.testng.annotations.Test;
+import albertgame.afengine.graphics.IGraphicsTech;
+import albertgame.afengine.graphics.ITexture;
+import albertgame.afengine.graphics.impl.GraphicsTech_Java2DImpl;
+import java.net.URL;
 
 /**
  *
@@ -14,7 +17,21 @@ import org.testng.annotations.Test;
 public class AppTest {
     
     public static void main(String[] args) {
-        logicTest();
+        new AppTest().launchTest();
+    }
+    
+    public void launchTest(){
+        
+        URL url=getClass().getClassLoader().getResource("duke0.gif");
+        IGraphicsTech tech=new GraphicsTech_Java2DImpl();
+        ITexture icon=tech.createTexture(url);
+        tech.setRootDrawStrategy((tec)->{
+            tec.drawText(0,0, tech.getFont(), tech.getColor(),"FPS:"+tech.getFPS());
+        });
+        String title="Title1";
+        
+        App win=new WindowApp("win",null,800,600,title,icon,tech);
+        App.launch(win);
     }
     
     public static void logicTest(){
