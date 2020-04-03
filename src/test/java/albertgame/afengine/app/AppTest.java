@@ -7,7 +7,7 @@ package albertgame.afengine.app;
 
 import albertgame.afengine.graphics.IGraphicsTech;
 import albertgame.afengine.graphics.ITexture;
-import albertgame.afengine.graphics.impl.GraphicsTech_Java2DImpl;
+import albertgame.afengine.graphics.GraphicsTech_Java2DImpl;
 import java.net.URL;
 
 /**
@@ -17,10 +17,10 @@ import java.net.URL;
 public class AppTest {
     
     public static void main(String[] args) {
-        new AppTest().launchTest();
+        new AppTest().launchWindowTest();
     }
     
-    public void launchTest(){
+    public void launchWindowTest(){
         
         URL url=getClass().getClassLoader().getResource("duke0.gif");
         IGraphicsTech tech=new GraphicsTech_Java2DImpl();

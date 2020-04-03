@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package albertgame.afengine.graphics.impl;
+package albertgame.afengine.graphics;
 
-import albertgame.afengine.graphics.*;
 import albertgame.afengine.graphics.IColor.GeneraColor;
 import albertgame.afengine.graphics.IFont.FontStyle;
 import albertgame.afengine.util.DebugUtil;
@@ -14,14 +8,19 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.RepaintManager;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -78,8 +77,8 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
         isRendering = false;
         renderFPS = 0;
         valueMap = new HashMap<>();
-        beforeStrategy=new HashMap<>();
-        afterStrategy=new HashMap<>();
+        beforeStrategy = new HashMap<>();
+        afterStrategy = new HashMap<>();
         service.scheduleAtFixedRate(runnable, 1, 1, TimeUnit.SECONDS);
     }
 
@@ -171,7 +170,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
             SwingUtilities.updateComponentTreeUI(frame);
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
         }
-        
+
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setBackground(Color.black);
         frame.setResizable(false);
@@ -644,10 +643,12 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
     }
 
     @Override
-    public void drawRoundRect(int x, int y,int width, int height, int arcWidth, int arcHeight,boolean fill) {
-        if(fill)
-            graphics.fillRoundRect(x, y, width, height,arcWidth,arcHeight);
-        else   graphics.drawRoundRect(x, y, width, height, arcWidth,arcHeight);
+    public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight, boolean fill) {
+        if (fill) {
+            graphics.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
+        } else {
+            graphics.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+        }
     }
 
     @Override
@@ -684,5 +685,240 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
     @Override
     public int getFPS() {
         return this.renderFPS;
+    }
+
+    private class ColorImpl implements IColor {
+
+        private final Color color;
+
+        public ColorImpl(int r, int g, int b, int a) {
+            color = new Color(r, g, b, a);
+        }
+
+        public ColorImpl(IColor.GeneraColor colortype) {
+            switch (colortype) {
+                /*
+        RED,GREEN,BLUE,
+        YELLOW,GREY,ORANGE,
+        WHITE,BLACK,PINK,
+                
+                 */
+                case RED:
+                    color = Color.RED;
+                    break;
+                case GREEN:
+                    color = Color.GREEN;
+                    break;
+                case BLUE:
+                    color = Color.BLUE;
+                    break;
+                case YELLOW:
+                    color = Color.YELLOW;
+                    break;
+                case GRAY:
+                    color = Color.GRAY;
+                    break;
+                case ORANGE:
+                    color = Color.ORANGE;
+                    break;
+                case WHITE:
+                    color = Color.WHITE;
+                    break;
+                case BLACK:
+                    color = Color.BLACK;
+                    break;
+                case PINK:
+                    color = Color.PINK;
+                    break;
+                default:
+                    color = Color.CYAN;
+                    break;
+            }
+        }
+
+        public Color getColor() {
+            return color;
+        }
+
+        @Override
+        public int getRed() {
+            return color.getRed();
+        }
+
+        @Override
+        public int getGreen() {
+            return color.getGreen();
+        }
+
+        @Override
+        public int getBlue() {
+            return color.getBlue();
+        }
+
+        @Override
+        public int getAlpha() {
+            return color.getAlpha();
+        }
+
+        @Override
+        public IColor getAntiColor() {
+            int r = 255 - color.getRed();
+            int g = 255 - color.getGreen();
+            int b = 255 - color.getBlue();
+            return new ColorImpl(r, g, b, this.getAlpha());
+        }
+    }
+
+    class FontImpl implements IFont {
+
+        private Font font;
+        private FontStyle style;
+
+        public FontImpl(String fontValue, boolean isPath, FontStyle style, int size) {
+            this.style = style;
+            int st = Font.PLAIN;
+            if (style == FontStyle.BOLD) {
+                st = Font.BOLD;
+            } else if (style == FontStyle.ITALIC) {
+                st = Font.ITALIC;
+            }
+            if (isPath) {
+                try {
+                    font = Font.createFont(Font.TRUETYPE_FONT, new File(fontValue));
+                    font = font.deriveFont(st, size);
+                } catch (FontFormatException | IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                font = new Font(fontValue, st, size);
+            }
+        }
+
+        public FontImpl(URL url, FontStyle style, int size) {
+            this.style = style;
+            int st = Font.PLAIN;
+            if (style == FontStyle.BOLD) {
+                st = Font.BOLD;
+            } else if (style == FontStyle.ITALIC) {
+                st = Font.ITALIC;
+            }
+            try {
+                font = Font.createFont(Font.TRUETYPE_FONT, new File(url.toURI()));
+                font = font.deriveFont(st, size);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String getFontName() {
+            return font.getFontName();
+        }
+
+        @Override
+        public FontStyle getFontStyle() {
+            return style;
+        }
+
+        @Override
+        public int getFontHeight() {
+            return font.getSize();
+        }
+
+        public Font getFont() {
+            return font;
+        }
+
+        @Override
+        public int getFontWidth(String text) {
+            FontMetrics trics = Toolkit.getDefaultToolkit().getFontMetrics(this.font);
+            return trics.stringWidth(text);
+        }
+    }
+
+    private static class NullRepaint extends RepaintManager {
+
+        public static void install() {
+            RepaintManager repaint = new NullRepaint();
+            repaint.setDoubleBufferingEnabled(false);
+            RepaintManager.setCurrentManager(repaint);
+        }
+
+        public void addInvalidComponent(JComponent c) {
+            // do nothing
+        }
+
+        public void addDirtyRegion(JComponent c, int x, int y,
+                int w, int h) {
+            // do nothing
+        }
+
+        public void markCompletelyDirty(JComponent c) {
+            // do nothing
+        }
+
+        public void paintDirtyRegions() {
+            // do nothing
+        }
+    }
+
+    class TextureImpl implements ITexture {
+
+        private Image img;
+
+        public TextureImpl(String path) {
+            img = new ImageIcon(path).getImage();
+        }
+
+        public TextureImpl(URL url) {
+            img = new ImageIcon(url).getImage();
+        }
+
+        public TextureImpl() {
+        }
+
+        @Override
+        public int getWidth() {
+            return img.getWidth(null);
+        }
+
+        @Override
+        public int getHeight() {
+            return img.getHeight(null);
+        }
+
+        public Image getImage() {
+            return img;
+        }
+
+        @Override
+        public ITexture scaleInstance(double sx, double sy) {
+            TextureImpl texture = new TextureImpl();
+            BufferedImage bi = createCompatibleImage(getWidth(), getHeight());
+            Graphics2D grph = (Graphics2D) bi.getGraphics();
+            grph.scale(sx, sy);
+            grph.drawImage(img, 0, 0, null);
+            grph.dispose();
+            texture.img = bi;
+            return texture;
+        }
+
+        @Override
+        public ITexture cutInstance(int x, int y, int w, int h) {
+            TextureImpl texture = new TextureImpl();
+            BufferedImage bi = createCompatibleImage(w, h);
+            Graphics2D grph = (Graphics2D) bi.getGraphics();
+            grph.drawImage(img, 0, 0, w, h, x, y, x + w, y + h, null);
+            grph.dispose();
+            texture.img = bi;
+            return texture;
+        }
+
+        private BufferedImage createCompatibleImage(int w, int h) {
+            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice device = env.getDefaultScreenDevice();
+            GraphicsConfiguration gc = device.getDefaultConfiguration();
+            return gc.createCompatibleImage(w, h, Transparency.OPAQUE);
+        }
     }
 }

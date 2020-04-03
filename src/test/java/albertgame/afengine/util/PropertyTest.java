@@ -83,9 +83,9 @@ public class PropertyTest {
     public void testValueBind(){
         StringProperty value1=new StringProperty("albert");
         StringProperty value2=new StringProperty("flex");
-        AbValuePropertyBind<String> bind=new AbValuePropertyBind<>(value1,value2){
+        AbValuePropertyBind<String> bind=new AbValuePropertyBind(value1,value2){
             @Override
-            public String calcValue(String oldvalue, AbValueProperty<String>[] bindproperty) {
+            public String calcValue(Object oldvalue, AbValueProperty[] bindproperty) {
                 String res="";
                 for(AbValueProperty<String> value:bindproperty){
                     res+="-"+value.get();

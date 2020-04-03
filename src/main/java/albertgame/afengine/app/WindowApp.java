@@ -74,7 +74,6 @@ public class WindowApp extends App{
         }
         else{
             graphicsTech.create(x,y,width,height,icon, title);
-        System.out.println("set render size:"+width+"/"+height);
         }
         return true;        
     }
