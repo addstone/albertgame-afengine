@@ -46,4 +46,7 @@ public class Message{
     public Message(long routeType, long msgType, long msgContent, String msgInfo, Object[] extraObjs) {
         this(routeType,msgType,msgContent,msgInfo,extraObjs,System.currentTimeMillis(),0);
     }
+    public Message(long routeType, long msgType, long msgContent, String msgInfo){
+        this(routeType,msgType,msgContent,msgInfo,null);
+    }
 }

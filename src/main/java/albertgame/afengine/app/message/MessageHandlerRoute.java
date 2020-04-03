@@ -10,6 +10,7 @@ import albertgame.afengine.util.DebugUtil.LogType;
 import albertgame.afengine.util.math.IDGenerator;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,21 +20,18 @@ import java.util.List;
 public class MessageHandlerRoute implements Message.IRoute {
 
     private class MessageHandler {
-
         public final Map<Long, List<Message.IHandler>> contentHandlerMap;
-
         public MessageHandler() {
             contentHandlerMap = new HashMap<>();
         }
     }
 
     private final Map<Long, MessageHandler> typeHandlerMap;
-    private final long typeid;
+    public static final long typeid=new IDGenerator().createId();
 
     public MessageHandlerRoute() {
         this.typeHandlerMap = new HashMap<>();
-        IDGenerator ge=new IDGenerator();
-        typeid=ge.createId();
+        IDGenerator ge = new IDGenerator();
     }
 
     public void addTypeContentHandler(long type, long content, Message.IHandler handler) {
@@ -42,8 +40,15 @@ public class MessageHandlerRoute implements Message.IRoute {
             handlers = new MessageHandler();
             typeHandlerMap.put(type, handlers);
         }
-        if (!handlers.contentHandlerMap.get(content).contains(handler)) {
-            handlers.contentHandlerMap.get(content).add(handler);
+        List<Message.IHandler> handlerlist=null;
+        if(!handlers.contentHandlerMap.containsKey(content)){
+            handlerlist=new LinkedList<>();
+            handlers.contentHandlerMap.put(content, handlerlist);
+        }else{
+            handlerlist=handlers.contentHandlerMap.get(content);
+        }
+        if (!handlerlist.contains(handler)) {
+            handlerlist.add(handler);
         }
     }
 
@@ -91,18 +96,18 @@ public class MessageHandlerRoute implements Message.IRoute {
     @Override
     public void routeMessage(Message msg) {
         MessageHandler handlers = typeHandlerMap.get(msg.msgType);
-        if(handlers==null)
-        {
-            DebugUtil.log(LogType.WARNING,"No message bighandler for msgType.");
+        if (handlers == null) {
+            DebugUtil.log(LogType.WARNING, "No message bighandler for msgType.");
             return;
         }
 
-        if (handlers.contentHandlerMap.containsKey(msg.msgContent)){
-            List<Message.IHandler> handlerlist=handlers.contentHandlerMap.get(msg.msgContent);
-            for(Message.IHandler handler:handlerlist){
-                if(handler.handle(msg))
+        if (handlers.contentHandlerMap.containsKey(msg.msgContent)) {
+            List<Message.IHandler> handlerlist = handlers.contentHandlerMap.get(msg.msgContent);
+            for (Message.IHandler handler : handlerlist) {
+                if (handler.handle(msg)) {
                     return;
+                }
             }
-        }      
+        }
     }
 }
