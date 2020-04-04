@@ -6,8 +6,10 @@
 package albertgame.afengine.scene;
 
 import albertgame.afengine.util.math.Vector;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +24,7 @@ public class Scene {
         public abstract void pause(Scene scene);
         public abstract void resume(Scene scene);
     }
+    
     private static class AdapterLoader implements Loader{
         @Override
         public void load(Scene scene) {
