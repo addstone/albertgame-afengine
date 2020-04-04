@@ -11,12 +11,30 @@ public class FactoryUtil {
     }
     
     private final Map<String,IFactory> factoryMap;
+    private final String pac=".";
 
     public FactoryUtil() {
         this.factoryMap =new HashMap<>();
     }
-
     public Map<String, IFactory> getFactoryMap() {
         return factoryMap;
+    }
+    public void putFactory(String type,String name,IFactory factory){
+        factoryMap.put(type+pac+name, factory);
+    }
+    public IFactory getFactory(String type,String name){
+        String realname=type+pac+name;
+        return factoryMap.get(realname);
+    }
+    public String getRealName(String type,String name){
+        return type+pac+name;
+    }
+    public  Object create(String type,String name,Object ... args){
+        String realname=type+pac+name;
+        IFactory factory=factoryMap.get(realname);
+        if(factory==null)return null;
+        
+        Object obj=factory.create(args);
+        return obj;
     }
 }

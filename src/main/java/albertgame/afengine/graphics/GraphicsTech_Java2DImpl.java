@@ -100,6 +100,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
             height = h;
         }
         setRenderSize(width, height);
+        window.setLocation(x, y);
     }
 
     private void setRenderSize(int width, int height) {

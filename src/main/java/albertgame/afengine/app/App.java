@@ -6,6 +6,9 @@
 package albertgame.afengine.app;
 
 import albertgame.afengine.app.message.MessageManager;
+import albertgame.afengine.util.FactoryUtil;
+import albertgame.afengine.util.SoundUtil;
+import albertgame.afengine.util.TextUtil;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +20,10 @@ public class App {
 
     private static App instance = null;
 
+    public static FactoryUtil factorys=new FactoryUtil();//工厂工具
+    public static SoundUtil soundUtil=new SoundUtil();//声音工具
+    public static TextUtil textUtil=new TextUtil("default");//文字工具
+    
     public static void launch(App app) {
         if (instance == null) {
             instance = app;
@@ -39,8 +46,8 @@ public class App {
     private final IAppLogic logic;
     private boolean isRunning;
     private final Map<String, String> settings = new HashMap<>();
-
-    private final MessageManager msgManager;
+    
+    private final MessageManager msgManager;//消息管理器
 
     public App(String appType, String appName, IAppLogic logic) {
         this.appType = appType;
@@ -115,7 +122,11 @@ public class App {
                     return false;
                 }
             }
-
+            
+            //update message manager
+            this.msgManager.updateSendMessage(deltatime);
+            
+            //update app methods
             if (updateApp(deltatime) == false) {
                 System.out.println("The App Update is Failed.");
                 return false;
