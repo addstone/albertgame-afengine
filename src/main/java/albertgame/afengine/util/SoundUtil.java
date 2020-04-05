@@ -12,13 +12,20 @@ import javax.sound.sampled.*;
 
 public class SoundUtil {
 
+    static SoundUtil util;
+    public static SoundUtil get(){
+        if(util==null)
+            util=new SoundUtil();
+        return util;
+    }
+    
     private final MidiPlayer midiManager;
     private final SoundPlayer soundManager;
     private final Map<Long, Sound> soundMap;
     private final Map<Long, Sequence> midiMap;
     private static long sid = 0;
 
-    public SoundUtil() {
+    private SoundUtil() {
         this.midiManager = new MidiPlayer();
         this.soundManager = new SoundPlayer();
         this.soundMap = new HashMap<>();

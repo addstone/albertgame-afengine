@@ -6,6 +6,13 @@ import java.util.Map;
 
 public class FactoryUtil {
     
+    static FactoryUtil util;
+    public static FactoryUtil get(){
+        if(util==null)
+            util=new FactoryUtil();
+        return util;
+    }
+    
     public static interface IFactory{
        Object create(Object ... args);
     }
@@ -13,7 +20,7 @@ public class FactoryUtil {
     private final Map<String,IFactory> factoryMap;
     private final String pac=".";
 
-    public FactoryUtil() {
+    private FactoryUtil() {
         this.factoryMap =new HashMap<>();
     }
     public Map<String, IFactory> getFactoryMap() {

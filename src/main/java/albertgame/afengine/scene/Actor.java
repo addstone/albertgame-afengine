@@ -20,54 +20,16 @@ import java.util.Map;
  */
 public class Actor {
     public static List<Actor> staticActorList=new ArrayList<>();    
-    public static Actor findStaticActor(String name){
-        for(Actor a:staticActorList){
-            if(a.name.equals(name))
-                return a;
-        }
-        return null;
-    }
-    public static void addStaticActor(Actor actor){
-        if(!staticActorList.contains(actor)){
-            staticActorList.add(actor);
-            actor.isStatic=true;
-        }
-        else{
-            DebugUtil.log(DebugUtil.LogType.INFO,"already has actor for:"+actor.name);
-        }
-    }
-    public static void removeStaticActor(String name){
-        Actor dest=null;
-        for(Actor a:staticActorList){
-            if(a.name.equals(name))
-            {
-                dest=a;
-                break;
-            };
-        }
-        if(dest!=null){
-        staticActorList.remove(dest);
-        }else{
-            DebugUtil.log(DebugUtil.LogType.INFO, "not found static actor!");
-        }
-    }
-    public static void updateStaticActor(long time){
-        Iterator<Actor> actoriter=staticActorList.iterator();
-        while(actoriter.hasNext()){
-            Actor actor = actoriter.next();
-            actor.updateActor(time);
-        }
-    }        
     
     private Transform transform;
     public final long id;
     private boolean isStatic=false;  
+    private boolean isRoot;
     
     private String name;
     private String modPath;
     
     public final Map<String,String> valueMap = new HashMap<>();
-    private boolean deleted=false;//remove only!
 
     private Actor parent;
     private final List<Actor> children = new ArrayList<>();
@@ -258,10 +220,11 @@ public class Actor {
     public final void setParent(Actor parent) {
         this.parent = parent;
     }
-
-    public void removeThisActor(){
-        deleted=true;
+    
+    public void dead(){
+        Scene.setActorDead(this);
     }
+    
     public double getAbsoluteX(){
         Actor parent=this.parent;
         double ax=this.transform.position.getX();
@@ -289,37 +252,4 @@ public class Actor {
         }
         return az;
     }
-
-    
-    List<Actor> deletedchildlist = new ArrayList<>();
-    public final void updateActor(long time){
-        if(deleted)
-            return;
-
-        Iterator<ActorComponent> compiter = componentsMap.values().iterator();
-        while(compiter.hasNext()){
-            ActorComponent comp = compiter.next();            
-            if(comp.isActive()){
-                comp.update(time);                
-            }
-        }
-        
-        //update child
-        Iterator<Actor> childiter = children.iterator();
-        while(childiter.hasNext()){
-            Actor child = childiter.next();
-            if(child.deleted){
-                deletedchildlist.add(child);
-            }
-            child.updateActor(time);
-        }
-        
-        //remove deleted actor
-        childiter=deletedchildlist.iterator();
-        while(childiter.hasNext()){
-            Actor child = childiter.next();
-            children.remove(child);
-        }        
-        deletedchildlist.clear();
-    }    
 }

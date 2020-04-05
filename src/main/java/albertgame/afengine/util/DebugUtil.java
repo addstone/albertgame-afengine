@@ -5,7 +5,6 @@
  */
 package albertgame.afengine.util;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +41,15 @@ public class DebugUtil {
     public static void  switchOff() {
         on = false;
     }
-
+    
+    public static void log(String info){
+        log(LogType.INFO,info);
+    }
+    
+    public static void error(String info){
+        log(LogType.ERROR,info);        
+    }
+    
     public static void  log(LogType logType, String info) {
         if (!on) {
             return;

@@ -19,10 +19,6 @@ import java.util.Map;
 public class App {
 
     private static App instance = null;
-
-    public static FactoryUtil factorys=new FactoryUtil();//工厂工具
-    public static SoundUtil soundUtil=new SoundUtil();//声音工具
-    public static TextUtil textUtil=new TextUtil("default");//文字工具
     
     public static void launch(App app) {
         if (instance == null) {

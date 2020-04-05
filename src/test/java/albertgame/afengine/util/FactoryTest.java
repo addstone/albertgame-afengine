@@ -17,7 +17,7 @@ public class FactoryTest {
     
     @Test
     public void testFactory(){
-        FactoryUtil util=new FactoryUtil();
+        FactoryUtil util=FactoryUtil.get();
         IFactory fac=(args)->{
             return "Hello";
         };

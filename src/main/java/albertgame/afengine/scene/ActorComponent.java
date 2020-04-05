@@ -1,6 +1,8 @@
 package albertgame.afengine.scene;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,6 +10,30 @@ import java.util.Map;
  * @author Albert Flex
  */
 public class ActorComponent {
+
+    public static final List<IProcess> componentMethodList = new ArrayList<>();
+
+    public static interface IProcess {
+        public void process(List<ActorComponent> componentlist, long time);
+        public String componentName();
+    }
+
+    public static class AdapterProcess implements IProcess {
+        private final String name;
+        public AdapterProcess(String name) {
+            this.name = name;
+        }
+        @Override
+        public void process(List<ActorComponent> componentlist, long time) {
+            componentlist.forEach((component) -> {
+                component.update(time);
+            });
+        }
+        @Override
+        public String componentName() {
+            return name;
+        }
+    }
 
     public final Map<String, String> attributes = new HashMap<>();
     private Actor actor;
@@ -60,4 +86,5 @@ public class ActorComponent {
 
     public void toSleep() {
     }
+    
 }

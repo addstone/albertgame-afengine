@@ -125,16 +125,16 @@ public class WindowApp extends App {
          *  -->
          * <window tech-fac="" size="full or 800,800" icon="url:xxx or xxx"
          *          title="">
-         * <draw-root draw-fac=""/>
-         * <draw-before>
-         * <draw-fac="" priority=""/>...
-         * </draw-before>
-         * <draw-after>
-         * <draw-fac="" priority=""/>...
-         * </draw-after>
-         * <listeners>
-         * <listen-fac-name1 listentypes="keylistener,mouselistener,..."/>
-         * </listeners>
+            * <draw-root draw-fac=""/>
+            * <draw-before>
+            * <draw-fac="" priority=""/>...
+            * </draw-before>
+            * <draw-after>
+            * <draw-fac="" priority=""/>...
+            * </draw-after>
+            * <listeners>
+            * <listen-fac-name1 listentypes="keylistener,mouselistener,..."/>
+            * </listeners>
          * </window>
          */
     }

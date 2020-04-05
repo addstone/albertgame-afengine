@@ -5,12 +5,11 @@
  */
 package albertgame.afengine.scene;
 
+import albertgame.afengine.scene.ActorComponent.IProcess;
 import albertgame.afengine.util.math.Vector;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -43,12 +42,13 @@ public class Scene {
             System.out.println("Resume Scene:"+scene.name);            
         }        
     };
-    
-    
+        
     private String name;
-    public final Map<String,Actor> nodeActorMap=new HashMap<>();
-    private Loader loader;
+    public final List<Actor> rootList=new ArrayList<>();
+    private final Loader loader;
     private final SceneCamera camera;
+    
+    private static final List<Actor> shouldremoves=new ArrayList<>();
     
     public Scene(){
         this("",new AdapterLoader());
@@ -59,6 +59,7 @@ public class Scene {
         this.loader=loader;
         camera=new SceneCamera(new Vector(0,0,0,0),new Vector(0,0,0,0),0,0);
     }
+
     public Scene(String name){
         this(name,new AdapterLoader());
     }
@@ -67,15 +68,12 @@ public class Scene {
         return loader;
     }    
 
-    public SceneCamera getCamera() {
-        return camera;
+    public List<Actor> getRootList() {
+        return rootList;
     }
     
-    public void setLoader(Loader loader){
-        this.loader=loader;
-    }
-    public final Map<String, Actor> getNodeActorMap() {
-        return nodeActorMap;
+    public SceneCamera getCamera() {
+        return camera;
     }
     
     public final Actor findActorByName(String name){
@@ -88,7 +86,7 @@ public class Scene {
                 return dest;
         }        
         
-        actoriter = nodeActorMap.values().iterator();
+        actoriter = rootList.iterator();
         while(actoriter.hasNext()){
             Actor actor = actoriter.next();
             Actor dest = actor.findChild(name);
@@ -109,7 +107,7 @@ public class Scene {
                 return dest;
         }        
         
-        actoriter = nodeActorMap.values().iterator();
+        actoriter = rootList.iterator();
         while(actoriter.hasNext()){
             Actor actor = actoriter.next();
             Actor dest = actor.findChild(id);
@@ -127,7 +125,7 @@ public class Scene {
             actor.awakeAllComponents();
         }        
         
-        actoriter = nodeActorMap.values().iterator();
+        actoriter = rootList.iterator();
         while(actoriter.hasNext()){
             Actor actor = actoriter.next();
             if(!actor.isIsStatic())
@@ -135,29 +133,68 @@ public class Scene {
         }                        
     }    
     
-    public final void addNodeActor(String nodeName,Actor actor){
-        nodeActorMap.put(nodeName, actor);
-    }
-    public final boolean hasNodeActor(String nodeName){
-        return nodeActorMap.containsKey(nodeName);
-    }
-    public final void removeNodeActor(String nodeName){
-        nodeActorMap.remove(nodeName);
-    }        
     public String getName() {
         return name;
     }        
     public void setName(String name) {
         this.name = name;
     }
+    
+    public void removeDeadActor(){
+        shouldremoves.forEach((a) -> {
+            if(rootList.contains(a)){
+                rootList.remove(a);
+            }else{
+                Actor p=a.getParent();
+                if(p!=null){
+                    p.removeChild(a.id);
+                }
+            }
+            
+            //判断静态实体里是否存在，若存在，亦删除
+            if(Actor.staticActorList.contains(a)){
+                Actor.staticActorList.remove(a);
+            }
+        });
+        shouldremoves.clear();
+    }
+
+    public static void setActorDead(Actor actor){
+        shouldremoves.add(actor);
+    }
+    
     public void updateScene(long time){
         
-        Iterator<Actor> actoriter = nodeActorMap.values().iterator();
-        while(actoriter.hasNext()){
-            Actor actor = actoriter.next();
-            //如果静态实体中存在就不需要更新
-            if(!actor.isIsStatic())
-                actor.updateActor(time);
+        //移除需要移除的全部实体
+        removeDeadActor();
+        
+        //更新必要的组件进程的操作
+        List<IProcess> processlist=ActorComponent.componentMethodList;
+        processlist.forEach((process) -> {
+            String cname=process.componentName();
+            List<ActorComponent> comps=getAllComponentsByName(cname);
+            process.process(comps, time);
+        });
+    }    
+    
+    public List<ActorComponent> getAllComponentsByName(String name){
+        List<ActorComponent> components=new ArrayList<>();
+        rootList.forEach((actor)->{
+            getComponentsImpl(name,actor,components);
+        });
+        return components;
+    }
+    
+    private void getComponentsImpl(String name,Actor actor,List<ActorComponent> alls){
+        
+        ActorComponent comp=actor.getComponent(name);
+        if(comp!=null&&comp.isActive()){
+            alls.add(comp);
         }
+        
+        List<Actor> children=actor.getChildren();
+        children.forEach((act) -> {
+            getComponentsImpl(name,act,alls);
+        });
     }
 }

@@ -17,7 +17,7 @@ public class SoundTest{
     }
     
     public void test1(){
-        SoundUtil util=new SoundUtil();
+        SoundUtil util=SoundUtil.get();
         URL url1=getClass().getClassLoader().getResource("midi1.mid");
         URL url2=getClass().getClassLoader().getResource("sound1.wav");
         System.out.println(url1.toString()); 

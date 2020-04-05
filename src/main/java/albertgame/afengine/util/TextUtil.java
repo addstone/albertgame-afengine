@@ -5,36 +5,56 @@
  */
 package albertgame.afengine.util;
 
-import albertgame.afengine.app.App;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Albert Flex
  */
 public class TextUtil{
+    static TextUtil util;
+    public static TextUtil get(){
+        if(util==null)
+            util=new TextUtil();
+        return util;
+    }
     
-    private Map<String,String> allTexts;
+    private Properties allTexts;
+    private Map<String,URL> langconfigs;
     private String lang;
 
-    public TextUtil(String lang) {
-        allTexts=new HashMap<>();
+    private TextUtil() {
+        allTexts=new Properties();
+        langconfigs=new HashMap<>();
     }
 
+        
     public void addText(String id,String word){
         allTexts.put(id, word);
     }
     
     public String getText(String id){
-        return allTexts.get(id);
+        return allTexts.getProperty(id);
     }
 
     public String getLang() {
         return lang;
     }
-
-    public Map<String, String> getAllTexts() {
+    public void setLang(String lang){
+        this.lang=lang;
+    }
+    
+    public Properties getAllTexts(){
         return allTexts;
     }
 
@@ -43,15 +63,64 @@ public class TextUtil{
             String result=actorvalues.get(value.substring(1,value.length()));
             if(result==null)
                 result="NullText";
-            DebugUtil.log(DebugUtil.LogType.INFO,"[#]"+value+" - to - "+result);
+            DebugUtil.log("[#]"+value+" - to - "+result);
             return getRealValue(result,actorvalues);
         }else if(value.startsWith("@")){
-            String result=App.textUtil.getText(value.substring(1,value.length()));
+            String result=TextUtil.get().getText(value.substring(1,value.length()));
             if(result==null){
                 result="NullText";
             }
-            DebugUtil.log(DebugUtil.LogType.INFO,"[@]"+value+" - to - "+result);
+            DebugUtil.log("[@]"+value+" - to - "+result);
             return getRealValue(result,actorvalues);
         }else return value;
     }    
+
+    public void setLangConfig(String lang,URL url){
+        langconfigs.put(lang,url);
+    }
+    
+    /**
+     * <langs default="">
+     *    <lang name="" path=""/>
+     * </langs>
+
+     * id=value
+     * ...
+     * @param lang 
+     */
+    public void loadLang(String lang){
+       URL langconfig=langconfigs.get(lang);
+       if(langconfig!=null){
+           allTexts.clear();
+           loadTexts(langconfig);
+       }
+    }
+    private void loadTexts(URL langconfig){
+        File file = null;
+        try {
+            file = new File(langconfig.toURI());
+        } catch (URISyntaxException ex) {
+            ex.printStackTrace();
+        }
+        if(file!=null&&file.isDirectory()){
+           loadProperty(file); 
+        }
+    }
+    private void loadProperty(File file){
+        if(file.isDirectory()){
+            File[] files=file.listFiles();
+            for(File f:files){
+                loadProperty(f);
+            }
+        }else{
+            Properties p=new Properties();
+            try {
+                InputStream in = new BufferedInputStream(new FileInputStream(file));
+                p.load(in);
+                allTexts.putAll(p);
+            } catch (Exception ex) {
+                DebugUtil.error("file not found:"+file.getPath());
+            }
+        }
+    }
 }
