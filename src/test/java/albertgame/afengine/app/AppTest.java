@@ -30,7 +30,7 @@ public class AppTest {
         });
         String title="Title1";
         
-        App win=new WindowApp("win",null,title,icon,tech);
+        App win=new WindowApp("win",null,800,600,title,icon,tech);
         App.launch(win);
     }
     
