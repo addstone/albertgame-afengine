@@ -1,4 +1,4 @@
-package albertgame.afengine.uiinput;
+package albertgame.afengine.input;
 
 import albertgame.afengine.util.DebugUtil;
 import java.awt.event.KeyEvent;
