@@ -6,15 +6,36 @@
 package albertgame.afengine.app;
 
 import albertgame.afengine.app.message.MessageManager;
-import albertgame.afengine.util.FactoryUtil;
-import albertgame.afengine.util.SoundUtil;
-import albertgame.afengine.util.TextUtil;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author Albert Flex
+ * <app name="" logic-fac="">
+ *  <window tech-fac="" rdraw-fac="">
+ *      <size>full or 800,600</size>
+ *      <bdraws>
+ *          <draw fac="" priority=""/>
+ *          ...
+ *      </bdraws>
+ *      <adraws>
+ *          <draw fac="" priority=""/>
+ *          ...
+ *      </adraws>
+// *      <listener fac=""/> 实现了window,key,mouse,motion 等一切 输入由系统默认的支持，等监听到后调用应用的消息发送
+ *  </window>
+ *  <plugins>
+ *      <plugin fac="">
+ *          <setting name="" value=""/>//插件导入级别的设置属性
+ *          ...
+ *      </plugin>
+ *      ...
+ *  </plugins>
+ *  <settings> //应用程序级别的设置属性
+ *      <setting name="" value=""/>
+ *      ...
+ *  </settings>
+ * </app>
+ * @author Administrator
  */
 public class App {
 

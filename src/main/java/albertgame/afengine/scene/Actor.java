@@ -23,8 +23,6 @@ public class Actor {
     
     private Transform transform;
     public final long id;
-    private boolean isStatic=false;  
-    private boolean isRoot;
     
     private String name;
     private String modPath;
@@ -64,9 +62,6 @@ public class Actor {
         return componentsMap;
     }
 
-    public boolean isIsStatic() {
-        return isStatic;
-    }
     
     public final boolean hasComponent(String compname) {        
         return componentsMap.containsKey(compname);
