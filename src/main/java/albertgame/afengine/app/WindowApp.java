@@ -5,6 +5,7 @@
  */
 package albertgame.afengine.app;
 
+import albertgame.afengine.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.graphics.IGraphicsTech;
 import albertgame.afengine.graphics.ITexture;
 
@@ -22,6 +23,26 @@ public class WindowApp extends App {
     String title;
     ITexture icon;
     boolean center;
+    
+    public WindowApp(IAppLogic logic,String title,String iconpath,int width,int height){
+        super(WindowApp.APPTYPE,title,logic);
+        IGraphicsTech tech=new GraphicsTech_Java2DImpl();
+        graphicsTech=tech;
+        icon=graphicsTech.createTexture(iconpath);
+        this.title=title;
+        full=false;
+        center = true;
+        if (width > tech.getMoniterWidth()) {
+            this.width = tech.getMoniterWidth();
+        } else {
+            this.width = width;
+        }
+        if (height > tech.getMoniterHeight()) {
+            this.height = tech.getMoniterHeight();
+        } else {
+            this.height = height;
+        }
+    }
 
     public WindowApp(String name, IAppLogic logic,
             int x, int y, int width, int height, String title,
@@ -116,26 +137,7 @@ public class WindowApp extends App {
         return true;
     }
 
-    public static class WindowBoot {
-        /**
-         * <!--
-         *  graphicstech-fac,name
-         *  draw-fac,name
-         *  listener-fac,name
-         *  -->
-         * <window tech-fac="" size="full or 800,800" icon="url:xxx or xxx"
-         *          title="">
-            * <draw-root draw-fac=""/>
-            * <draw-before>
-            * <draw-fac="" priority=""/>...
-            * </draw-before>
-            * <draw-after>
-            * <draw-fac="" priority=""/>...
-            * </draw-after>
-            * <listeners>
-            * <listen-fac-name1 listentypes="keylistener,mouselistener,..."/>
-            * </listeners>
-         * </window>
-         */
+    public IGraphicsTech getGraphicsTech() {
+        return graphicsTech;
     }
 }

@@ -21,7 +21,6 @@ import java.util.Map;
  *          <draw fac="" priority=""/>
  *          ...
  *      </adraws>
-// *      <listener fac=""/> 实现了window,key,mouse,motion 等一切 输入由系统默认的支持，等监听到后调用应用的消息发送
  *  </window>
  *  <plugins>
  *      <plugin fac="">
