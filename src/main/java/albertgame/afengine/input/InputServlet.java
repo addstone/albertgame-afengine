@@ -73,5 +73,4 @@ public class InputServlet {
         return word;
     }
     
-    
 }
