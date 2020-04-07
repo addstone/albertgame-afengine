@@ -105,7 +105,7 @@ public class MessageManager {
 
     public void updateSendMessage(long time) {
         updateRoute();
-
+        
         long systime = System.currentTimeMillis();
 
         if (sendmsgOnce == 0) {

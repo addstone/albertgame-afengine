@@ -21,12 +21,11 @@ public class AppTest {
 //        URL url=getClass().getClassLoader().getResource("duke0.gif");
 //        String title="Title1";
 //        
-        WindowApp win=new WindowApp(null,"title","src/main/java/resources/duke0.gif",800,600);
+        WindowApp win=new WindowApp(null,"title","src/main/java/resources/duke0.gif");
         IGraphicsTech tech=win.getGraphicsTech();
         tech.setRootDrawStrategy((tec)->{
             tec.drawText(0,0, tech.getFont(), tech.getColor(),"FPS:"+tech.getFPS());
         });
-
         App.launch(win);
     }
     
