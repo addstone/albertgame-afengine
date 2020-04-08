@@ -6,105 +6,38 @@
 package jpanel;
 
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.DisplayMode;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
-import java.awt.geom.Point2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class Growing extends JPanel {
-
-    private List<Point2D> ps = new ArrayList<Point2D>();
-    private Timer timer;
-    private boolean stopped = false;
+    
+    private JFrame window;
+    private Timer fpst = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("fps:" + count);
+            fps=count;
+            count = 0;
+        }
+    });
+    public long count,fps;
 
     public Growing() {
-        ps.add(new Point2D.Double(0, 0));
-        ps.add(new Point2D.Double(800, 0));
-
-//        timer = new Timer(1, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                grow();
-//                repaint();
-//            }
-//        });
-        Thread the = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                long dt = 0;
-                long at = 0;
-                int count = 0;
-                long lt, nt = System.currentTimeMillis();
-                while (true) {
-                    lt = nt;
-                    nt = System.currentTimeMillis();
-                    dt = nt - lt;
-                    at += dt;
-                    ++count;
-                    if (at > 1000) {
-                        System.out.println("fps:" + count);
-                        count = 0;
-                        at = 0;
-                    }
-                    grow();
-                    repaint();
-                }
-            }
-        });
-
-//        timer.start();
-        the.start();
-    }
-
-    public void grow() {
-        if (stopped) {
-            return;
-        }
-
-        List<Point2D> temp = new ArrayList<Point2D>();
-        temp.add(ps.get(0));
-
-        for (int i = 0; i < ps.size() - 1; ++i) {
-            Point2D p0 = ps.get(i);
-            Point2D p4 = ps.get(i + 1);
-            double len = GeometryUtil.distanceOfPoints(p0, p4);
-
-            if (len < 0.5) {
-                // 当线条长度小于1时，就停止再增长
-//                System.out.println(ps.size());
-//                timer.stop();
-                return;
-            }
-
-            Point2D p1 = GeometryUtil.extentPoint(p0, p4, len / 3);
-            Point2D p3 = GeometryUtil.extentPoint(p0, p4, len * 2 / 3);
-            Point2D p2 = GeometryUtil.rotate(p3.getX(), p3.getY(), p1.getX(), p1.getY(), 60);
-
-            temp.add(p1);
-            temp.add(p2);
-            temp.add(p3);
-            temp.add(p4);
-        }
-
-        ps = null;
-        ps = temp;
-        temp = null;
+        fpst.start();
     }
 
     @Override
@@ -113,77 +46,75 @@ public class Growing extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 //        System.out.println("paint component!");
 
-        // 修改type的值使用不同的绘制方式，1为compatible image, 2为swing的back-buffer
-        int type = 1;
-
         // 改变窗口的大小，可以看到直接对intermediate image操作比直接对swing back-buffer操作快很多.
         // 所以有很多绘制操作时，使用triple buffer是很有必要的(因为Swing已经默认使用了双缓冲).
-        if (type == 2) {
-            // [[[1]]]: 操作 compatible image 速度非常快
-            renderWithBuf(g2d, getWidth(), getHeight());
-        } else {
-            // [[[2]]]: 操作Swing的 back-buffer 速度非常慢
-            render(g2d, getWidth(), getHeight());
-        }
+        // [[[1]]]: 操作 compatible image 速度非常快
+        render(g2d, getWidth(), getHeight());
     }
 
-    private BufferedImage bufImg;
-
-    protected void renderWithBuf(Graphics2D g2d, int w, int h) {
-        if (bufImg == null || bufImg.getWidth() != w || bufImg.getHeight() != h) {
-            bufImg = createCompatibleImage(w, h, Transparency.OPAQUE);
-            // bufImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-        }
-
-        Graphics2D gg = bufImg.createGraphics();
-        render(gg, w, h);
-        gg.dispose();
-
-        g2d.drawImage(bufImg, 0, 0, null);
-    }
+    private final Image img = new ImageIcon("src/test/resources/duke0.gif").getImage();
 
     protected void render(Graphics2D g2d, int w, int h) {
         g2d.setBackground(Color.BLACK);
         g2d.clearRect(0, 0, w, h);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Font font = g2d.getFont().deriveFont(20f);
-        g2d.setFont(font);
-        g2d.drawString("Hello World", 10, 100);
-        g2d.translate(0, h - 20);
-
-        g2d.setColor(Color.WHITE);
-        for (int i = 0; i < ps.size() - 1; ++i) {
-            Point2D sp = ps.get(i);
-            Point2D ep = ps.get(i + 1);
-            g2d.drawLine((int) sp.getX(), -(int) sp.getY(), (int) ep.getX(), -(int) ep.getY());
-        }
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2d.drawImage(img, 100, 100, null);
+        g2d.drawLine(10, 10, 100, 100);
+        g2d.drawString("FPS:"+fps,0,30);
     }
-
-    // 创建硬件适配的缓冲图像，为了能显示得更快速
-    public static BufferedImage createCompatibleImage(int w, int h, int type) {
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice device = env.getDefaultScreenDevice();
-        GraphicsConfiguration gc = device.getDefaultConfiguration();
-        return gc.createCompatibleImage(w, h, type);
-    }
-
-    private static void createGuiAndShow() {
-        JFrame frame = new JFrame("Growing");
-        frame.getContentPane().add(new Growing());
-
+    public void create(int width, int height, String title) {
+        if(window!=null)
+            window.dispose();
+        window = new JFrame(title);
+        JFrame frame=window;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 400);
+        frame.getContentPane().add(this);
+        frame.setSize(width, height);
         frame.setAlwaysOnTop(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
+    public void create(String title) {
+        GraphicsEnvironment env
+                = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = env.getDefaultScreenDevice();
+        if(window!=null)
+            window.dispose();
+        window = new JFrame(title);
+        window.getContentPane().add(this);
+        window.setUndecorated(true);
+        device.setFullScreenWindow(window);
+        DisplayMode displayMode = device.getDisplayMode();
+        if (displayMode != null
+                && device.isDisplayChangeSupported()) {
+            try {
+                device.setDisplayMode(displayMode);
+            } catch (IllegalArgumentException ex) {
+            }
+            // fix for mac os x
+            window.setSize(displayMode.getWidth(),
+                    displayMode.getHeight());
+        }
+    }
+
+    public JFrame getWindow() {
+        return window;
+    }
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+        Growing gr = new Growing();
+        gr.create(800,600,"Test2");
+        Thread the = new Thread(new Runnable() {
             @Override
             public void run() {
-                createGuiAndShow();
+                while (true) {
+                    gr.repaint();
+                    gr.count++;
+                }
             }
         });
+        the.start();
     }
 }

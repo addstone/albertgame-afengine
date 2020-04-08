@@ -18,12 +18,12 @@ public class GameCore implements IDrawStrategy {
     }
 
     private final IGraphicsTech tech;
-    private ITexture img;
+    private ITexture img,img1;
 
     public GameCore() {
         tech = new GraphicsTech_Java2D();
-        img = tech.createTexture(getClass().getClassLoader().getResource("tou.png"));
-        img=img.cutInstance(0, 0,100,100);
+        img1 = tech.createTexture(getClass().getClassLoader().getResource("tou.png"),0,0,100,100);
+        img=img1.scaleInstance(0.5,0.5);
     }
 
     public void run() {
@@ -52,10 +52,12 @@ public class GameCore implements IDrawStrategy {
     @Override
     public void draw(IGraphicsTech tech) {
         tech.drawText(0, 0, tech.getFont(), tech.getColor(), "FPS:" + tech.getFPS());
-//        IColor oldc=tech.getColor();
-//        tech.setColor(tech.createColor(IColor.GeneraColor.WHITE));
+        
+        IColor oldc=tech.getColor();
+        tech.setColor(tech.createColor(100,100,100,100));
         tech.drawRoundRect(0,100,400,400, 0, 0, true);
-//        tech.setColor(oldc);
+        tech.setColor(oldc);
         tech.drawTexture(0, 100, img);
+        tech.drawTexture(200,0, img1);
     }
 }

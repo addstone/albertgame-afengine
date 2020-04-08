@@ -1,50 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package albertgame.afengine.graphics;
 
 import albertgame.afengine.graphics.IColor.GeneraColor;
 import albertgame.afengine.graphics.IFont.FontStyle;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.DebugUtil.LogType;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.DisplayMode;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.Transparency;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.WindowListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.RepaintManager;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -52,57 +31,9 @@ import javax.swing.JPanel;
  */
 public class GraphicsTech_Java2D implements IGraphicsTech {
 
-    private static class JPanelTech extends JPanel {
-
-        GraphicsTech_Java2D tech;
-
-        public JPanelTech(GraphicsTech_Java2D impl) {
-            tech = impl;
-            super.setBackground(Color.BLACK);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2d = (Graphics2D) g;
-
-            render(g2d,tech.width,tech.height);
-        }
-
-        protected void render(Graphics2D g2d, int w, int h) {
-            tech.graphics=g2d;
-            g2d.clearRect(0, 0, w, h);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            Iterator<Map.Entry<Long, IDrawStrategy>> entryiter = tech.beforeStrategy.entrySet().iterator();
-            while (entryiter.hasNext()) {
-                IDrawStrategy d = entryiter.next().getValue();
-                d.draw(tech);
-            }
-
-            if (tech.rootStrategy != null) {
-                tech.rootStrategy.draw(tech);
-            }
-
-            entryiter = tech.afterStrategy.entrySet().iterator();
-            while (entryiter.hasNext()) {
-                IDrawStrategy d = entryiter.next().getValue();
-                d.draw(tech);
-            }
-        }
-
-        // 创建硬件适配的缓冲图像，为了能显示得更快速
-        private static BufferedImage createCompatibleImage(int w, int h, int type) {
-            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsDevice device = env.getDefaultScreenDevice();
-            GraphicsConfiguration gc = device.getDefaultConfiguration();
-            return gc.createCompatibleImage(w, h, type);
-        }
-    }
-
     private final java.util.List<IWindowAdjustHandler> handlerlist = new ArrayList<>();
 
-    private static JFrame window;
+    private JFrame window;
 
     private ITexture icon;
     private String title;
@@ -117,23 +48,21 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
     private IColor nowColor;
     private ITexture nowCursor;
 
+    private BufferStrategy buffer;
     private Graphics2D graphics;
     private boolean isRendering;
     private int renderFPS;
     private Map<String, Object[]> valueMap;
 
-    private JPanelTech content;
-
     private IDrawStrategy rootStrategy;
     private Map<Long, IDrawStrategy> beforeStrategy;
     private Map<Long, IDrawStrategy> afterStrategy;
 
-    private int count;
+    int count;
     Runnable runnable = () -> {
         // task to run goes here
         renderFPS = count;
         count = 0;
-        System.out.println("fps:" + renderFPS);
     }; //创建 run 方法
     ScheduledExecutorService service = Executors
             .newSingleThreadScheduledExecutor();
@@ -155,63 +84,71 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
 
     @Override
     public void create(int x, int y, int w, int h, ITexture icon, String title) {
-        if (window != null) {
-            window.dispose();
+        isFull = false;
+        this.title = title;
+        this.icon = icon;
+        this.x = x;
+        this.y = y;
+        if (w > mwidth) {
+            width = mwidth;
+        } else {
+            width = w;
         }
-        window = new JFrame(title);
-        if (icon != null) {
-            if (icon instanceof TextureImpl) {
-                TextureImpl texture = (TextureImpl) icon;
-                window.setIconImage(texture.getImage());
-            }
+        if (h > mheight) {
+            height = mheight;
+        } else {
+            height = h;
         }
-        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        content = new JPanelTech(this);
-        window.getContentPane().add(content);
-        window.setSize(width, height);
-        window.setAlwaysOnTop(true);
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        setRenderSize(width, height);
         window.setLocation(x, y);
     }
 
-    @Override
-    public void create(int w, int h, ITexture icon, String title) {
+    private void setRenderSize(int width, int height) {
         if (window != null) {
             window.dispose();
         }
+
         window = new JFrame(title);
-        JFrame frame = window;
+        window.setSize(width, height);
+        this.width = width;
+        this.height = height;
+        window.setLocation(x, y);
         if (icon != null) {
             if (icon instanceof TextureImpl) {
                 TextureImpl texture = (TextureImpl) icon;
                 window.setIconImage(texture.getImage());
             }
         }
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        content = new JPanelTech(this);
-        frame.getContentPane().add(content);
-        frame.setSize(w, h);
-        frame.setAlwaysOnTop(true);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        setFrame();
+        Container con = window.getContentPane();
+        if (con instanceof JComponent) {
+            ((JComponent) con).setOpaque(false);
+        }
+        buffer = window.getBufferStrategy();
     }
 
-    @Override
-    public void create(ITexture icon, String title) {
-        GraphicsEnvironment env
-                = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice device = env.getDefaultScreenDevice();
+    private void setRenderFull() {
         if (window != null) {
             window.dispose();
         }
-        window = new JFrame(title);
-        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        content = new JPanelTech(this);
-        window.getContentPane().add(content);
-        setIcon(icon);
-        window.setUndecorated(true);
+
+        GraphicsEnvironment env
+                = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = env.getDefaultScreenDevice();
+        window = new JFrame();
+
+        window.setTitle(title);
+        if (icon != null) {
+            if (icon instanceof TextureImpl) {
+                TextureImpl texture = (TextureImpl) icon;
+                window.setIconImage(texture.getImage());
+            }
+        }
+
+        setFrame();
+        window.requestFocus();
         device.setFullScreenWindow(window);
+
         DisplayMode displayMode = device.getDisplayMode();
         if (displayMode != null
                 && device.isDisplayChangeSupported()) {
@@ -223,6 +160,71 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
             window.setSize(displayMode.getWidth(),
                     displayMode.getHeight());
         }
+        width = displayMode.getWidth();
+        height = displayMode.getHeight();
+    }
+
+    private void setFrame() {
+        JFrame frame = window;
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            SwingUtilities.updateComponentTreeUI(frame);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
+        }
+
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setBackground(Color.black);
+        frame.setResizable(false);
+        frame.setIgnoreRepaint(true);
+        frame.setLocationRelativeTo(null);
+
+        frame.getContentPane().setLayout(null);
+        frame.setUndecorated(true);
+        frame.setVisible(true);
+        createBuffer();
+    }
+
+    private void createBuffer() {
+        try {
+            EventQueue.invokeAndWait(() -> {
+                window.createBufferStrategy(2);
+            });
+        } catch (InterruptedException | InvocationTargetException ex) {
+        }
+
+        Container con = window.getContentPane();
+        if (con instanceof JComponent) {
+            ((JComponent) con).setOpaque(false);
+        }
+
+        NullRepaint.install();
+        buffer = window.getBufferStrategy();
+    }
+
+    @Override
+    public void create(int w, int h, ITexture icon, String title) {
+        if (w > mwidth) {
+            width = mwidth;
+        } else {
+            width = w;
+        }
+        if (h > mheight) {
+            height = mheight;
+        } else {
+            height = h;
+        }
+
+        int dx = mwidth / 2 - width / 2;
+        int dy = mheight / 2 - height / 2;
+        create(dx, dy, w, h, icon, title);
+    }
+
+    @Override
+    public void create(ITexture icon, String title) {
+        this.title = title;
+        this.icon = icon;
+        isFull = true;
+        setRenderFull();
     }
 
     @Override
@@ -293,6 +295,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
         if (window != null) {
             window.dispose();
         }
+        buffer = null;
     }
 
     @Override
@@ -301,7 +304,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
             DebugUtil.log(LogType.ERROR, "can not move ,cause full window.");
             return;
         }
-        window.setLocation(x, y);
+        this.window.setLocation(x, y);
     }
 
     @Override
@@ -375,6 +378,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
     @Override
     public void setFont(IFont font) {
         this.nowFont = font;
+        this.graphics.setFont(((FontImpl)font).font);
     }
 
     @Override
@@ -385,6 +389,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
     @Override
     public void setColor(IColor color) {
         this.nowColor = color;
+        this.graphics.setColor(((ColorImpl)color).color);
     }
 
     @Override
@@ -491,7 +496,55 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
 
     @Override
     public void callDraw() {
-        content.repaint();
+
+        //begindraw
+        isRendering = true;
+        graphics = (Graphics2D) buffer.getDrawGraphics();
+//        graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+//        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,RenderingHints.VALUE_STROKE_PURE);        
+//        graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,RenderingHints.VALUE_COLOR_RENDER_QUALITY);        
+//        graphics.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,RenderingHints.VALUE_FRACTIONALMETRICS_ON);        
+//        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);        
+//        graphics.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);        
+//        graphics.setRenderingHint(RenderingHints.KEY_DITHERING,RenderingHints.VALUE_DITHER_ENABLE);                
+        graphics.setFont(((FontImpl) nowFont).getFont());
+        graphics.setColor(((ColorImpl) nowColor).getColor());
+        graphics.clearRect(0, 0, width, height);
+
+        //draw before,优先度越小，越先绘制，被后面覆盖
+        Iterator<Map.Entry<Long, IDrawStrategy>> entryiter = beforeStrategy.entrySet().iterator();
+        while (entryiter.hasNext()) {
+            Map.Entry<Long, IDrawStrategy> entry = entryiter.next();
+            IDrawStrategy draw = entry.getValue();
+            draw.draw(this);
+        }
+
+        //draw root
+        if (this.rootStrategy != null) {
+            rootStrategy.draw(this);
+        }
+
+        //draw after,优先度越小，越先绘制，被后面覆盖
+        entryiter = afterStrategy.entrySet().iterator();
+        while (entryiter.hasNext()) {
+            Map.Entry<Long, IDrawStrategy> entry = entryiter.next();
+            IDrawStrategy draw = entry.getValue();
+            draw.draw(this);
+        }
+
+        isRendering = false;
+        if (graphics != null) {
+            graphics.dispose();
+        } else {
+            graphics = null;
+        }
+        if (!buffer.contentsLost()) {
+            buffer.show();
+        }
+
+        Toolkit.getDefaultToolkit().sync();
         ++count;
     }
 
@@ -786,6 +839,32 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
         }
     }
 
+    private static class NullRepaint extends RepaintManager {
+
+        public static void install() {
+            RepaintManager repaint = new NullRepaint();
+            repaint.setDoubleBufferingEnabled(false);
+            RepaintManager.setCurrentManager(repaint);
+        }
+
+        public void addInvalidComponent(JComponent c) {
+            // do nothing
+        }
+
+        public void addDirtyRegion(JComponent c, int x, int y,
+                int w, int h) {
+            // do nothing
+        }
+
+        public void markCompletelyDirty(JComponent c) {
+            // do nothing
+        }
+
+        public void paintDirtyRegions() {
+            // do nothing
+        }
+    }
+
     class TextureImpl implements ITexture {
 
         private Image img;
@@ -818,10 +897,12 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
         @Override
         public ITexture scaleInstance(double sx, double sy) {
             TextureImpl texture = new TextureImpl();
-            BufferedImage bi = createCompatibleImage(getWidth(), getHeight());
+            int w=(int) (getWidth()*sx);
+            int h=(int) (getHeight()*sy);
+            BufferedImage bi = createCompatibleImage(w,h);
             Graphics2D grph = (Graphics2D) bi.getGraphics();
-            grph.scale(sx, sy);
-            grph.drawImage(img, 0, 0, null);
+            grph.drawImage(img, 0, 0, w, h,
+                    0,0,img.getWidth(null),img.getHeight(null),null);
             grph.dispose();
             texture.img = bi;
             return texture;
@@ -839,7 +920,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
         }
 
         private BufferedImage createCompatibleImage(int w, int h) {
-            return new BufferedImage(w, h,BufferedImage.TYPE_INT_ARGB);
+            return new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
         }
     }
 }
