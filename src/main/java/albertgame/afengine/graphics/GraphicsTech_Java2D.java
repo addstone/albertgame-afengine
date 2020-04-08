@@ -50,13 +50,13 @@ import javax.swing.JPanel;
  *
  * @author Albert Flex
  */
-public class GraphicsTech_Java2DImpl implements IGraphicsTech {
+public class GraphicsTech_Java2D implements IGraphicsTech {
 
     private static class JPanelTech extends JPanel {
 
-        GraphicsTech_Java2DImpl tech;
+        GraphicsTech_Java2D tech;
 
-        public JPanelTech(GraphicsTech_Java2DImpl impl) {
+        public JPanelTech(GraphicsTech_Java2D impl) {
             tech = impl;
             super.setBackground(Color.BLACK);
         }
@@ -138,7 +138,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
     ScheduledExecutorService service = Executors
             .newSingleThreadScheduledExecutor();
 
-    public GraphicsTech_Java2DImpl() {
+    public GraphicsTech_Java2D() {
         Toolkit kit = Toolkit.getDefaultToolkit();
         mwidth = kit.getScreenSize().width;
         mheight = kit.getScreenSize().height;
@@ -839,10 +839,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
         }
 
         private BufferedImage createCompatibleImage(int w, int h) {
-            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsDevice device = env.getDefaultScreenDevice();
-            GraphicsConfiguration gc = device.getDefaultConfiguration();
-            return gc.createCompatibleImage(w, h, Transparency.OPAQUE);
+            return new BufferedImage(w, h,BufferedImage.TYPE_INT_ARGB);
         }
     }
 }
