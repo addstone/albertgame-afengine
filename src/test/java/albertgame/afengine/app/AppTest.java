@@ -20,8 +20,8 @@ public class AppTest {
         
 //        URL url=getClass().getClassLoader().getResource("duke0.gif");
 //        String title="Title1";
-//        
-        WindowApp win=new WindowApp(null,"title","src/main/java/resources/duke0.gif",800,600);
+
+        WindowApp win=new WindowApp(null,"AppTest","src/test/resources/duke0.gif",800,600);
         IGraphicsTech tech=win.getGraphicsTech();
         tech.setRootDrawStrategy((tec)->{
             tec.drawText(0,0, tech.getFont(), tech.getColor(),"FPS:"+tech.getFPS());
@@ -37,7 +37,6 @@ public class AppTest {
                 System.out.println("init logic!!!");
                 return true;
             }
-
             @Override
             public boolean update(long time) {
                 ++i;
@@ -47,7 +46,6 @@ public class AppTest {
                 System.out.println("update logic!!!");
                 return true;
             }
-
             @Override
             public boolean shutdown() {
                 System.out.println("shutdowm logic!!!");

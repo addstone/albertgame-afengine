@@ -6,13 +6,14 @@
 package jpanel;
 
 import java.awt.Graphics2D;
-
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Administrator
  */
-public class GameCore{
+public class GameCore implements Growing.Draw{
 
     public static void main(String[] args) {
         new GameCore().run();
@@ -22,7 +23,7 @@ public class GameCore{
     
     public GameCore() {
         growing=new Growing();
-//        growing.setDraw(this);
+        growing.setRoot(this);
     }
     
     public void run() {
@@ -45,10 +46,13 @@ public class GameCore{
 
     }
 
-//    //覆盖这个方法，调用绘制
-//    @Override
-//    public void draw(Graphics2D graphics) {
-//        System.out.println("draw");
-//        graphics.drawString("FPS:"+growing.fps, 0, 60);
-//    }    
+    private final Image img = new ImageIcon("src/test/resources/duke0.gif").getImage();
+
+    //覆盖这个方法，调用绘制
+    @Override
+    public void draw(Graphics2D g2d) {
+        g2d.drawImage(img, 100, 100, null);
+        g2d.drawLine(10, 10, 100, 100);
+        g2d.drawString("FPS:"+growing.fps,0,30);
+    }    
 }

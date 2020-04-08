@@ -5,11 +5,13 @@
  */
 package albertgame.afengine.app;
 
-import albertgame.afengine.graphics.GraphicsTech_Java2D;
+import albertgame.afengine.graphics.GraphicsTech_Java2DImpl;
+import albertgame.afengine.graphics.GraphicsTech_Java2DImpl2;
 import albertgame.afengine.graphics.IColor;
 import albertgame.afengine.graphics.IDrawStrategy;
 import albertgame.afengine.graphics.IGraphicsTech;
 import albertgame.afengine.graphics.ITexture;
+import java.util.Random;
 
 public class GameCore implements IDrawStrategy {
 
@@ -18,18 +20,23 @@ public class GameCore implements IDrawStrategy {
     }
 
     private final IGraphicsTech tech;
-    private ITexture img,img1;
+    private final ITexture img[];
+    private final ITexture img1;
 
     public GameCore() {
-        tech = new GraphicsTech_Java2D();
-        img1 = tech.createTexture(getClass().getClassLoader().getResource("tou.png"),0,0,100,100);
-        img=img1.scaleInstance(0.5,0.5);
+        tech = new GraphicsTech_Java2DImpl2();
+        img1 = tech.createTexture(getClass().getClassLoader().getResource("tou.png"), 0, 0, 100, 100);
+        img = new ITexture[5000];
+        for (int i = 0; i != 5000; ++i) {
+            img[i] = img1.scaleInstance(0.5, 0.5);
+        }
     }
 
     public void run() {
         tech.setRootDrawStrategy(this);
         ITexture texture = tech.createTexture(getClass().getClassLoader().getResource("duke0.gif"));
-        tech.create(800,600,texture, "Hello");
+        tech.create(1600,900, texture, "Hello");
+        tech.setMouseIcon(texture);
         long dt;
         long lt, nt;
         lt = System.currentTimeMillis();
@@ -52,12 +59,15 @@ public class GameCore implements IDrawStrategy {
     @Override
     public void draw(IGraphicsTech tech) {
         tech.drawText(0, 0, tech.getFont(), tech.getColor(), "FPS:" + tech.getFPS());
-        
-        IColor oldc=tech.getColor();
-        tech.setColor(tech.createColor(100,100,100,100));
-        tech.drawRoundRect(0,100,400,400, 0, 0, true);
+
+        IColor oldc = tech.getColor();
+        tech.setColor(tech.createColor(100, 100, 100, 100));
+        tech.drawRoundRect(0, 100, 400, 400, 0, 0, true);
         tech.setColor(oldc);
-        tech.drawTexture(0, 100, img);
-        tech.drawTexture(200,0, img1);
+        Random ran=new Random();
+        for (ITexture im : img){
+            tech.drawTexture(ran.nextInt(1600),ran.nextInt(900), im);
+        }
+        tech.drawTexture(200, 0, img1);
     }
 }

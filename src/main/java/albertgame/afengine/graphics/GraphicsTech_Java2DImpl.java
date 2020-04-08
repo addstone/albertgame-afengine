@@ -29,7 +29,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author Albert Flex
  */
-public class GraphicsTech_Java2D implements IGraphicsTech {
+public class GraphicsTech_Java2DImpl implements IGraphicsTech {
 
     private final java.util.List<IWindowAdjustHandler> handlerlist = new ArrayList<>();
 
@@ -62,12 +62,13 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
     Runnable runnable = () -> {
         // task to run goes here
         renderFPS = count;
+        System.out.println("fps:"+renderFPS);
         count = 0;
     }; //创建 run 方法
     ScheduledExecutorService service = Executors
             .newSingleThreadScheduledExecutor();
 
-    public GraphicsTech_Java2D() {
+    public GraphicsTech_Java2DImpl() {
         Toolkit kit = Toolkit.getDefaultToolkit();
         mwidth = kit.getScreenSize().width;
         mheight = kit.getScreenSize().height;
@@ -360,7 +361,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech {
     @Override
     public void setMouseIcon(ITexture texture) {
         Toolkit tk = Toolkit.getDefaultToolkit();
-        Cursor cu = tk.createCustomCursor(((TextureImpl) texture).getImage(), new Point(texture.getWidth(), texture.getHeight()), "stick");
+        Cursor cu = tk.createCustomCursor(((TextureImpl)texture).getImage(),new Point(10,10),"mouse");
         window.setCursor(cu);
         nowCursor = texture;
     }
