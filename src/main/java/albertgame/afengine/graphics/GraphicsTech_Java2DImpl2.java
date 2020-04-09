@@ -72,9 +72,10 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
         protected void render(Graphics2D g2d, int w, int h) {
             tech.graphics = g2d;
             g2d.setBackground(Color.BLACK);
-            g2d.setColor(Color.BLACK);
             g2d.clearRect(0, 0, w, h);
-            tech.setColor(tech.getColor());
+            tech.setColor(tech.nowColor);
+            tech.setFont(tech.nowFont);
+
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             Iterator<Map.Entry<Long, IDrawStrategy>> entryiter = tech.beforeStrategy.entrySet().iterator();
@@ -189,9 +190,12 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         content = new JPanelTech(this);
         frame.getContentPane().add(content);
+        frame.setBackground(Color.BLACK);
         frame.setSize(w, h);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        this.x=frame.getLocation().x;
+        this.y=frame.getLocation().y;
     }
 
     @Override
@@ -301,6 +305,8 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
             return;
         }
         window.setLocation(x, y);
+        this.x=x;
+        this.y=y;
     }
 
     @Override
