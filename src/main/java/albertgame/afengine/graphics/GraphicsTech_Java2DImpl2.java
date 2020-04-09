@@ -65,14 +65,16 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
-
             render(g2d, tech.width, tech.height);
             ++tech.count;
         }
 
         protected void render(Graphics2D g2d, int w, int h) {
             tech.graphics = g2d;
+            g2d.setBackground(Color.BLACK);
+            g2d.setColor(Color.BLACK);
             g2d.clearRect(0, 0, w, h);
+            tech.setColor(tech.getColor());
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             Iterator<Map.Entry<Long, IDrawStrategy>> entryiter = tech.beforeStrategy.entrySet().iterator();
@@ -201,11 +203,10 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
             window.dispose();
         }
         window = new JFrame(title);
-        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        content = new JPanelTech(this);
+        content=new JPanelTech(this);
         window.getContentPane().add(content);
-        setIcon(icon);
         window.setUndecorated(true);
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         device.setFullScreenWindow(window);
         DisplayMode displayMode = device.getDisplayMode();
         if (displayMode != null

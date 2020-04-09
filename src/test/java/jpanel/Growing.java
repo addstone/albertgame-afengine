@@ -94,7 +94,6 @@ public class Growing extends JPanel {
         }
         window = new JFrame(title);
         window.getContentPane().add(this);
-//        window.setIgnoreRepaint(true);
         window.setUndecorated(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         device.setFullScreenWindow(window);
@@ -117,7 +116,7 @@ public class Growing extends JPanel {
 
     public static void main(String[] args) {
         Growing gr = new Growing();
-        gr.create(800, 600, "Test2");
+        gr.create("Test2");
         Thread the = new Thread(() -> {
             while (true) {
                 gr.repaint();

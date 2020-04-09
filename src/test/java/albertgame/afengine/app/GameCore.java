@@ -5,6 +5,7 @@
  */
 package albertgame.afengine.app;
 
+import albertgame.afengine.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.graphics.GraphicsTech_Java2DImpl2;
 import albertgame.afengine.graphics.IColor;
 import albertgame.afengine.graphics.IDrawStrategy;
@@ -25,16 +26,16 @@ public class GameCore implements IDrawStrategy {
     public GameCore() {
         tech = new GraphicsTech_Java2DImpl2();
         img1 = tech.createTexture(getClass().getClassLoader().getResource("tou.png"), 0, 0, 100, 100);
-        img = new ITexture[5000];
-        for (int i = 0; i != 5000; ++i) {
+        img = new ITexture[50];
+        for (int i = 0; i != 50; ++i) {
             img[i] = img1.scaleInstance(0.5, 0.5);
         }
     }
 
-    public void run() {
+    public void run(){
         tech.setRootDrawStrategy(this);
         ITexture texture = tech.createTexture(getClass().getClassLoader().getResource("duke0.gif"));
-        tech.create(1600,900, texture, "Hello");
+        tech.create(texture, "Hello");
         tech.setMouseIcon(texture);
         long dt;
         long lt, nt;
@@ -65,7 +66,7 @@ public class GameCore implements IDrawStrategy {
         tech.setColor(oldc);
         Random ran=new Random();
         for (ITexture im : img){
-            tech.drawTexture(ran.nextInt(1600),ran.nextInt(900), im);
+            tech.drawTexture(ran.nextInt(tech.getMoniterWidth()),ran.nextInt(tech.getMoniterHeight()), im);
         }
         tech.drawTexture(200, 0, img1);
     }
