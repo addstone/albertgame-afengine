@@ -19,7 +19,7 @@ public class GameCore implements Growing.Draw{
         new GameCore().run();
     }
 
-    private Growing growing;
+    private final Growing growing;
     
     public GameCore() {
         growing=new Growing();
