@@ -107,13 +107,13 @@ public class Actor {
         Iterator<ActorComponent> compiter=componentsMap.values().iterator();
         while(compiter.hasNext()){
             ActorComponent comp=compiter.next();
-            comp.awake();
+            comp.toSleep();
         }        
 
         Iterator<Actor> childiter=children.iterator();
         while(childiter.hasNext()){
             Actor child = childiter.next();
-            child.awakeAllComponents();
+            child.sleepAllComponents();
         }        
     }
 
@@ -221,11 +221,11 @@ public class Actor {
     }
     
     public double getAbsoluteX(){
-        Actor parent=this.parent;
+        Actor p=this.parent;
         double ax=this.transform.position.getX();
-        while(parent!=null){
-            ax+=parent.transform.position.getX();
-            parent=parent.parent;
+        while(p!=null){
+            ax+=p.transform.position.getX();
+            p=p.parent;
         }
         return ax;
     }

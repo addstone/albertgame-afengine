@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package albertgame.afengine.app;
 
 import albertgame.afengine.app.message.MessageManager;
@@ -11,16 +6,16 @@ import java.util.Map;
 
 /**
  * <app name="" logic-fac="">
- *  <window tech-fac="" rdraw-fac="">
+ *  <window tech-fac="" rrootdraw-fac="">
  *      <size>full or 800,600</size>
- *      <bdraws>
+ *      <beforedraws>
  *          <draw fac="" priority=""/>
  *          ...
- *      </bdraws>
- *      <adraws>
+ *      </beforedraws>
+ *      <afterdraws>
  *          <draw fac="" priority=""/>
  *          ...
- *      </adraws>
+ *      </afterdraws>
  *  </window>
  *  <plugins>
  *      <plugin fac="">

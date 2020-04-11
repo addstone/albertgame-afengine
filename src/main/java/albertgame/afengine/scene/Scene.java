@@ -19,15 +19,14 @@ import java.util.List;
  * 场景配置
  * <scene name="" loader-fac="">
     * <actors>
-        * <actor name="" modpath="" mod="a,b,c" or bigactor="">//bigactor
-            * //bitactor不可以有子实体,否则文件导出会出现问题
+        * <actor name="" modpath="" mod="a,b,c" or bigactor="">
             * <transform pos="" anchor="" rotate="" scale=""/>
             * <settings>
                 * <setting name="" value=""/>
             * </settings>
         * </actor>
         * ...
-    </actors>
+    * </actors>
     * <map>
         * <actor name="">
             * <actor name=""/>
@@ -57,50 +56,30 @@ import java.util.List;
     * </mod>
     * <mod .../>
  * </modlibs>
- *
- * 大实体配置 外层大实体的数据，加小实体的数据
- * <bigactor>
-    * <actors>
-        * <actor name="" value=""/>
-        * ...
-    * </actors>
-    * <map>
-        * <actor name=""/>
-    * </map>
- * </bigactor>
- *
  * @author Albert Flex
  */
-public class Scene {
+public class Scene{
 
     public static interface Loader {
-
         public abstract void load(Scene scene);
-
         public abstract void shutdown(Scene scene);
-
         public abstract void pause(Scene scene);
-
         public abstract void resume(Scene scene);
     }
 
     private static class AdapterLoader implements Loader {
-
         @Override
         public void load(Scene scene) {
             System.out.println("Load Scene:" + scene.name);
         }
-
         @Override
         public void shutdown(Scene scene) {
             System.out.println("Shutdown Scene:" + scene.name);
         }
-
         @Override
         public void pause(Scene scene) {
             System.out.println("Pause Scene:" + scene.name);
         }
-
         @Override
         public void resume(Scene scene) {
             System.out.println("Resume Scene:" + scene.name);
@@ -110,7 +89,7 @@ public class Scene {
     private String name;
     public final List<Actor> rootList = new ArrayList<>();
     private final Loader loader;
-    private final SceneCamera camera;
+    private SceneCamera camera;
     
     //实体里最好存放管理游戏生命周期的实体，不要和放到场景里，否则会出现组件更新两次
     private static final List<Actor> shouldremoves = new ArrayList<>();
@@ -139,6 +118,10 @@ public class Scene {
 
     public SceneCamera getCamera() {
         return camera;
+    }
+
+    public void setCamera(SceneCamera camera) {
+        this.camera = camera;
     }
 
     public final Actor findActorByName(String name) {

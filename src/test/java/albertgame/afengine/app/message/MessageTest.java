@@ -20,10 +20,10 @@ public class MessageTest {
             return true;
         };
         MessageManager manager = new MessageManager();
-        MessageHandlerRoute route = (MessageHandlerRoute) manager.getRoute(MessageHandlerRoute.typeid);
+        MessageHandlerRoute route = (MessageHandlerRoute) manager.getRoute(MessageHandlerRoute.Route_Handler);
         route.addTypeContentHandler(1, 1, handler);
         
-        Message msg = new Message(MessageHandlerRoute.typeid, 1, 1, "msg Info");
+        Message msg = new Message(MessageHandlerRoute.Route_Handler, 1, 1, "msg Info");
         
         for (int i = 0; i != 10; ++i) {
             manager.pushMessage(msg);

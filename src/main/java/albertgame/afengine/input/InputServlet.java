@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package albertgame.afengine.input;
+
+import albertgame.afengine.util.math.IDGenerator;
 
 /**
  *
@@ -33,6 +30,8 @@ public class InputServlet {
      *       WindowActive,WindowDeactive,WindowMouseEnter,WindowMouseExit
      * event的映射，如InputServlet.EventCode_*
      */
+    public static long Route_Input=new IDGenerator().createId();
+    
     public static long EventCode_KeyDown=0;
     public static long EventCode_KeyUp=1;
     public static long EventCode_KeyType=2;
@@ -41,6 +40,8 @@ public class InputServlet {
     public static long EventCode_MouseUp=4;
     public static long EventCode_MouseClick=5;
     public static long EventCode_MouseDrag=6;
+    public static long EventCode_MouseWheelUp=16;
+    public static long EventCode_MouseWheelDown=17;
     
     public static long EventCode_WindowOpened=7;
     public static long EventCode_WindowClose=8;
@@ -60,17 +61,19 @@ public class InputServlet {
     public static long KeyCode_Delet;
     public static long KeyCode_PageUp;
     public static long KeyCode_PageDown;
+
     public static long KeyCode_Up;
     public static long KeyCode_Down;
     public static long KeyCode_Left;
     public static long KeyCode_Right;
+
     public static long KeyCode_Home;
     public static long KeyCode_End;
     public static long KeyCode_Enter;
+    public static long KeyCode_BackSpace;
     public static long KeyCode_Esc;
     
     public static long CharCode(char word){
         return word;
     }
-    
 }

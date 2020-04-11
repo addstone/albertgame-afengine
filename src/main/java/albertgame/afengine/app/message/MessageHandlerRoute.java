@@ -27,7 +27,7 @@ public class MessageHandlerRoute implements Message.IRoute {
     }
 
     private final Map<Long, MessageHandler> typeHandlerMap;
-    public static final long typeid=new IDGenerator().createId();
+    public static final long Route_Handler=new IDGenerator().createId();
 
     public MessageHandlerRoute() {
         this.typeHandlerMap = new HashMap<>();
@@ -90,7 +90,7 @@ public class MessageHandlerRoute implements Message.IRoute {
 
     @Override
     public long getRouteType() {
-        return typeid;
+        return Route_Handler;
     }
 
     @Override

@@ -14,6 +14,10 @@ import java.awt.event.WindowListener;
 public class InputAdapter implements KeyListener,MouseListener,
         MouseMotionListener,MouseWheelListener,WindowListener{
 
+    
+    //type input
+    //content event_code
+    //extraobj key_code,char,mousepos...
     @Override
     public void keyTyped(KeyEvent e) {
         DebugUtil.log("key typed "+e.getKeyChar());
