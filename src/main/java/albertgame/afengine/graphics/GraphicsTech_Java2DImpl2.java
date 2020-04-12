@@ -65,6 +65,8 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
             Graphics2D g2d = (Graphics2D) g;
             render(g2d, tech.width, tech.height);
             ++tech.count;
+            tech.end = System.currentTimeMillis();
+//            System.out.println("draw times:" + (tech.end - tech.start));
         }
 
         protected void render(Graphics2D g2d, int w, int h) {
@@ -166,10 +168,10 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         window.setLocation(x, y);
-        this.width=w;
-        this.height=h;
-        this.x=x;
-        this.y=y;
+        this.width = w;
+        this.height = h;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -192,8 +194,10 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
         frame.setSize(w, h);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        this.x=frame.getLocation().x;
-        this.y=frame.getLocation().y;
+        this.x = frame.getLocation().x;
+        this.y = frame.getLocation().y;
+        this.width = w;
+        this.height = h;
     }
 
     @Override
@@ -205,7 +209,7 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
             window.dispose();
         }
         window = new JFrame(title);
-        content=new JPanelTech(this);
+        content = new JPanelTech(this);
         window.getContentPane().add(content);
         window.setUndecorated(true);
         window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -221,9 +225,9 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
             window.setSize(displayMode.getWidth(),
                     displayMode.getHeight());
         }
-        width=displayMode.getWidth();
-        height=displayMode.getHeight();
-        x=y=0;
+        width = displayMode.getWidth();
+        height = displayMode.getHeight();
+        x = y = 0;
     }
 
     @Override
@@ -303,8 +307,8 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
             return;
         }
         window.setLocation(x, y);
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -360,7 +364,7 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
     @Override
     public void setMouseIcon(ITexture texture) {
         Toolkit tk = Toolkit.getDefaultToolkit();
-        Cursor cu = tk.createCustomCursor(((TextureImpl)texture).getImage(),new Point(10,10),"mouse");
+        Cursor cu = tk.createCustomCursor(((TextureImpl) texture).getImage(), new Point(10, 10), "mouse");
         window.setCursor(cu);
         nowCursor = texture;
     }
@@ -378,8 +382,8 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
     @Override
     public void setFont(IFont font) {
         this.nowFont = font;
-        if(graphics!=null){
-            graphics.setFont(((FontImpl)font).font);
+        if (graphics != null) {
+            graphics.setFont(((FontImpl) font).font);
         }
     }
 
@@ -391,8 +395,8 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
     @Override
     public void setColor(IColor color) {
         this.nowColor = color;
-        if(graphics!=null){
-            graphics.setColor(((ColorImpl)color).color);
+        if (graphics != null) {
+            graphics.setColor(((ColorImpl) color).color);
         }
     }
 
@@ -498,9 +502,15 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
         return isRendering;
     }
 
+    long start = 0;
+    long end = 0;
+
     @Override
     public void callDraw() {
-        content.repaint();
+        new Thread(() -> {
+            content.repaint();
+            start = System.currentTimeMillis();
+        }).start();
     }
 
     @Override
@@ -826,12 +836,12 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
         @Override
         public ITexture scaleInstance(double sx, double sy) {
             TextureImpl texture = new TextureImpl();
-            int w=(int) (getWidth()*sx);
-            int h=(int) (getHeight()*sy);
-            BufferedImage bi = createCompatibleImage(w,h);
+            int w = (int) (getWidth() * sx);
+            int h = (int) (getHeight() * sy);
+            BufferedImage bi = createCompatibleImage(w, h);
             Graphics2D grph = (Graphics2D) bi.getGraphics();
             grph.drawImage(img, 0, 0, w, h,
-                    0,0,img.getWidth(null),img.getHeight(null),null);
+                    0, 0, img.getWidth(null), img.getHeight(null), null);
             grph.dispose();
             texture.img = bi;
             return texture;

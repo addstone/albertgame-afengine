@@ -5,7 +5,6 @@
  */
 package albertgame.afengine.app;
 
-import albertgame.afengine.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.graphics.GraphicsTech_Java2DImpl2;
 import albertgame.afengine.graphics.IColor;
 import albertgame.afengine.graphics.IDrawStrategy;
@@ -26,8 +25,8 @@ public class GameCore implements IDrawStrategy {
     public GameCore() {
         tech = new GraphicsTech_Java2DImpl2();
         img1 = tech.createTexture(getClass().getClassLoader().getResource("tou.png"), 0, 0, 100, 100);
-        img = new ITexture[50];
-        for (int i = 0; i != 50; ++i) {
+        img = new ITexture[1000];
+        for (int i = 0; i != 1000; ++i) {
             img[i] = img1.scaleInstance(0.5, 0.5);
         }
     }
@@ -35,7 +34,7 @@ public class GameCore implements IDrawStrategy {
     public void run(){
         tech.setRootDrawStrategy(this);
         ITexture texture = tech.createTexture(getClass().getClassLoader().getResource("duke0.gif"));
-        tech.create(texture, "Hello");
+        tech.create(800,600,texture, "Hello");
         tech.setMouseIcon(texture);
         long dt;
         long lt, nt;
@@ -52,12 +51,15 @@ public class GameCore implements IDrawStrategy {
 
     //覆盖这个方法用以更新
     public void update(long delt) {
-
+//        try {
+//            Thread.sleep(10);
+//        } catch (InterruptedException ex) {
+//        }
     }
 
     //覆盖这个方法，调用绘制
     @Override
-    public void draw(IGraphicsTech tech) {
+    public void draw(IGraphicsTech tech){
         tech.drawText(0, 0, tech.getFont(), tech.getColor(), "FPS:" + tech.getFPS());
 
         IColor oldc = tech.getColor();
@@ -66,7 +68,7 @@ public class GameCore implements IDrawStrategy {
         tech.setColor(oldc);
         Random ran=new Random();
         for (ITexture im : img){
-            tech.drawTexture(ran.nextInt(tech.getMoniterWidth()),ran.nextInt(tech.getMoniterHeight()), im);
+            tech.drawTexture(ran.nextInt(tech.getWindowWidth()),ran.nextInt(tech.getWindowHeight()), im);
         }
         tech.drawTexture(200, 0, img1);
     }
