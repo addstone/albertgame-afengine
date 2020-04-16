@@ -79,7 +79,7 @@ public class MessageManager {
         }
     }
 
-    public void pushMessage(Message message) {
+    public synchronized void pushMessage(Message message) {
         long type = message.routeType;
         if (!routeMap.containsKey(type)) {
             System.out.println("There is no route type for this message");

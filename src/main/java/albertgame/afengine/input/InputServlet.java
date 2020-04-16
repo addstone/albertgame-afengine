@@ -30,7 +30,6 @@ public class InputServlet {
      *       WindowActive,WindowDeactive,WindowMouseEnter,WindowMouseExit
      * event的映射，如InputServlet.EventCode_*
      */
-    public static long Route_Input=new IDGenerator().createId();
     
     public static long EventCode_KeyDown=0;
     public static long EventCode_KeyUp=1;
