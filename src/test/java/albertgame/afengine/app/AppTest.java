@@ -6,6 +6,7 @@
 package albertgame.afengine.app;
 
 import albertgame.afengine.graphics.IGraphicsTech;
+import albertgame.afengine.util.DebugUtil;
 /**
  *
  * @author Albert Flex
@@ -20,7 +21,7 @@ public class AppTest {
         
 //        URL url=getClass().getClassLoader().getResource("duke0.gif");
 //        String title="Title1";
-
+        DebugUtil.switchOn();
         WindowApp win=new WindowApp(null,"AppTest","src/test/resources/duke0.gif",800,600);
         IGraphicsTech tech=win.getGraphicsTech();
         tech.setRootDrawStrategy((tec)->{

@@ -19,6 +19,13 @@ import java.util.Map;
  */
 public class MessageManager {
 
+    private static MessageManager instance;
+    public static MessageManager getInstance(){
+        if(instance==null)
+            instance=new MessageManager();
+        return instance;
+    }
+    
     private final Map<Long, Message.IRoute> routeMap;
     private final List<Message.IRoute> waitforAdd;
     private final List<Message.IRoute> waitforRemove;
@@ -27,7 +34,7 @@ public class MessageManager {
     private int sendmsgOnce;
     private boolean waitdirty;
 
-    public MessageManager() {
+    private MessageManager() {
         routeMap = new HashMap<>();
         MessageHandlerRoute route=new MessageHandlerRoute();
         routeMap.put(route.getRouteType(),route);

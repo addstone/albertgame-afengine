@@ -65,7 +65,7 @@ public class App {
         this.appName = appName;
         this.logic = logic;
         isRunning = true;
-        msgManager = new MessageManager();
+        msgManager = MessageManager.getInstance();
     }
 
     public String getAppType() {

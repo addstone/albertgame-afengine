@@ -9,6 +9,7 @@ import albertgame.afengine.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.graphics.GraphicsTech_Java2DImpl2;
 import albertgame.afengine.graphics.IGraphicsTech;
 import albertgame.afengine.graphics.ITexture;
+import albertgame.afengine.input.InputAdapter;
 
 /**
  *
@@ -24,25 +25,25 @@ public class WindowApp extends App {
     String title;
     ITexture icon;
     boolean center;
-    
-    public WindowApp(IAppLogic logic,String title,String iconpath){
-        super(WindowApp.APPTYPE,title,logic);
-        IGraphicsTech tech=new GraphicsTech_Java2DImpl2();
-        graphicsTech=tech;
-        icon=graphicsTech.createTexture(iconpath);
-        this.title=title;
-        full=true;
-        width=tech.getMoniterWidth();
-        height=tech.getMoniterHeight();
+
+    public WindowApp(IAppLogic logic, String title, String iconpath) {
+        super(WindowApp.APPTYPE, title, logic);
+        IGraphicsTech tech = new GraphicsTech_Java2DImpl2();
+        graphicsTech = tech;
+        icon = graphicsTech.createTexture(iconpath);
+        this.title = title;
+        full = true;
+        width = tech.getMoniterWidth();
+        height = tech.getMoniterHeight();
     }
-    
-    public WindowApp(IAppLogic logic,String title,String iconpath,int width,int height){
-        super(WindowApp.APPTYPE,title,logic);
-        IGraphicsTech tech=new GraphicsTech_Java2DImpl2();
-        graphicsTech=tech;
-        icon=graphicsTech.createTexture(iconpath);
-        this.title=title;
-        full=false;
+
+    public WindowApp(IAppLogic logic, String title, String iconpath, int width, int height) {
+        super(WindowApp.APPTYPE, title, logic);
+        IGraphicsTech tech = new GraphicsTech_Java2DImpl2();
+        graphicsTech = tech;
+        icon = graphicsTech.createTexture(iconpath);
+        this.title = title;
+        full = false;
         center = true;
         if (width > tech.getMoniterWidth()) {
             this.width = tech.getMoniterWidth();
@@ -135,7 +136,13 @@ public class WindowApp extends App {
                     graphicsTech.create(x, y, width, height, icon, title);
                 }
             }
-            created=true;
+            InputAdapter adapter = new InputAdapter();
+            graphicsTech.setValue("keylistener", new Object[]{adapter});
+            graphicsTech.setValue("mouselistener", new Object[]{adapter});
+            graphicsTech.setValue("mousemovelistener", new Object[]{adapter});
+            graphicsTech.setValue("mousewheellistener", new Object[]{adapter});
+            graphicsTech.setValue("windowlistener", new Object[]{adapter});
+            created = true;
         }
     }
 

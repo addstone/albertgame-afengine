@@ -19,7 +19,7 @@ public class MessageTest {
             System.out.println(msg.msgInfo);
             return true;
         };
-        MessageManager manager = new MessageManager();
+        MessageManager manager = MessageManager.getInstance();
         MessageHandlerRoute route = (MessageHandlerRoute) manager.getRoute(MessageHandlerRoute.Route_Handler);
         route.addTypeContentHandler(1, 1, handler);
         
@@ -39,7 +39,7 @@ public class MessageTest {
     
     @Test
     public void testRoute(){
-        MessageManager manager = new MessageManager();
+        MessageManager manager = MessageManager.getInstance();
         Message.IRoute route =new Message.IRoute(){
             @Override
             public long getRouteType() {
