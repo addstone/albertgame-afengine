@@ -26,7 +26,7 @@ public abstract class ActorBehavior{
     public Map<String,String> attributes;
     
     public ActorBehavior() {
-        active=true;
+        active=false;
         attributes=new HashMap<>();
     }
     
