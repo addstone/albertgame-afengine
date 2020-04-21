@@ -18,6 +18,10 @@ import org.dom4j.Element;
  * @author Administrator
  */
 public class AppBoot {
+    
+    public static void main(String[] args) {
+        bootEngine("afengine.xml");
+    }
 
     /**
      * provide a entry point for XML read for boot app.<br>
