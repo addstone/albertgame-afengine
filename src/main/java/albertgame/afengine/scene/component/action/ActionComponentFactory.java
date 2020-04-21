@@ -1,7 +1,7 @@
 package albertgame.afengine.scene.component.action;
 
-import albertgame.afengine.scene.ActorComponent;
-import albertgame.afengine.scene.IComponentFactory;
+import albertgame.afengine.scene.component.ActorComponent;
+import albertgame.afengine.scene.component.IComponentFactory;
 import albertgame.afengine.scene.component.action.ActionComponent.ActAction;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.FactoryUtil;

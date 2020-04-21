@@ -5,6 +5,8 @@
  */
 package albertgame.afengine.util.property;
 
+import albertgame.afengine.util.TextUtil;
+
 /**
  *
  * @author albert-flex
@@ -14,5 +16,10 @@ public class StringProperty extends AbValueProperty<String>{
     public StringProperty(String value) {
         super(value);
     }
-    
+
+    @Override
+    public String get(){
+        String key=super.get();
+        return TextUtil.getRealValue(key);
+    }        
 }

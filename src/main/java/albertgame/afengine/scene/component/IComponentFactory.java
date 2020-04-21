@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package albertgame.afengine.scene;
+package albertgame.afengine.scene.component;
 
 import java.util.Map;
 import org.dom4j.Element;

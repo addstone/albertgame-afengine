@@ -14,8 +14,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -37,7 +35,6 @@ public class TextUtil{
         allTexts=new Properties();
         langconfigs=new HashMap<>();
     }
-
         
     public void addText(String id,String word){
         allTexts.put(id, word);
@@ -56,6 +53,12 @@ public class TextUtil{
     
     public Properties getAllTexts(){
         return allTexts;
+    }
+
+    public static String getRealValue(String name){
+        if(name.startsWith("@"))
+          return getRealValue(name,null);
+        else return name;
     }
 
     public static final String getRealValue(String value,Map<String,String> actorvalues){

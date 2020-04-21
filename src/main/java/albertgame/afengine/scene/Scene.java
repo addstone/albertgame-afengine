@@ -5,7 +5,8 @@
  */
 package albertgame.afengine.scene;
 
-import albertgame.afengine.scene.ActorComponent.IProcess;
+import albertgame.afengine.scene.component.ActorComponent;
+import albertgame.afengine.scene.component.ActorComponent.IProcess;
 import albertgame.afengine.util.math.Vector;
 import java.util.ArrayList;
 import java.util.Iterator;

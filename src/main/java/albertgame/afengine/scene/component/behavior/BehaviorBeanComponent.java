@@ -1,6 +1,6 @@
 package albertgame.afengine.scene.component.behavior;
 
-import albertgame.afengine.scene.ActorComponent;
+import albertgame.afengine.scene.component.ActorComponent;
 import albertgame.afengine.util.DebugUtil;
 import java.util.HashMap;
 import java.util.Iterator;

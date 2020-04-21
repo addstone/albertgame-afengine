@@ -5,8 +5,10 @@
  */
 package albertgame.afengine.scene;
 
+import albertgame.afengine.scene.component.IComponentFactory;
+import albertgame.afengine.scene.component.ActorComponent;
 import albertgame.afengine.app.AppBoot.IXMLPartBoot;
-import albertgame.afengine.scene.ActorComponent.IProcess;
+import albertgame.afengine.scene.component.ActorComponent.IProcess;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.FactoryUtil;
 import albertgame.afengine.util.XmlUtil;
@@ -136,7 +138,6 @@ public class XMLScenePartBoot implements IXMLPartBoot {
 
         Scene scene = null;
         String classpath = sceneEle.attributeValue("class");
-        String id = sceneEle.attributeValue("id");
         Loader loader = null;
         String loaderc = sceneEle.attributeValue("loader");
         if (loaderc != null) {

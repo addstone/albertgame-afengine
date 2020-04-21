@@ -4,7 +4,7 @@ import albertgame.afengine.app.App;
 import albertgame.afengine.app.WindowApp;
 import albertgame.afengine.graphics.IGraphicsTech;
 import albertgame.afengine.scene.Actor;
-import albertgame.afengine.scene.ActorComponent;
+import albertgame.afengine.scene.component.ActorComponent;
 import albertgame.afengine.scene.SceneCamera;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.math.Vector;

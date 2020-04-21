@@ -1,5 +1,12 @@
-package albertgame.afengine.scene;
+package albertgame.afengine.scene.component;
 
+import albertgame.afengine.scene.Actor;
+import albertgame.afengine.scene.component.action.ActionComponent;
+import albertgame.afengine.scene.component.action.ActionComponentFactory;
+import albertgame.afengine.scene.component.behavior.BehaviorBeanComponent;
+import albertgame.afengine.scene.component.behavior.BehaviorBeanComponentFactory;
+import albertgame.afengine.scene.component.render.RenderComponent;
+import albertgame.afengine.scene.component.render.RenderComponentFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,30 +19,44 @@ import java.util.Map;
 public class ActorComponent {
 
     public static final List<IProcess> componentMethodList = new ArrayList<>();
-    public static final Map<String,IComponentFactory> factory=new HashMap<>();
-    public static void addFactory(String name,IComponentFactory fac){
+
+    static {
+        addFactory(ActionComponent.COMPONENT_NAME, new ActionComponentFactory());
+        addFactory(BehaviorBeanComponent.COMPONENT_NAME, new BehaviorBeanComponentFactory());
+        addFactory(RenderComponent.COMPONENT_NAME, new RenderComponentFactory());
+    }
+    public static final Map<String, IComponentFactory> factory = new HashMap<>();
+
+    public static void addFactory(String name, IComponentFactory fac) {
         factory.put(name, fac);
     }
-    public static IComponentFactory getFactory(String name){
+
+    public static IComponentFactory getFactory(String name) {
         return factory.get(name);
     }
-    
+
     public static interface IProcess {
+
         public void process(List<ActorComponent> componentlist, long time);
+
         public String componentName();
     }
 
     public static class AdapterProcess implements IProcess {
+
         private final String name;
+
         public AdapterProcess(String name) {
             this.name = name;
         }
+
         @Override
         public void process(List<ActorComponent> componentlist, long time) {
             componentlist.forEach((component) -> {
                 component.update(time);
             });
         }
+
         @Override
         public String componentName() {
             return name;
@@ -93,5 +114,5 @@ public class ActorComponent {
 
     public void toSleep() {
     }
-    
+
 }

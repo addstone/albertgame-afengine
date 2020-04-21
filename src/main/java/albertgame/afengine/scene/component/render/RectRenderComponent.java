@@ -23,7 +23,7 @@ import albertgame.afengine.util.math.Vector;
 
 /**
  *
- * @author Administrator
+ * @author Albert Flex
  */
 public class RectRenderComponent extends RenderComponent{
     

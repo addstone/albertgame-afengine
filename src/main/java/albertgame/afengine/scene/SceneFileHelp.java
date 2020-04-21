@@ -1,5 +1,7 @@
 package albertgame.afengine.scene;
 
+import albertgame.afengine.scene.component.IComponentFactory;
+import albertgame.afengine.scene.component.ActorComponent;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.XmlUtil;
 import albertgame.afengine.util.math.Transform;
