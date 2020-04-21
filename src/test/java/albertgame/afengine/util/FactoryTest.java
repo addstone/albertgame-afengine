@@ -34,4 +34,58 @@ public class FactoryTest {
         Vector v=(Vector) util.create("test","hello2",null);
         Assert.assertEquals(v,new Vector(), "vector failed");
     }
+    
+    public static class Class1{
+        String name;
+        boolean pass;
+
+        public Class1(String name,boolean pass) {
+            this.name=name;
+            this.pass=pass;
+        }
+
+        public Class1() {
+            this("class from reflect!",false);
+        }
+        
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public boolean isPass() {
+            return pass;
+        }
+
+        public void setPass(boolean pass) {
+            this.pass = pass;
+        }
+
+        @Override
+        public String toString() {
+            return "Class1{" + "name=" + name + ", pass=" + pass + '}';
+        }
+        
+    }
+    
+    public static class CreateClass implements IFactory{
+        @Override
+        public Object create(Object... args) {
+            return new Class1("class1 from create",true);
+        }
+    }
+    
+    @Test
+    public void testCreate(){
+        FactoryUtil fac=FactoryUtil.get();
+        fac.putFactory("boot","boot1",new CreateClass());
+        Class1 clss1=(Class1)fac.create("albertgame.afengine.util.FactoryTest$Class1");
+        Class1 clss2=(Class1)fac.create("boot,boot1");
+        System.out.println(clss1);
+        System.out.println(clss2);
+    }
 }

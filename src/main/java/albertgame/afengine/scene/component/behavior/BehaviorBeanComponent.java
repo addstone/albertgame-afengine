@@ -1,0 +1,76 @@
+package albertgame.afengine.scene.component.behavior;
+
+import albertgame.afengine.scene.ActorComponent;
+import albertgame.afengine.util.DebugUtil;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+/**
+ * this component is a some set of actorbehavior.<br>
+ * you could load from xml file,or by hand<br>
+ * @see BehaviorBeanComponentFactory
+ * @author Albert Flex
+ */
+public class BehaviorBeanComponent extends ActorComponent{
+    
+    public static final String COMPONENT_NAME="BehaviorBean";
+    
+    protected final Map<String,ActorBehavior> behaviorMap;
+    
+    public BehaviorBeanComponent() {
+        super(BehaviorBeanComponent.COMPONENT_NAME);
+        behaviorMap=new HashMap<>();
+    }
+    
+    //wake all behaviors
+    @Override
+    public void toWake() {
+        Iterator<ActorBehavior> beiter = behaviorMap.values().iterator();
+        while(beiter.hasNext()){
+            ActorBehavior be = beiter.next();
+            be.awake();
+        }
+    }        
+        
+    /**
+     * update all behaviors
+     * @param time
+     */
+    @Override
+    public void update(long time){
+        Iterator<ActorBehavior> compiter = behaviorMap.values().iterator();
+        while(compiter.hasNext()){
+            ActorBehavior comp = compiter.next();
+            if(comp.isActive()){
+                comp.update(time);                
+            }
+        }        
+    }
+
+    public Map<String, ActorBehavior> getBehaviorMap() {
+        return behaviorMap;
+    }    
+
+    public ActorBehavior getBehavior(String name){
+        return behaviorMap.get(name);
+    }
+    public void addBehavior(ActorBehavior behavior){
+        if(behaviorMap.containsKey(behavior.getName())){
+            DebugUtil.log("already has behavior - "+behavior.getName()+",please do not add again.");
+            return;
+        }
+        behaviorMap.put(behavior.getName(), behavior);
+        behavior.setBehaviorbean(this);
+        DebugUtil.log("add behavior successfully. - "+behavior.getName());
+    }
+    public void removeBehavior(String name){
+        if(!behaviorMap.containsKey(name)){
+            DebugUtil.log("does not have behavior - "+name+",can not remove.");
+            return;            
+        }
+
+        ActorBehavior be=behaviorMap.remove(name);        
+        be.setBehaviorbean(null);
+    }
+}

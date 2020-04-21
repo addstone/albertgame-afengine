@@ -1,36 +1,11 @@
 package albertgame.afengine.app;
 
+import albertgame.afengine.app.AppBoot.IXMLAppTypeBoot;
 import albertgame.afengine.app.message.MessageManager;
 import java.util.HashMap;
 import java.util.Map;
+import org.dom4j.Element;
 
-/**
- * <app name="" logic-fac="">
- *  <window tech-fac="" rrootdraw-fac="">
- *      <size>full or 800,600</size>
- *      <beforedraws>
- *          <draw fac="" priority=""/>
- *          ...
- *      </beforedraws>
- *      <afterdraws>
- *          <draw fac="" priority=""/>
- *          ...
- *      </afterdraws>
- *  </window>
- *  <plugins>
- *      <plugin fac="">
- *          <setting name="" value=""/>//插件导入级别的设置属性
- *          ...
- *      </plugin>
- *      ...
- *  </plugins>
- *  <settings> //应用程序级别的设置属性
- *      <setting name="" value=""/>
- *      ...
- *  </settings>
- * </app>
- * @author Administrator
- */
 public class App {
 
     private static App instance = null;
@@ -53,8 +28,8 @@ public class App {
     }
 
     private final String appType;
-    private final String appName;
-    private final IAppLogic logic;
+    private String appName;
+    private IAppLogic logic;
     private boolean isRunning;
     private final Map<String, String> settings = new HashMap<>();
     
@@ -67,7 +42,20 @@ public class App {
         isRunning = true;
         msgManager = MessageManager.getInstance();
     }
+    public App(String appName){
+        this("service",appName,null);
+    }
 
+    public IAppLogic getLogic() {
+        return logic;
+    }
+
+    public void setLogic(IAppLogic logic) {
+        this.logic = logic;
+    }
+
+    
+    
     public String getAppType() {
         return appType;
     }

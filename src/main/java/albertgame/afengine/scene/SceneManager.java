@@ -12,13 +12,20 @@ import java.util.Stack;
 
 public class SceneManager {
 
+    private static SceneManager in;
+    public static SceneManager getInstance(){
+        if(in==null)
+            in=new SceneManager(new Scene("root"));
+        return in;
+    }
+    
     private final Map<String, Scene> preparedSceneMap;
     private final Stack<Scene> sceneStack;
-    private final Scene rootScene;
+    private Scene rootScene;
 
     private Scene runningScene;
 
-    public SceneManager(Scene root) {
+    private SceneManager(Scene root) {
         sceneStack = new Stack<>();
         preparedSceneMap = new HashMap<>();
         rootScene = root;
@@ -34,6 +41,7 @@ public class SceneManager {
             DebugUtil.error("scene already prepared!");
         }
     }
+    
     
     public void pushScene(Scene scene) {
         if (!sceneStack.contains(scene)) {
@@ -64,6 +72,10 @@ public class SceneManager {
             DebugUtil.error("you just add scene before!");
         }
     }
+    
+    public void changeRoot(Scene newRoot){
+        this.rootScene=newRoot;
+    }
 
     public void popScene() {
         if (!sceneStack.isEmpty()) {
@@ -85,5 +97,15 @@ public class SceneManager {
         }else{
             DebugUtil.error("runningScene is null!!");
         }
+    }
+
+    
+    
+    public Scene findPreparedScene(String name) {
+        return this.preparedSceneMap.get(name);
+    }
+
+    public Scene getRunningScene() {
+        return this.runningScene;
     }
 }

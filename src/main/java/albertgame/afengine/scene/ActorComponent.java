@@ -12,7 +12,14 @@ import java.util.Map;
 public class ActorComponent {
 
     public static final List<IProcess> componentMethodList = new ArrayList<>();
-
+    public static final Map<String,IComponentFactory> factory=new HashMap<>();
+    public static void addFactory(String name,IComponentFactory fac){
+        factory.put(name, fac);
+    }
+    public static IComponentFactory getFactory(String name){
+        return factory.get(name);
+    }
+    
     public static interface IProcess {
         public void process(List<ActorComponent> componentlist, long time);
         public String componentName();

@@ -5,16 +5,17 @@
  */
 package albertgame.afengine.app;
 
-import albertgame.afengine.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.graphics.GraphicsTech_Java2DImpl2;
 import albertgame.afengine.graphics.IGraphicsTech;
 import albertgame.afengine.graphics.ITexture;
 import albertgame.afengine.input.InputAdapter;
+import albertgame.afengine.app.AppBoot.IXMLAppTypeBoot;
+import albertgame.afengine.graphics.IDrawStrategy;
+import albertgame.afengine.util.DebugUtil;
+import albertgame.afengine.util.FactoryUtil;
+import java.util.Iterator;
+import org.dom4j.Element;
 
-/**
- *
- * @author Albert Flex
- */
 public class WindowApp extends App {
 
     public static final String APPTYPE = "Window";
@@ -158,5 +159,115 @@ public class WindowApp extends App {
 
     public IGraphicsTech getGraphicsTech() {
         return graphicsTech;
+    }
+
+    public static class WindowAppBoot implements IXMLAppTypeBoot {
+
+        /*
+            <window size="full" or size="800,600" tech="" title="" icon="">                
+                <before>
+                    <draw pri="" class="" />
+                </before>
+                <root class=""/>
+                <after>
+                    <draw pri="" class=""/>
+                </after>
+            </window>
+         */
+        @Override
+        public App bootApp(Element element) {
+            WindowApp wapp = null;
+            boolean full = false;
+            int width = 800;
+            int height = 600;
+            String sizee = element.attributeValue("size");
+            if (sizee != null) {
+                if (sizee.equals("full")) {
+                    full = true;
+                } else {
+                    String[] size = sizee.split(",");
+                    if (size.length == 2) {
+                        width = Integer.parseInt(size[0]);
+                        height = Integer.parseInt(size[1]);
+                    }
+                }
+            }
+            String title = element.attributeValue("title");
+            IGraphicsTech tech = (IGraphicsTech) FactoryUtil.get().create(element.attributeValue("tech"));
+            if (tech == null){
+                System.out.println("window tech class not found!");
+                return null;
+            }
+            String iconpath = element.attributeValue("icon");
+            ITexture icont = tech.createTexture(iconpath);
+            if (full) {
+                wapp = new WindowApp(title,null,title, icont, tech);
+            } else {
+                wapp = new WindowApp(title,null,width, height,title,icont, tech);
+            }
+
+            /*
+                <before>
+                    <draw pri="" class="" />
+                </before>
+                <root class=""/>
+                <after>
+                    <draw pri="" class=""/>
+                </after>                
+             */
+            Element be = element.element("before");
+            if (be != null) {
+                Iterator<Element> beiter = be.elementIterator();
+                long pril = 1;
+                while (beiter.hasNext()) {
+                    Element before = beiter.next();
+                    String pri = before.attributeValue("pri");
+                    if (pri == null) {
+                        ++pril;
+                    } else {
+                        pril = Long.parseLong(pri);
+                    }
+                    IDrawStrategy strategy = (IDrawStrategy) FactoryUtil.get().create(before.attributeValue("class"));
+                    if (strategy == null) {
+                        System.out.println("strategy class not found,will skeep for.");
+                        continue;
+                    }
+                    DebugUtil.log("add before draw..");
+                    tech.addBeforeDrawStrategy(pril, strategy);
+                }
+            }
+            Element root = element.element("root");
+            if (root != null) {
+                IDrawStrategy rootstrategy = (IDrawStrategy) FactoryUtil.get().create(root.attributeValue("class"));
+                if (rootstrategy == null) {
+                    System.out.println("root strategy class not found,will skeep for." + root.attributeValue("class"));
+                } else {
+                    tech.setRootDrawStrategy(rootstrategy);
+                }
+            }
+            Element af = element.element("after");
+            if (af != null) {
+                Iterator<Element> afiter = af.elementIterator();
+                long pril2 = 1;
+                while (afiter.hasNext()) {
+                    Element after = afiter.next();
+                    String pri = after.attributeValue("pri");
+                    if (pri == null) {
+                        ++pril2;
+                    } else {
+                        pril2 = Long.parseLong(pri);
+                    }
+                    IDrawStrategy strategy = (IDrawStrategy) FactoryUtil.get().create(after.attributeValue("class"));
+                    if (strategy == null) {
+                        System.out.println("strategy class not found,will skeep for." + after.attributeValue("class"));
+                        continue;
+                    }
+                    DebugUtil.log("add after draw..");
+                    tech.addAfterDrawStrategy(pril2, strategy);
+                }
+            }
+
+            return wapp;
+        }
     }
 }

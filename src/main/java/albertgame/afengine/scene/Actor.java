@@ -25,7 +25,7 @@ public class Actor {
     public final long id;
     
     private String name;
-    private String modPath;
+    private String modPath;    
     
     public final Map<String,String> valueMap = new HashMap<>();
 

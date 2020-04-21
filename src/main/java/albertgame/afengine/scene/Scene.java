@@ -88,7 +88,7 @@ public class Scene{
 
     private String name;
     public final List<Actor> rootList = new ArrayList<>();
-    private final Loader loader;
+    private Loader loader;
     private SceneCamera camera;
     
     //实体里最好存放管理游戏生命周期的实体，不要和放到场景里，否则会出现组件更新两次
@@ -145,6 +145,10 @@ public class Scene{
         }
 
         return null;
+    }
+
+    public void setLoader(Loader loader) {
+        this.loader = loader;
     }
 
     public final Actor findActorByID(long id) {
