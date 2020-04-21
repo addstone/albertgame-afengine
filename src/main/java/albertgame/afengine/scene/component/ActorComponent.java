@@ -25,6 +25,7 @@ public class ActorComponent {
         addFactory(BehaviorBeanComponent.COMPONENT_NAME, new BehaviorBeanComponentFactory());
         addFactory(RenderComponent.COMPONENT_NAME, new RenderComponentFactory());
     }
+
     public static final Map<String, IComponentFactory> factory = new HashMap<>();
 
     public static void addFactory(String name, IComponentFactory fac) {

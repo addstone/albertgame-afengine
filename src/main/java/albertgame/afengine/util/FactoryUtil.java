@@ -7,6 +7,23 @@ public class FactoryUtil {
 
     static FactoryUtil util;
 
+    private static Map<String, String> oldObj = new HashMap<>();
+//afengine.part.message.MessageHandlerRoute
+    static {
+        oldObj.put("afengine.component.render.GraphicsTech_Java2D",
+                "albertgame.afengine.graphics.GraphicsTech_Java2DImpl2");
+        oldObj.put("afengine.core.util.Debug$DebugDrawStrategy",
+                "albertgame.afengine.util.DebugUtil$DebugDrawStrategy");
+        oldObj.put("afengine.core.WindowApp$WindowAppBoot",
+                "albertgame.afengine.app.WindowApp$WindowAppBoot");
+        oldObj.put("afengine.part.message.XMLMessagePartBoot",
+                "albertgame.afengine.app.message.XMLMessagePartBoot");        
+        oldObj.put("afengine.part.message.MessageHandlerRoute",
+                "albertgame.afengine.app.message.MessageHandlerRoute");        
+        oldObj.put("afengine.component.render.SceneRenderComponentDraw",
+                "albertgame.afengine.scene.component.SceneRenderComponentDraw");        
+    }
+
     public static FactoryUtil get() {
         if (util == null) {
             util = new FactoryUtil();
@@ -65,20 +82,27 @@ public class FactoryUtil {
             String type = s[0];
             String typename = s[1];
             return create(type, typename, args);
-        }
-        try {
-            Class<?> cls = Class.forName(name);
-            Object obj = cls.newInstance();
-            return obj;
-        } catch (IllegalAccessException | InstantiationException ex) {
-            DebugUtil.error("class load error!");
-        } catch (ClassNotFoundException ex) {
-            DebugUtil.error("class load error:class not found!");
+        } else {
+            String dest;
+            if (oldObj.containsKey(name)) {
+                dest = oldObj.get(name);
+            } else {
+                dest = name;
+            }
+            try {
+                Class<?> cls = Class.forName(dest);
+                Object obj = cls.newInstance();
+                return obj;
+            } catch (IllegalAccessException | InstantiationException ex) {
+                DebugUtil.error("class load error!");
+            } catch (ClassNotFoundException ex) {
+                DebugUtil.error("class load error:class not found!");
+            }
         }
         return null;
     }
-    
-    public Object create(String name){
+
+    public Object create(String name) {
         return create(name, (Object[]) null);
     }
 }
