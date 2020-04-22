@@ -7,7 +7,7 @@ import java.util.Map;
 public class App {
 
     private static App instance = null;
-    
+
     public static void launch(App app) {
         if (instance == null) {
             instance = app;
@@ -30,7 +30,7 @@ public class App {
     private IAppLogic logic;
     private boolean isRunning;
     private final Map<String, String> settings = new HashMap<>();
-    
+
     private final MessageManager msgManager;//消息管理器
 
     public App(String appType, String appName, IAppLogic logic) {
@@ -40,8 +40,9 @@ public class App {
         isRunning = true;
         msgManager = MessageManager.getInstance();
     }
-    public App(String appName){
-        this("service",appName,null);
+
+    public App(String appName) {
+        this("service", appName, null);
     }
 
     public IAppLogic getLogic() {
@@ -52,8 +53,6 @@ public class App {
         this.logic = logic;
     }
 
-    
-    
     public String getAppType() {
         return appType;
     }
@@ -100,7 +99,7 @@ public class App {
             return;
         }
 
-        System.out.println(this.appType+":"+this.appName+">Run And Exit Successfully...");
+        System.out.println(this.appType + ":" + this.appName + ">Run And Exit Successfully...");
         System.exit(0);
     }
 
@@ -119,10 +118,10 @@ public class App {
                     return false;
                 }
             }
-            
+
             //update message manager
             this.msgManager.updateSendMessage(deltatime);
-            
+
             //update app methods
             if (updateApp(deltatime) == false) {
                 System.out.println("The App Update is Failed.");

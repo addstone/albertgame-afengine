@@ -67,7 +67,7 @@ public class RenderComponentFactory implements IComponentFactory {
         String userorderclass = element.attributeValue("userorderclass");
         if (userorderclass != null) {
             userorderclass = TextUtil.getRealValue(userorderclass, datas);
-            Comparator<Actor> comparator = (Comparator) FactoryUtil.get().create(userorderclass);
+            Comparator<Actor> comparator = (Comparator) FactoryUtil.create(userorderclass);
             if (comparator != null) {
                 RenderComponent.setComparator(comparator);
             }
@@ -85,7 +85,7 @@ public class RenderComponentFactory implements IComponentFactory {
         if (rc == null) {
             String renderclass = element.attributeValue("render-creator");
             if (renderclass != null) {
-                rc = (IRenderCreator) FactoryUtil.get().create(renderclass);
+                rc = (IRenderCreator) FactoryUtil.create(renderclass);
                 extraCreatorMap.put(type, rc);
             } else {
                 DebugUtil.log("have no render-creator for this type");

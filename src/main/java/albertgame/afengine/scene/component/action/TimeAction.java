@@ -84,7 +84,7 @@ public class TimeAction extends ActAction{
                 DebugUtil.log("action class is not found from action attributes.");                                
                 return null;
             }            
-            ITimeAction timeAction = (ITimeAction)FactoryUtil.get().create(TextUtil.getRealValue(actionclass, actordatas));
+            ITimeAction timeAction = (ITimeAction)FactoryUtil.create(TextUtil.getRealValue(actionclass, actordatas));
             if(timeAction==null){
                 DebugUtil.log("action instance failed..");                                                
                 return null;

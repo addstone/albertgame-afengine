@@ -6,8 +6,8 @@
 package albertgame.afengine.util;
 
 import albertgame.afengine.util.FactoryUtil.IFactory;
-import org.testng.annotations.Test;
 import albertgame.afengine.util.math.Vector;
+import org.testng.annotations.Test;
 import org.testng.Assert;
 /**
  *
@@ -17,7 +17,6 @@ public class FactoryTest {
     
     @Test
     public void testFactory(){
-        FactoryUtil util=FactoryUtil.get();
         IFactory fac=(args)->{
             return "Hello";
         };
@@ -25,13 +24,13 @@ public class FactoryTest {
             return new Vector();
         };
         
-        util.putFactory("test","hello", fac);
-        util.putFactory("test","hello2", fac2);
+        FactoryUtil.putFactory("test","hello", fac);
+        FactoryUtil.putFactory("test","hello2", fac2);
         
-        String text=(String) util.create("test", "hello",null);
+        String text=(String) FactoryUtil.create("test", "hello",null);
         Assert.assertEquals(text, "Hello", "text failed");
         
-        Vector v=(Vector) util.create("test","hello2",null);
+        Vector v=(Vector) FactoryUtil.create("test","hello2",null);
         Assert.assertEquals(v,new Vector(), "vector failed");
     }
     
@@ -81,10 +80,9 @@ public class FactoryTest {
     
     @Test
     public void testCreate(){
-        FactoryUtil fac=FactoryUtil.get();
-        fac.putFactory("boot","boot1",new CreateClass());
-        Class1 clss1=(Class1)fac.create("albertgame.afengine.util.FactoryTest$Class1");
-        Class1 clss2=(Class1)fac.create("boot,boot1");
+        FactoryUtil.putFactory("boot","boot1",new CreateClass());
+        Class1 clss1=(Class1)FactoryUtil.create("albertgame.afengine.util.FactoryTest$Class1");
+        Class1 clss2=(Class1)FactoryUtil.create("boot,boot1");
         System.out.println(clss1);
         System.out.println(clss2);
     }

@@ -5,7 +5,7 @@
  */
 package albertgame.afengine.app;
 
-import albertgame.afengine.graphics.GraphicsTech_Java2DImpl2;
+import albertgame.afengine.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.graphics.IColor;
 import albertgame.afengine.graphics.IDrawStrategy;
 import albertgame.afengine.graphics.IGraphicsTech;
@@ -23,7 +23,7 @@ public class GameCore implements IDrawStrategy {
     private final ITexture img1;
 
     public GameCore() {
-        tech = new GraphicsTech_Java2DImpl2();
+        tech = new GraphicsTech_Java2DImpl();
         img1 = tech.createTexture(getClass().getClassLoader().getResource("tou.png"), 0, 0, 100, 100);
         img = new ITexture[1000];
         for (int i = 0; i != 1000; ++i) {

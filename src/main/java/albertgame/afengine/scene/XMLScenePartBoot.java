@@ -61,7 +61,7 @@ public class XMLScenePartBoot implements IXMLPartBoot {
             Element ele = eleiter.next();
             String name = ele.attributeValue("name");
             String classname = ele.attributeValue("class");
-            IComponentFactory fac = (IComponentFactory) FactoryUtil.get().create(classname);
+            IComponentFactory fac = (IComponentFactory) FactoryUtil.create(classname);
             ActorComponent.addFactory(name, fac);
             DebugUtil.log("Add ComponentFactory :" + name);
             String loader = ele.attributeValue("loader");
@@ -121,7 +121,7 @@ public class XMLScenePartBoot implements IXMLPartBoot {
             while(eiter.hasNext()){
                 Element e=eleiter.next();
                 String clss=e.attributeValue("class");
-                IProcess process=(IProcess) FactoryUtil.get().create(clss);
+                IProcess process=(IProcess) FactoryUtil.create(clss);
                 if(process!=null){
                     ActorComponent.componentMethodList.add(process);
                 }
@@ -130,7 +130,7 @@ public class XMLScenePartBoot implements IXMLPartBoot {
     }
 
     private IComponentFactoryLoader loadfactory(String factoryclass) {
-        IComponentFactoryLoader loader = (IComponentFactoryLoader) FactoryUtil.get().create(factoryclass);
+        IComponentFactoryLoader loader = (IComponentFactoryLoader) FactoryUtil.create(factoryclass);
         return loader;
     }
 
@@ -141,10 +141,10 @@ public class XMLScenePartBoot implements IXMLPartBoot {
         Loader loader = null;
         String loaderc = sceneEle.attributeValue("loader");
         if (loaderc != null) {
-            loader = (Loader) FactoryUtil.get().create(loaderc);
+            loader = (Loader) FactoryUtil.create(loaderc);
         }
         if (classpath != null) {
-            scene=(Scene)FactoryUtil.get().create(classpath);
+            scene=(Scene)FactoryUtil.create(classpath);
                 String name = sceneEle.attributeValue("name");
                 scene.setName(name);
         } else {

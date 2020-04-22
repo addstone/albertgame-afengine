@@ -81,7 +81,7 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
     */
     public static List<InputServlet> createServlet(Element element){
         List<InputServlet> servletList=new LinkedList<>();
-        IHandler handler=(IHandler)(FactoryUtil.get().create(element.attributeValue("handler")));
+        IHandler handler=(IHandler)(FactoryUtil.create(element.attributeValue("handler")));
         String name=element.getName();
         if(handler!=null){
             String typess=element.attributeValue("types");

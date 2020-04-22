@@ -193,7 +193,7 @@ public class UIToggle extends UIActor{
                 DebugUtil.log("action for button not defined");
                 return null;
             }
-            IUIAction act=(IUIAction)FactoryUtil.get().create(action);
+            IUIAction act=(IUIAction)FactoryUtil.create(action);
             return act;
         }                        
     }

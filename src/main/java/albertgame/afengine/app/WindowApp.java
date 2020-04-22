@@ -5,11 +5,11 @@
  */
 package albertgame.afengine.app;
 
-import albertgame.afengine.graphics.GraphicsTech_Java2DImpl2;
 import albertgame.afengine.graphics.IGraphicsTech;
 import albertgame.afengine.graphics.ITexture;
 import albertgame.afengine.input.InputAdapter;
 import albertgame.afengine.app.AppBoot.IXMLAppTypeBoot;
+import albertgame.afengine.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.graphics.IDrawStrategy;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.FactoryUtil;
@@ -29,7 +29,7 @@ public class WindowApp extends App {
 
     public WindowApp(IAppLogic logic, String title, String iconpath) {
         super(WindowApp.APPTYPE, title, logic);
-        IGraphicsTech tech = new GraphicsTech_Java2DImpl2();
+        IGraphicsTech tech = new GraphicsTech_Java2DImpl();
         graphicsTech = tech;
         icon = graphicsTech.createTexture(iconpath);
         this.title = title;
@@ -40,7 +40,7 @@ public class WindowApp extends App {
 
     public WindowApp(IAppLogic logic, String title, String iconpath, int width, int height) {
         super(WindowApp.APPTYPE, title, logic);
-        IGraphicsTech tech = new GraphicsTech_Java2DImpl2();
+        IGraphicsTech tech = new GraphicsTech_Java2DImpl();
         graphicsTech = tech;
         icon = graphicsTech.createTexture(iconpath);
         this.title = title;
@@ -193,7 +193,7 @@ public class WindowApp extends App {
                 }
             }
             String title = element.attributeValue("title");
-            IGraphicsTech tech = (IGraphicsTech) FactoryUtil.get().create(element.attributeValue("tech"));
+            IGraphicsTech tech = (IGraphicsTech) FactoryUtil.create(element.attributeValue("tech"));
             if (tech == null){
                 System.out.println("window tech class not found!");
                 return null;
@@ -227,7 +227,7 @@ public class WindowApp extends App {
                     } else {
                         pril = Long.parseLong(pri);
                     }
-                    IDrawStrategy strategy = (IDrawStrategy) FactoryUtil.get().create(before.attributeValue("class"));
+                    IDrawStrategy strategy = (IDrawStrategy) FactoryUtil.create(before.attributeValue("class"));
                     if (strategy == null) {
                         System.out.println("strategy class not found,will skeep for.");
                         continue;
@@ -238,7 +238,7 @@ public class WindowApp extends App {
             }
             Element root = element.element("root");
             if (root != null) {
-                IDrawStrategy rootstrategy = (IDrawStrategy) FactoryUtil.get().create(root.attributeValue("class"));
+                IDrawStrategy rootstrategy = (IDrawStrategy) FactoryUtil.create(root.attributeValue("class"));
                 if (rootstrategy == null) {
                     System.out.println("root strategy class not found,will skeep for." + root.attributeValue("class"));
                 } else {
@@ -257,7 +257,7 @@ public class WindowApp extends App {
                     } else {
                         pril2 = Long.parseLong(pri);
                     }
-                    IDrawStrategy strategy = (IDrawStrategy) FactoryUtil.get().create(after.attributeValue("class"));
+                    IDrawStrategy strategy = (IDrawStrategy) FactoryUtil.create(after.attributeValue("class"));
                     if (strategy == null) {
                         System.out.println("strategy class not found,will skeep for." + after.attributeValue("class"));
                         continue;

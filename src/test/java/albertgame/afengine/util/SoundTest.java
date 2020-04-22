@@ -13,18 +13,18 @@ import java.net.URL;
  */
 public class SoundTest{
     public static void main(String[] args) {
-        new SoundTest().test1();
+        test1();
     }
     
-    public void test1(){
+    public static void test1(){
         SoundUtil util=SoundUtil.get();
-        URL url1=getClass().getClassLoader().getResource("midi1.mid");
-        URL url2=getClass().getClassLoader().getResource("sound1.wav");
+        URL url1=SoundTest.class.getClassLoader().getResource("midi1.mid");
+        URL url2=SoundTest.class.getClassLoader().getResource("sound1.wav");
         System.out.println(url1.toString()); 
         System.out.println(url2.toString()); 
         long midiId=util.addMidi(url1);
         long soundId=util.addSound(url2);
-        util.playMidi(midiId, true);
-        util.playSound(soundId,5);
+        util.playMidi(midiId,false);
+        util.playSound(soundId,30);
     }
 }

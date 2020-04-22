@@ -51,7 +51,7 @@ public class BehaviorBeanComponentFactory implements IComponentFactory{
         String name = be.getName();        
 
         try {
-            ActorBehavior behavior = (ActorBehavior)FactoryUtil.get().create(clsname);
+            ActorBehavior behavior = (ActorBehavior)FactoryUtil.create(clsname);
             if(behavior==null){
                 DebugUtil.log("class for behavior not correct!");
                 return null;

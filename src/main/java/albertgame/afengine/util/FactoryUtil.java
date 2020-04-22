@@ -5,13 +5,12 @@ import java.util.Map;
 
 public class FactoryUtil {
 
-    static FactoryUtil util;
-
-    private static Map<String, String> oldObj = new HashMap<>();
+    private static Map<String, String> oldObj;
 //afengine.part.message.MessageHandlerRoute
     static {
+        oldObj = new HashMap<>();
         oldObj.put("afengine.component.render.GraphicsTech_Java2D",
-                "albertgame.afengine.graphics.GraphicsTech_Java2DImpl2");
+                "albertgame.afengine.graphics.GraphicsTech_Java2DImpl");
         oldObj.put("afengine.core.util.Debug$DebugDrawStrategy",
                 "albertgame.afengine.util.DebugUtil$DebugDrawStrategy");
         oldObj.put("afengine.core.WindowApp$WindowAppBoot",
@@ -24,43 +23,32 @@ public class FactoryUtil {
                 "albertgame.afengine.scene.component.SceneRenderComponentDraw");        
     }
 
-    public static FactoryUtil get() {
-        if (util == null) {
-            util = new FactoryUtil();
-        }
-        return util;
-    }
-
     public static interface IFactory {
 
         Object create(Object... args);
     }
 
-    private final Map<String, IFactory> factoryMap;
-    private final String pac = ".";
+    private static final Map<String, IFactory> factoryMap= new HashMap<>();;
+    private static final String pac = ".";
 
-    private FactoryUtil() {
-        this.factoryMap = new HashMap<>();
-    }
-
-    public Map<String, IFactory> getFactoryMap() {
+    public static Map<String, IFactory> getFactoryMap() {
         return factoryMap;
     }
 
-    public void putFactory(String type, String name, IFactory factory) {
+    public static void putFactory(String type, String name, IFactory factory) {
         factoryMap.put(type + pac + name, factory);
     }
 
-    public IFactory getFactory(String type, String name) {
+    public static IFactory getFactory(String type, String name) {
         String realname = type + pac + name;
         return factoryMap.get(realname);
     }
 
-    public String getRealName(String type, String name) {
+    public static String getRealName(String type, String name) {
         return type + pac + name;
     }
 
-    public Object create(String type, String name, Object... args) {
+    public static Object create(String type, String name, Object... args) {
         String realname = type + pac + name;
         IFactory factory = factoryMap.get(realname);
         if (factory == null) {
@@ -73,7 +61,7 @@ public class FactoryUtil {
 
     //albertgame.afengine.app.App
     //app,App1
-    public Object create(String name, Object... args) {
+    public static Object create(String name, Object... args) {
         if (name.contains(",")) {
             String[] s = name.split(",");
             if (s.length != 2) {
@@ -102,7 +90,7 @@ public class FactoryUtil {
         return null;
     }
 
-    public Object create(String name) {
+    public static Object create(String name) {
         return create(name, (Object[]) null);
     }
 }

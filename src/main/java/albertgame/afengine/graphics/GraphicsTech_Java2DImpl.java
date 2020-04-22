@@ -4,6 +4,7 @@ import albertgame.afengine.graphics.IColor.GeneraColor;
 import albertgame.afengine.graphics.IFont.FontStyle;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.DebugUtil.LogType;
+import albertgame.afengine.util.FactoryUtil;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
@@ -62,7 +63,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
     Runnable runnable = () -> {
         // task to run goes here
         renderFPS = count;
-        System.out.println("fps:"+renderFPS);
+        System.out.println("fps:" + renderFPS);
         count = 0;
     }; //创建 run 方法
     ScheduledExecutorService service = Executors
@@ -361,7 +362,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
     @Override
     public void setMouseIcon(ITexture texture) {
         Toolkit tk = Toolkit.getDefaultToolkit();
-        Cursor cu = tk.createCustomCursor(((TextureImpl)texture).getImage(),new Point(10,10),"mouse");
+        Cursor cu = tk.createCustomCursor(((TextureImpl) texture).getImage(), new Point(10, 10), "mouse");
         window.setCursor(cu);
         nowCursor = texture;
     }
@@ -379,7 +380,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
     @Override
     public void setFont(IFont font) {
         this.nowFont = font;
-        this.graphics.setFont(((FontImpl)font).font);
+        this.graphics.setFont(((FontImpl) font).font);
     }
 
     @Override
@@ -390,7 +391,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
     @Override
     public void setColor(IColor color) {
         this.nowColor = color;
-        this.graphics.setColor(((ColorImpl)color).color);
+        this.graphics.setColor(((ColorImpl) color).color);
     }
 
     @Override
@@ -898,12 +899,12 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
         @Override
         public ITexture scaleInstance(double sx, double sy) {
             TextureImpl texture = new TextureImpl();
-            int w=(int) (getWidth()*sx);
-            int h=(int) (getHeight()*sy);
-            BufferedImage bi = createCompatibleImage(w,h);
+            int w = (int) (getWidth() * sx);
+            int h = (int) (getHeight() * sy);
+            BufferedImage bi = createCompatibleImage(w, h);
             Graphics2D grph = (Graphics2D) bi.getGraphics();
             grph.drawImage(img, 0, 0, w, h,
-                    0,0,img.getWidth(null),img.getHeight(null),null);
+                    0, 0, img.getWidth(null), img.getHeight(null), null);
             grph.dispose();
             texture.img = bi;
             return texture;
@@ -921,7 +922,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
         }
 
         private BufferedImage createCompatibleImage(int w, int h) {
-            return new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
+            return new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         }
     }
 }

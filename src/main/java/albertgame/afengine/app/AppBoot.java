@@ -8,6 +8,7 @@ package albertgame.afengine.app;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.FactoryUtil;
 import albertgame.afengine.util.XmlUtil;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,7 +21,7 @@ import org.dom4j.Element;
 public class AppBoot {
     
     public static void main(String[] args) {
-        bootEngine("afengine.xml");
+        boot("afengine.xml");
     }
 
     /**
@@ -135,7 +136,7 @@ public class AppBoot {
             appboot = new WindowApp.WindowAppBoot();
         } else {
             System.out.println("typeboot:" + typeboot);
-            appboot = (IXMLAppTypeBoot) FactoryUtil.get().create(typeboot);
+            appboot = (IXMLAppTypeBoot) FactoryUtil.create(typeboot);
         }
         String type = afe.attributeValue("type");
         if (type == null) {
@@ -167,7 +168,7 @@ public class AppBoot {
                 Element ele = eleiter.next();
                 String path = ele.attributeValue("path");
                 String bootname = ele.attributeValue("name");
-                IXMLPartBoot boot = (IXMLPartBoot) FactoryUtil.get().create(path);
+                IXMLPartBoot boot = (IXMLPartBoot) FactoryUtil.create(path);
                 bootMap.put(bootname, boot);
             }
         }
@@ -205,7 +206,7 @@ public class AppBoot {
         String logicpath = afe.attributeValue("logicpath");
         IAppLogic logic = null;
         if (logicpath != null) {
-            logic = (IAppLogic) FactoryUtil.get().create(logicpath);
+            logic = (IAppLogic) FactoryUtil.create(logicpath);
         }
         if (logic != null) {
             app.setLogic(logic);
@@ -214,8 +215,15 @@ public class AppBoot {
         DebugUtil.log("launch app");
         App.launch(app);
     }
+    
+    public static void boot(URL xmlurl){
+        Element root = XmlUtil.readXMLFileDocument(xmlurl,false).getRootElement();
+        if (root != null) {
+            bootEngineFromXML(root);
+        }        
+    }
 
-    public static void bootEngine(String xmlpath) {
+    public static void boot(String xmlpath) {
         Element root = XmlUtil.readXMLFileDocument(xmlpath, false).getRootElement();
         if (root != null) {
             bootEngineFromXML(root);

@@ -111,7 +111,7 @@ public class ActionComponentFactory implements IComponentFactory{
                 return null;
             }
             else{
-                IActActionFactory fac =(IActActionFactory)FactoryUtil.get().create(actfa);
+                IActActionFactory fac =(IActActionFactory)FactoryUtil.create(actfa);
                 if(fac==null){
                     DebugUtil.log("actaction,actfactory for "+type+",actfa"+" instance failed.");                    
                     return null;
