@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 //actorbehavior is used to controll the actor
 /**
  * Use ActorBehavior for one method your logic code put.<br>

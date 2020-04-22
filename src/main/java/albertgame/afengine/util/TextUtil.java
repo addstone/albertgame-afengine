@@ -47,10 +47,7 @@ public class TextUtil{
     public String getLang() {
         return lang;
     }
-    public void setLang(String lang){
-        this.lang=lang;
-    }
-    
+
     public Properties getAllTexts(){
         return allTexts;
     }
@@ -78,8 +75,13 @@ public class TextUtil{
         }else return value;
     }    
 
-    public void setLangConfig(String lang,URL url){
+    public void addLangConfig(String lang,URL url){
         langconfigs.put(lang,url);
+    }
+    public void setLang(String lang){
+        if(this.lang==lang)return;
+        loadLang(lang);
+        this.lang=lang;
     }
     
     /**
@@ -91,7 +93,7 @@ public class TextUtil{
      * ...
      * @param lang 
      */
-    public void loadLang(String lang){
+    private void loadLang(String lang){
        URL langconfig=langconfigs.get(lang);
        if(langconfig!=null){
            allTexts.clear();

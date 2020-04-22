@@ -49,7 +49,6 @@ public class AppBoot {
      * @author Albert Flex
      */
     interface IXMLAppTypeBoot {
-
         public App bootApp(Element element);
     }
 

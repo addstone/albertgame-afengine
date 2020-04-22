@@ -57,14 +57,16 @@ public class PropertyTest {
     
     @Test
     public void testStringValue(){
-        StringProperty value=new StringProperty("albert");
+        TextUtil.get().addText("albert","阿尔伯特");
+        TextUtil.get().addText("flex","弗莱克斯");
+        StringProperty value=new StringProperty("@albert");
         log.log(Level.INFO, "string value before change:{0}", value.get());
 
         value.getValueListeners().add((String oldValue, String newValue) -> {
             log.log(Level.INFO, "change! from {0} to {1}", new Object[]{oldValue, newValue});
         });
         
-        value.set("flex");
+        value.set("@flex");
         log.log(Level.INFO, "string value after change:{0}", value.get());                
     }
     

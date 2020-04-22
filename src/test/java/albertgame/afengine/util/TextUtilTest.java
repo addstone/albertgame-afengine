@@ -23,9 +23,14 @@ public class TextUtilTest {
     public void testLoad() {
         TextUtil util = TextUtil.get();
         URL zh = getClass().getClassLoader().getResource("lang/zh");
-        util.setLangConfig("zh", zh);
-        util.loadLang("zh");
+        URL jp = getClass().getClassLoader().getResource("lang/jp");
+        
+        util.addLangConfig("zh", zh);
+        util.addLangConfig("jp", jp);
+        util.setLang("zh");
         print(util.getAllTexts());
+        util.setLang("jp");
+        print(util.getAllTexts());        
     }
 
     private void print(Properties p) {

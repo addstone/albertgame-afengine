@@ -1,10 +1,8 @@
 package albertgame.afengine.app;
 
-import albertgame.afengine.app.AppBoot.IXMLAppTypeBoot;
 import albertgame.afengine.app.message.MessageManager;
 import java.util.HashMap;
 import java.util.Map;
-import org.dom4j.Element;
 
 public class App {
 

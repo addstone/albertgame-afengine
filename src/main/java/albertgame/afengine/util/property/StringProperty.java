@@ -19,7 +19,7 @@ public class StringProperty extends AbValueProperty<String>{
 
     @Override
     public String get(){
-        String key=super.get();
+        String key=super.get();        
         return TextUtil.getRealValue(key);
     }        
 }
