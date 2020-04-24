@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modlibs>
+    <behavior-mod>
+        <BehaviorBean>            
+            <Behavior1 class="#behavior-class"/>
+        </BehaviorBean>
+    </behavior-mod>
+    <cutimagemod>
+        <Render type="Texture">
+            <texture>#imagepath</texture>
+            <cutsize x="#cutx" y="#cuty" width="#cutwidth" height="#cutheight"/>
+        </Render>        
+    </cutimagemod>
+    <imagemod>
+        <Render type="Texture" order="#render-order">
+            <texture>#imagepath</texture>
+        </Render>
+    </imagemod>
+    <mapmod>
+        <Render type="TileMap" render-creator="testx.TileMapRenderComponent$TileMapRenderCreator">
+            <mapfile path="#mapfile"/>
+        </Render>
+    </mapmod>
+    <mod4>
+        <Render type="Texture">
+            <texture>#texturepath</texture>
+        </Render>
+    </mod4>
+    <mod5>
+        <Render type="Text">
+            <text>#text</text>
+            <size>30</size>
+        </Render>
+    </mod5>
+    <mod6>
+        <Render type="Rect">
+            <shape width="#rectwidth" height="#rectheight" arcwidth="#rectarcw" archeight="#rectarch" fill="#rectfill"/>
+            <color value="#rectcolor"/>
+        </Render>
+    </mod6>    
+</modlibs>

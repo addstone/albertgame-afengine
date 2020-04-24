@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app>
+    <afengine  debug="true" logicpath="testx.Test1Logic" type="window"
+    typeboot="afengine.core.WindowApp$WindowAppBoot"/>
+    <window size="1280,760" title="TestX-Test1" 
+            tech="albertgame.afengine.graphics.GraphicsTech_Java2DImpl"
+            icon="test/testx/1.png">
+        <root class="albertgame.afengine.scene.component.render.SceneRenderComponentDraw"/>
+        <after>
+           <draw pri="1" class="albertgame.afengine.util.DebugUtil$DebugDrawStrategy"/>            
+        </after>
+    </window>
+    <partsboot>
+        <part name="MessagePart" path="albertgame.afengine.app.message.XMLMessagePartBoot"/>
+        <part name="ScenePart" path="albertgame.afengine.scene.XMLScenePartBoot"/>
+        <part name="UIInputPart" path="albertgame.afengine.input.XMLInputPartBoot"/>
+    </partsboot>
+    <partsconfig>
+        <MessagePart>
+            <Route path="albertgame.afengine.app.message.MessageHandlerRoute"/>            
+            <Route path="albertgame.afengine.input.InputRoute"/>
+        </MessagePart>
+        <ScenePart main="Main">
+            <ComponentFactoryList/>
+            <SceneList>
+                <Scene name="Main" path="test/testx/test1-scene.xml"/>
+            </SceneList>
+        </ScenePart>
+        <UIInputPart>
+            <InputServlets>
+                <before>
+                   <esc-servlet handler="albertgame.afengine.input.InputServlet$ExitHandler" types="1"/>
+                   <move handler="testx.Test1Logic$MoveHandler" types="0"/>
+                </before>
+            </InputServlets>
+        </UIInputPart>
+        <SoundPart/>
+    </partsconfig>
+</app>
