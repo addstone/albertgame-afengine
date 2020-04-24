@@ -23,6 +23,9 @@ public class AppBoot {
     public static void main(String[] args) {
         boot("afengine.xml");
     }
+    static{
+    }
+    
 
     /**
      * provide a entry point for XML read for boot app.<br>
@@ -170,6 +173,7 @@ public class AppBoot {
                 String bootname = ele.attributeValue("name");
                 IXMLPartBoot boot = (IXMLPartBoot) FactoryUtil.create(path);
                 bootMap.put(bootname, boot);
+                DebugUtil.log("add partboot:"+bootname);
             }
         }
         //part boot
@@ -184,6 +188,8 @@ public class AppBoot {
                 if (boot == null) {
                     DebugUtil.log("no boot for:" + ename);
                     continue;
+                }else{
+                    boot.bootPart(ele);
                 }
                 DebugUtil.log("boot part - " + ename);
             }
@@ -198,7 +204,7 @@ public class AppBoot {
                 String ekey = ele.attributeValue("key");
                 String evalue=ele.attributeValue("value");
                 app.getSettings().put(ekey, evalue);
-                DebugUtil.log("add setting - " + ekey);
+                DebugUtil.log("add setting - " + ekey+" to "+evalue);
             }
         }
         

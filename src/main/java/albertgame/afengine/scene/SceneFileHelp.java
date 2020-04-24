@@ -342,6 +342,7 @@ public class SceneFileHelp{
             }
         }  
         Element mod = getModuleElement((paths));
+        DebugUtil.log("load actor for :"+actor.getName());
         createModuleComponent(mod,actor);
     }
     /*

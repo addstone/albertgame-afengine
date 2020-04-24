@@ -4,7 +4,6 @@ import albertgame.afengine.graphics.IColor.GeneraColor;
 import albertgame.afengine.graphics.IFont.FontStyle;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.DebugUtil.LogType;
-import albertgame.afengine.util.FactoryUtil;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
@@ -307,6 +306,8 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
             return;
         }
         this.window.setLocation(x, y);
+        this.x=x;
+        this.y=y;
     }
 
     @Override

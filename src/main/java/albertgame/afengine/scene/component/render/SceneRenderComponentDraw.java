@@ -24,7 +24,6 @@ public class SceneRenderComponentDraw implements IDrawStrategy {
         Iterator<Actor> entryiter = actormap.iterator();
         while (entryiter.hasNext()) {
             Actor actor = entryiter.next();
-            updateOrder(actor);
             renderActor(actor, tech, scene.getCamera());
         }
     }
@@ -35,17 +34,16 @@ public class SceneRenderComponentDraw implements IDrawStrategy {
             render.renderComponent(camera, tech);
         }
         List<Actor> children = actor.getChildren();
-        children.sort(RenderComponent.getComparator());
         children.forEach((ac) -> {
             renderActor(ac, tech, camera);
         });
     }
-
-    private void updateOrder(Actor actor) {
-        List<Actor> children = actor.getChildren();
-        children.sort(RenderComponent.getComparator());
-        children.forEach((act) -> {
-            updateOrder(act);
-        });
-    }
+//
+//    private void updateOrder(Actor actor) {
+//        List<Actor> children = actor.getChildren();
+//        children.sort(RenderComponent.getComparator());
+//        children.forEach((act) -> {
+//            updateOrder(act);
+//        });
+//    }
 }

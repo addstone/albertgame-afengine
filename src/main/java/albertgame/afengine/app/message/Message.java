@@ -39,12 +39,12 @@ public class Message{
         this.delaytime = delaytime;
     }
 
-    public Message(long routeType, long msgType, long msgContent, String msgInfo, Object[] extraObjs, long delaytime) {
+    public Message(long routeType, long msgType, long msgContent, String msgInfo, Object[] extraObjs,long delaytime) {
         this(routeType,msgType,msgContent,msgInfo,extraObjs,System.currentTimeMillis(),delaytime);
     }
 
     public Message(long routeType, long msgType, long msgContent, String msgInfo, Object[] extraObjs) {
-        this(routeType,msgType,msgContent,msgInfo,extraObjs,System.currentTimeMillis(),0);
+        this(routeType,msgType,msgContent,msgInfo,extraObjs,0);
     }
     public Message(long routeType, long msgType, long msgContent, String msgInfo){
         this(routeType,msgType,msgContent,msgInfo,null);

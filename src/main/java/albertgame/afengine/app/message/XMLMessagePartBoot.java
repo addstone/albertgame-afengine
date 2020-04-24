@@ -8,6 +8,7 @@ package albertgame.afengine.app.message;
 import albertgame.afengine.app.AppBoot.IXMLPartBoot;
 import albertgame.afengine.app.message.Message.IRoute;
 import albertgame.afengine.util.DebugUtil;
+import albertgame.afengine.util.FactoryUtil;
 import org.dom4j.Element;
 import java.util.Iterator;
 
@@ -33,9 +34,7 @@ public class XMLMessagePartBoot implements IXMLPartBoot{
             Element ele = routeiter.next();
             String path = ele.attributeValue("path");
             try{
-                Class<?> cls = Class.forName(path);
-                Object obj=cls.newInstance();
-                IRoute route = (IRoute)obj;                
+                IRoute route = (IRoute)FactoryUtil.create(path);                
                 center.addRoute(route);
                 DebugUtil.log("add route ["+path+"]");
             }catch(Exception ex){

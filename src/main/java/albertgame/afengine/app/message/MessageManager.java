@@ -20,12 +20,14 @@ import java.util.Map;
 public class MessageManager {
 
     private static MessageManager instance;
-    public static MessageManager getInstance(){
-        if(instance==null)
-            instance=new MessageManager();
+
+    public static MessageManager getInstance() {
+        if (instance == null) {
+            instance = new MessageManager();
+        }
         return instance;
     }
-    
+
     private final Map<Long, Message.IRoute> routeMap;
     private final List<Message.IRoute> waitforAdd;
     private final List<Message.IRoute> waitforRemove;
@@ -36,8 +38,8 @@ public class MessageManager {
 
     private MessageManager() {
         routeMap = new HashMap<>();
-        MessageHandlerRoute route=new MessageHandlerRoute();
-        routeMap.put(route.getRouteType(),route);
+        MessageHandlerRoute route = new MessageHandlerRoute();
+        routeMap.put(route.getRouteType(), route);
         waitforAdd = new ArrayList<>();
         waitforRemove = new ArrayList<>();
         messageQueue = new ArrayDeque<>();
@@ -89,7 +91,6 @@ public class MessageManager {
     public synchronized void pushMessage(Message message) {
         long type = message.routeType;
         if (!routeMap.containsKey(type)) {
-            System.out.println("There is no route type for this message");
         } else {
             messageQueue.addFirst(message);
         }
@@ -112,7 +113,7 @@ public class MessageManager {
 
     public void updateSendMessage(long time) {
         updateRoute();
-        
+
         long systime = System.currentTimeMillis();
 
         if (sendmsgOnce == 0) {
@@ -134,7 +135,7 @@ public class MessageManager {
             int count = 0;
             while (!messageQueue.isEmpty() && count < sendmsgOnce) {
                 Message msg = messageQueue.pollLast();
-                if ((msg.timetamp + msg.delaytime) <= systime) {
+                if ((msg.timetamp + msg.delaytime) <= systime){
                     msgShouldSend.addFirst(msg);
                 } else {
                     msgStill.addFirst(msg);

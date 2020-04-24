@@ -90,8 +90,9 @@ public class InputServlet {
     private final long handleType;
     private final IHandler handler;
     public final String servletName;
+    public static final InputServlet ExitServlet=new InputServlet(EventCode_KeyUp,"exit",new ExitHandler());
 
-    public static final  class ExitHandler implements IHandler{
+    public static class ExitHandler implements IHandler{
         @Override
         public boolean handle(Message msg){
             int keycode=(int)msg.extraObjs[0];

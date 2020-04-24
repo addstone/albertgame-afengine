@@ -16,7 +16,7 @@ import org.dom4j.Element;
  *
  * @author Albert Flex
  */
-public class XMLUIInputPartBoot implements IXMLPartBoot{
+public class XMLInputPartBoot implements IXMLPartBoot{
 
     /*
         <UIInputPart>

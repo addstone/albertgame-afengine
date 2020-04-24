@@ -56,6 +56,7 @@ public class FactoryUtil {
         }
 
         Object obj = factory.create(args);
+        DebugUtil.log("create obj L:"+type+"-"+name+".");
         return obj;
     }
 
@@ -84,7 +85,7 @@ public class FactoryUtil {
             } catch (IllegalAccessException | InstantiationException ex) {
                 DebugUtil.error("class load error!");
             } catch (ClassNotFoundException ex) {
-                DebugUtil.error("class load error:class not found!");
+                DebugUtil.error("class load error:class ["+dest+"] not found!");
             }
         }
         return null;

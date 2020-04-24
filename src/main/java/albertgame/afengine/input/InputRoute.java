@@ -7,6 +7,7 @@ package albertgame.afengine.input;
 
 import albertgame.afengine.app.message.Message;
 import albertgame.afengine.app.message.Message.IRoute;
+import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.math.IDGenerator;
 import java.util.List;
 import java.util.Map;

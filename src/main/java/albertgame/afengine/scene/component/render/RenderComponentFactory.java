@@ -44,10 +44,10 @@ public class RenderComponentFactory implements IComponentFactory {
     public ActorComponent createComponent(Element element, Map<String, String> datas) {
         RenderComponent comp;
         switch (element.attributeValue("type")) {
-            case "StringProperty":
+            case "Text":
                 comp = createStringProperty(element, datas);
                 break;
-            case "StringPropertyure":
+            case "Texture":
                 comp = createTexture(element, datas);
                 break;
             case "Rect":
@@ -87,6 +87,7 @@ public class RenderComponentFactory implements IComponentFactory {
             if (renderclass != null) {
                 rc = (IRenderCreator) FactoryUtil.create(renderclass);
                 extraCreatorMap.put(type, rc);
+                DebugUtil.log("add render-creator:"+rc.toString());
             } else {
                 DebugUtil.log("have no render-creator for this type");
                 return null;

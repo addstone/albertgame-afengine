@@ -11,8 +11,8 @@ public class App {
     public static void launch(App app) {
         if (instance == null) {
             instance = app;
-            app.run();
         }
+        app.run();
     }
 
     public static void exit() {
@@ -39,6 +39,7 @@ public class App {
         this.logic = logic;
         isRunning = true;
         msgManager = MessageManager.getInstance();
+        App.instance=this;
     }
 
     public App(String appName) {

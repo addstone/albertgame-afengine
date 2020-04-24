@@ -30,7 +30,12 @@ public class TextUtilTest {
         util.setLang("zh");
         print(util.getAllTexts());
         util.setLang("jp");
-        print(util.getAllTexts());        
+        print(util.getAllTexts());     
+        
+        
+        Object[] objs=new Object[]{(Object)1,(Object)2,(Object)3,(Object)4,(Object)5};
+        int num=(int) objs[1];
+        System.out.println("objs[0]:"+num);
     }
 
     private void print(Properties p) {

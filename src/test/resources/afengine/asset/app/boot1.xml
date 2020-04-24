@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <app>
-   <afengine debug="true" type="window" logicpath="boot,boot1" 
-             typeboot="afengine.core.WindowApp$WindowAppBoot"/>    
-   <window size="1080,640" title="SceneTest2" icon="test/assets/1.png"
-           tech="graphics,java2dimpl">
-       <root class="boot,boot1"/>
-       <after>
-           <draw pri="1" class="afengine.core.util.Debug$DebugDrawStrategy"/>
-       </after>
-   </window>
+    <afengine debug="true" type="window" logicpath="boot,boot1" 
+              typeboot="type-boot,win"/>    
+    <window size="1080,640" title="SceneTest2" icon="test/assets/1.png"
+            tech="graphics,java2dimpl">
+        <root class="drawstrategy,root"/>
+        <after>
+            <draw pri="1" class="drawstrategy,debug"/>
+        </after>
+    </window>
+    <partsboot>
+        <part name="Message" path="xmlpartboot,message"/>
+    </partsboot>
+    <partsconfig>
+        <Message>
+            <Route path="msg-route,ui"/>
+        </Message>
+    </partsconfig>
+    <settings>
+        <setting key="language-path" value="classpath:lang"/>
+        <setting key="asset-path" value="classpath:asset"/>
+    </settings>
 </app>
 
 

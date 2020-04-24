@@ -21,12 +21,13 @@ public class ActorComponent {
     public static final List<IProcess> componentMethodList = new ArrayList<>();
 
     static {
+        factory=new HashMap<>();
         addFactory(ActionComponent.COMPONENT_NAME, new ActionComponentFactory());
         addFactory(BehaviorBeanComponent.COMPONENT_NAME, new BehaviorBeanComponentFactory());
         addFactory(RenderComponent.COMPONENT_NAME, new RenderComponentFactory());
     }
 
-    public static final Map<String, IComponentFactory> factory = new HashMap<>();
+    public static final Map<String, IComponentFactory> factory;
 
     public static void addFactory(String name, IComponentFactory fac) {
         factory.put(name, fac);
