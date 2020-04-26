@@ -126,6 +126,10 @@ public class Vector {
         double length2 = other.getLength();
         return dots / (length1 * length2);
     }
+    
+    public Vector copy(){
+        return new Vector(x,y,z,a);
+    }
 
     @Override
     public String toString() {
