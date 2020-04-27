@@ -27,7 +27,7 @@ import org.dom4j.Element;
  */
 public class RenderComponentFactory implements IComponentFactory {
 
-    public static interface IRenderCreator {
+    public static interface IRenderCreator{
 
         public String getType();
 

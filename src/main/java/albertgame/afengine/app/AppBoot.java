@@ -25,7 +25,6 @@ public class AppBoot {
     }
     static{
     }
-    
 
     /**
      * provide a entry point for XML read for boot app.<br>
@@ -157,7 +156,10 @@ public class AppBoot {
             System.out.println("app create error!");
             return;
         }
-
+        
+        //设置实例
+        App.setInstance(app);
+        
         DebugUtil.log("boot app type:" + app.getAppType());
         DebugUtil.log("set app name:" + app.getAppName());
 
@@ -219,7 +221,7 @@ public class AppBoot {
         }
         
         DebugUtil.log("launch app");
-        App.launch(app);
+        App.launch();
     }
     
     public static void boot(URL xmlurl){

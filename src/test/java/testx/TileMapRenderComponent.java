@@ -20,7 +20,6 @@ import albertgame.afengine.app.WindowApp;
 import albertgame.afengine.graphics.IGraphicsTech;
 import albertgame.afengine.graphics.ITexture;
 import albertgame.afengine.scene.SceneCamera;
-import albertgame.afengine.scene.component.ActorComponent;
 import albertgame.afengine.scene.component.render.RenderComponent;
 import albertgame.afengine.scene.component.render.RenderComponentFactory.IRenderCreator;
 import albertgame.afengine.util.DebugUtil;
