@@ -29,6 +29,51 @@ public class GraphicsTechTest implements IDrawStrategy {
         
         ITexture texture = tech.createTexture(getClass().getClassLoader().getResource("duke0.gif"));
         
+//测试window方法
+/**
+    create(int x,int y,int w,int h,ITexture icon,String title);
+    create(int w,int h,ITexture icon,String title);
+    create(ITexture icon,String title);
+    setTitle(String title);
+    setIcon(ITexture texture);    
+    moveWindowTo(int x,int y);
+    getMoniterWidth();
+    getMoniterHeight();
+    getDisplayX();
+    isFullWindow();
+    getDisplayY();
+    getWindowWidth();
+    getWindowHeight();
+    
+    getTitle();
+    getIcon();
+
+    getMouseIcon();
+    setMouseIcon(ITexture texture);
+ */        
+        tech.create(texture, "Hello");
+        tech.setIcon(texture);
+        tech.setMouseIcon(texture);
+        tech.setTitle("GraphicsTechTest");
+//        tech.moveWindowTo(10,10);
+        int w=tech.getWindowWidth();
+        int h=tech.getWindowHeight();
+        int mw=tech.getMoniterWidth();
+        int mh=tech.getMoniterHeight();
+        DebugUtil.log("monitor:"+mw+"/"+mh);
+        DebugUtil.log("window:"+w+"/"+h);
+        
+        IGraphicsCreate create=(IGraphicsCreate)tech;
+        font1=create.createFont("宋体", IFont.FontStyle.BOLD,30);
+//        tech.setFont(font1);
+        font2=create.createFont(this.getClass().getClassLoader().getResource("text.ttf"), IFont.FontStyle.BOLD,20);
+        color1=create.createColor(IColor.GeneraColor.BLUE);
+        color2=create.createColor(100,200,30,100);
+        texture1=create.createTexture("src/test/resources/img.JPG");
+        texture2=create.createTexture("src/test/resources/img.JPG",250,300,50,50);
+        URL url=this.getClass().getClassLoader().getResource("player.png");
+        texture3=create.createTexture(url);
+        texture4=create.createTexture(url,0,0,50,50);        
                
 //测试drawstrategy
 /**
@@ -63,51 +108,6 @@ public class GraphicsTechTest implements IDrawStrategy {
         });
 
 
-//测试window方法
-/**
-    create(int x,int y,int w,int h,ITexture icon,String title);
-    create(int w,int h,ITexture icon,String title);
-    create(ITexture icon,String title);
-    setTitle(String title);
-    setIcon(ITexture texture);    
-    moveWindowTo(int x,int y);
-    getMoniterWidth();
-    getMoniterHeight();
-    getDisplayX();
-    isFullWindow();
-    getDisplayY();
-    getWindowWidth();
-    getWindowHeight();
-    
-    getTitle();
-    getIcon();
-
-    getMouseIcon();
-    setMouseIcon(ITexture texture);
- */        
-        tech.create(100,10,800,600,texture, "Hello");
-        tech.setIcon(texture);
-        tech.setMouseIcon(texture);
-        tech.setTitle("GraphicsTechTest");
-//        tech.moveWindowTo(10,10);
-        int w=tech.getWindowWidth();
-        int h=tech.getWindowHeight();
-        int mw=tech.getMoniterWidth();
-        int mh=tech.getMoniterHeight();
-        DebugUtil.log("monitor:"+mw+"/"+mh);
-        DebugUtil.log("window:"+w+"/"+h);
-        
-        IGraphicsCreate create=(IGraphicsCreate)tech;
-        font1=create.createFont("宋体", IFont.FontStyle.BOLD,30);
-//        tech.setFont(font1);
-        font2=create.createFont(this.getClass().getClassLoader().getResource("text.ttf"), IFont.FontStyle.BOLD,20);
-        color1=create.createColor(IColor.GeneraColor.BLUE);
-        color2=create.createColor(100,200,30,100);
-        texture1=create.createTexture("src/test/resources/img.JPG");
-        texture2=create.createTexture("src/test/resources/img.JPG",250,300,50,50);
-        URL url=this.getClass().getClassLoader().getResource("player.png");
-        texture3=create.createTexture(url);
-        texture4=create.createTexture(url,0,0,50,50);        
     }
 
     public void run(){
