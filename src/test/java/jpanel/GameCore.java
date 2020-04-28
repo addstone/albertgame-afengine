@@ -27,7 +27,7 @@ public class GameCore implements Growing.Draw{
     }
     
     public void run() {
-        growing.create("Hello");
+        growing.create(800,600,"Hello");
         long dt;
         long lt, nt;
         lt = System.currentTimeMillis();

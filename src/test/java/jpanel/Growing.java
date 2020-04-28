@@ -79,6 +79,7 @@ public class Growing extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(this);
         frame.setSize(width, height);
+        frame.setUndecorated(true);
 //        frame.setIgnoreRepaint(true);
         frame.setAlwaysOnTop(true);
         frame.setLocationRelativeTo(null);
