@@ -61,8 +61,7 @@ public class DebugUtil {
         }
         
         Date date = new Date();
-        String time=(1900+date.getYear())+"/"+date.getMonth()+"/"+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-;       String outinfo = "\033[" + colorMap.get(logType.toString()) + "m" + logType.toString() +"\t"+ ">" + time + ">" + info+"\033[m";
+;       String outinfo = "\033["+colorMap.get(logType.toString()) + "m" +"{"+logType.toString()+"}"+ info+"\033[m";
         System.out.println(outinfo);
         if (logType == LogType.SEVER) {
             System.exit(0);
