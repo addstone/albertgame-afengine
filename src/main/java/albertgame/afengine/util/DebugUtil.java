@@ -61,7 +61,7 @@ public class DebugUtil {
         }
         
         Date date = new Date();
-;       String outinfo = "\033["+colorMap.get(logType.toString()) + "m" +"{"+logType.toString()+"}"+ info+"\033[m";
+;       String outinfo = "\033["+colorMap.get(logType.toString()) + "m"+ info+"\033[m";
         System.out.println(outinfo);
         if (logType == LogType.SEVER) {
             System.exit(0);
