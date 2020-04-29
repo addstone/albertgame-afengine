@@ -51,6 +51,10 @@ public class DebugUtil {
         log(LogType.INFO,info);
     }
     
+    public static void warning(String info){
+        log(LogType.WARNING,info);
+    }
+    
     public static void error(String info){
         log(LogType.ERROR,info);        
     }
@@ -67,6 +71,7 @@ public class DebugUtil {
             System.exit(0);
         }
     }
+    
 
     public static boolean  assertEqual(boolean statement, LogType logType, String info) {
         if (!on) {

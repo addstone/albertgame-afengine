@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <app>
     <afengine  debug="true" logicpath="testx.Test1Logic" type="window"
-    typeboot="afengine.core.WindowApp$WindowAppBoot"/>
+    typeboot="albertgame.afengine.app.WindowApp$WindowAppBoot"/>
     <window size="1280,760" title="TestX-Test1" 
-            tech="albertgame.afengine.graphics.GraphicsTech_Java2DImpl"
+            tech="albertgame.afengine.graphics.GraphicsTech_Java2DImpl2"
             icon="test/testx/1.png">
         <root class="albertgame.afengine.scene.component.render.SceneRenderComponentDraw"/>
         <after>

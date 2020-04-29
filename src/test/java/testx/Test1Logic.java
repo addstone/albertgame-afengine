@@ -67,6 +67,7 @@ public class Test1Logic implements IAppLogic{
                         double x=actor.getTransform().position.getX();
                         actor.getTransform().position.setX(x-32);
                         if(isKabe((TileMapRenderComponent)map.getComponent(RenderComponent.COMPONENT_NAME),x-32,oldy)){
+                            DebugUtil.warning("you can not walk this way!");
                             actor.getTransform().position.setX(x);
                         }       break;
                     }
@@ -75,6 +76,7 @@ public class Test1Logic implements IAppLogic{
                         double x=actor.getTransform().position.getX();
                         actor.getTransform().position.setX(x+32);
                         if(isKabe((TileMapRenderComponent)map.getComponent(RenderComponent.COMPONENT_NAME),x+32,oldy)){
+                            DebugUtil.warning("you can not walk this way!");
                             actor.getTransform().position.setX(x);
                         }       break;
                     }
@@ -83,6 +85,7 @@ public class Test1Logic implements IAppLogic{
                         double y=actor.getTransform().position.getY();
                         actor.getTransform().position.setY(y-32);
                         if(isKabe((TileMapRenderComponent)map.getComponent(RenderComponent.COMPONENT_NAME),oldx,y-32)){
+                            DebugUtil.warning("you can not walk this way!");
                             actor.getTransform().position.setY(y);
                         }       break;
                     }
@@ -91,6 +94,7 @@ public class Test1Logic implements IAppLogic{
                         double y=actor.getTransform().position.getY();
                         actor.getTransform().position.setY(y+32);
                         if(isKabe((TileMapRenderComponent)map.getComponent(RenderComponent.COMPONENT_NAME),oldx,y+32)){
+                            DebugUtil.warning("you can not walk this way!");
                             actor.getTransform().position.setY(y);
                         }       break;
                     }
