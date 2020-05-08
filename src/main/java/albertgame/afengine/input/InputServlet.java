@@ -49,15 +49,10 @@ public class InputServlet {
     public static final  long EventCode_MouseExitWindow=19;
     public static final  long EventCode_MouseMove=20;
     
-    public static final  long EventCode_WindowOpened=7;
-    public static final  long EventCode_WindowClose=8;
-    public static final  long EventCode_WindowClosing=9;
     public static final  long EventCode_WindowIconed=10;
     public static final  long EventCode_WindowDeiconed=11;
     public static final  long EventCode_WindowActive=12;
     public static final  long EventCode_WindowDeactive=13;
-    public static final  long EventCode_WindowMouseEnter=14;
-    public static final  long EventCode_WindowMouseExit=15;
     
     public static final  long KeyCode_Tab=KeyEvent.VK_TAB;
     public static final  long KeyCode_Shift=KeyEvent.VK_SHIFT;

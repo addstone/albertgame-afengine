@@ -112,19 +112,19 @@ public class InputAdapter implements KeyListener, MouseListener,
     @Override
     public void windowOpened(WindowEvent e) {
         //DebugUtil.log("window opened");
-        sendMsg(InputServlet.EventCode_WindowOpened);
+//        sendMsg(InputServlet.EventCode_WindowOpened);
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
         //DebugUtil.log("window closing");
-        sendMsg(InputServlet.EventCode_WindowClosing);
+//        sendMsg(InputServlet.EventCode_WindowClosing);
     }
 
     @Override
     public void windowClosed(WindowEvent e) {
         //DebugUtil.log("window closed");
-        sendMsg(InputServlet.EventCode_WindowClose);
+//        sendMsg(InputServlet.EventCode_WindowClose);
     }
 
     @Override
