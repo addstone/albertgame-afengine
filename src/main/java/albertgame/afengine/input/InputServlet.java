@@ -16,7 +16,7 @@ public class InputServlet {
      * 会初始化InputServlet中的所有的事件数据，包括如下 键盘的映射 
      * ```
      * event: KeyDown,KeyUp,KeyType
-     * char ascii: 32 - 126 key tab caplock numlock shift ctrl fn alt insert delete
+     * char ascii: A~Z key tab caplock numlock shift ctrl fn alt insert delete
      * prt enter up down left right pageup pagedown home end f1-f12 esc
      * ```
      * event的映射，可以使用InputServlet.EventCode_*;
@@ -83,6 +83,7 @@ public class InputServlet {
     public static final  long MouseButton_Center=MouseEvent.BUTTON2;
     public static final  long MouseButton_Right=MouseEvent.BUTTON3;
     
+    //just for A~Z ; , . / [ ] \  - = 0~9
     public static final  long CharCode(char word){
         return word;
     }

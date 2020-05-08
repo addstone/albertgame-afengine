@@ -5,6 +5,7 @@
  */
 package albertgame.afengine.input;
 
+import albertgame.afengine.app.message.Message.IHandler;
 import albertgame.afengine.util.DebugUtil;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -216,6 +217,12 @@ public class InputManager {
     public InputServlet findAfterServlet(Long type,String servletName){
         return getServlet(false,type,servletName);        
     }
+    public void addPreServlet(Long type,String name,IHandler handler){
+        addServlet(true,type,new InputServlet(type,name,handler));
+    }
+    public void addAfterServlet(Long type,String name,IHandler handler){
+        addServlet(false,type,new InputServlet(type,name,handler));
+    }    
     public void addPreServlet(Long type,InputServlet servlet){
         addServlet(true,type,servlet);
     }

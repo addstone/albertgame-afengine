@@ -10,7 +10,28 @@ package albertgame.afengine.app;
  * @author Albert Flex
  */
 public interface IAppLogic {
+
     public boolean init();
+
     public boolean update(long time);
-    public boolean shutdown();      
+
+    public boolean shutdown();
+
+    public static class AppLogicBase implements IAppLogic {
+
+        @Override
+        public boolean init() {
+            return true;
+        }
+
+        @Override
+        public boolean update(long time) {
+            return true;
+        }
+
+        @Override
+        public boolean shutdown() {
+            return true;
+        }
+    }
 }

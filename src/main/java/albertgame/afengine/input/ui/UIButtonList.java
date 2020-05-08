@@ -50,9 +50,7 @@ public class UIButtonList extends UIPane{
         }
     }
     public void upActive(){
-        int nindex=nowindex-1;
-        if(nindex<0)
-            nindex+=length;        
+        int nindex=(nowindex+length-1)%length;
         activeUiButton(nindex);        
     }
     public void downActive(){

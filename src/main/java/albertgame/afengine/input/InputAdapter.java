@@ -2,7 +2,6 @@ package albertgame.afengine.input;
 
 import albertgame.afengine.app.message.Message;
 import albertgame.afengine.app.message.MessageManager;
-import albertgame.afengine.util.DebugUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -30,7 +29,7 @@ public class InputAdapter implements KeyListener, MouseListener,
     @Override
     public void keyTyped(KeyEvent e) {
         //DebugUtil.log("key typed " + e.getKeyChar());
-        System.out.println("key type");
+//        System.out.println("key type");
         sendMsg(InputServlet.EventCode_KeyType, e.getKeyChar());
     }
 
@@ -52,7 +51,7 @@ public class InputAdapter implements KeyListener, MouseListener,
     @Override
     public void mouseClicked(MouseEvent e) {
         //DebugUtil.log("mouse clicked " + e.paramString());
-        sendMsg(InputServlet.EventCode_MouseClick, e.getX(), e.getY());
+        sendMsg(InputServlet.EventCode_MouseClick, e.getX(), e.getY(),e.getButton());
     }
 
     //content-eventcode,exobj[mousex,mousey,keycode]
