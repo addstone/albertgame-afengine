@@ -25,6 +25,24 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+
+/**
+ * graphics 新建议
+ * 绘制方法将所有的数据传送到绘制管道里，由自行的绘制线程对管道里所有的图形进行绘制
+ * graphics 有两个绘制管道，一个是正在绘制的管道，另一个是提交绘制的管道，使用队列,提交从一端，绘制则从另一端抽取
+ * 例如
+
+ * drawString(x,y,text,color,font)
+ * 将提交字符串绘制到绘制管道里
+ * 
+ * DrawPipe1.add(new DrawShape(DrawType,DrawProperties));
+ * 
+ * 后台系统开启绘制线程当绘制管道绘制完成，并且另一个绘制管道已经结束了绘制提交，则清除当前的绘制管道，转由执行另一个绘制管道
+ * 每个DrawType有一个对应的DrawFunction对图形进行绘制，不允许有复杂的判断
+ * 
+ * 所有的绘制动作紧凑地放在一个部分执行，也许会增加其效率
+ */
+
 /**
  *
  * @author Albert Flex
