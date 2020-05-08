@@ -131,6 +131,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
         window.setSize(width, height);
         this.width = width;
         this.height = height;
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         window.setLocation(x, y);
         if (icon != null) {
             if (icon instanceof TextureImpl) {
@@ -167,6 +168,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
         setFrame();
         window.requestFocus();
         device.setFullScreenWindow(window);
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         DisplayMode displayMode = device.getDisplayMode();
         if (displayMode != null
@@ -448,7 +450,6 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
             case "mousewheellistener": {
                 MouseWheelListener listener = (MouseWheelListener) (obj[0]);
                 window.addMouseWheelListener(listener);
-                valueMap.put(name, obj);
                 valueMap.put(name, obj);
                 break;
             }

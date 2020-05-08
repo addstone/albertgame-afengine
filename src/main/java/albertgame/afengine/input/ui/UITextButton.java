@@ -19,9 +19,6 @@ public class UITextButton extends UIButtonBase{
     private IFont font;
     private IColor fontColor;    
       
-    public UITextButton(String name,Vector pos,StringProperty text){
-        this(name,pos,text,null,null);
-    }
     public UITextButton(String name,Vector pos,StringProperty text,IFont font,IColor color) {
         super(name, pos);
         this.text=text;
