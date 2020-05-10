@@ -11,7 +11,7 @@ import albertgame.afengine.util.TextUtil;
  *
  * @author albert-flex
  */
-public class StringProperty extends AbValueProperty<String>{
+public class StringProperty extends ValueProperty<String>{
 
     public StringProperty(String value) {
         super(value);

@@ -17,7 +17,9 @@ public class ValuePropertyList<T> {
 
     public static interface IChange<T> {
 
-        void Change(final List<T> valuelist, T newvalue, int newvalueIndex);
+        void add(final List<T> valuelist, T newvalue, int newvalueIndex);
+
+        void remove(final List<T> valuelist, T removeValue, int removeIndex);
     }
 
     private final List<T> valueList;
@@ -38,12 +40,25 @@ public class ValuePropertyList<T> {
         synchronized (this) {
             int length = valueList.size();
             changelistener.forEach((IChange change) -> {
-                change.Change(valueList, newvalue, length);
+                change.add(valueList, newvalue, length);
             });
             valueList.add(newvalue);
         }
     }
 
+    public void removeValueProperty(T oldvalue) {
+        synchronized (this) {
+            int index = valueList.indexOf(oldvalue);
+            if (index == -1) {
+                //no remove
+                return;
+            }
+            changelistener.forEach(((IChange change) -> {
+                change.remove(valueList, oldvalue, index);
+            }));
+            valueList.remove(index);
+        }
+    }
     public List<IChange<T>> getChangelistener() {
         return changelistener;
     }

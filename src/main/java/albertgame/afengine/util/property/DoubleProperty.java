@@ -9,7 +9,7 @@ package albertgame.afengine.util.property;
  *
  * @author albert-flex
  */
-public class DoubleProperty extends AbValueProperty<Double>{
+public class DoubleProperty extends ValueProperty<Double>{
 
     public DoubleProperty(Double value) {
         super(value);

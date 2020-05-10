@@ -9,7 +9,7 @@ package albertgame.afengine.util.property;
  *
  * @author albert-flex
  */
-public class IntProperty extends AbValueProperty<Integer>{
+public class IntProperty extends ValueProperty<Integer>{
 
     public IntProperty(int value) {
         super(Integer.valueOf(value));

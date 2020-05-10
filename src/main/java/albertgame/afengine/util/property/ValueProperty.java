@@ -13,7 +13,7 @@ import java.util.List;
  * @author albert-flex
  * @param <T> value type.
  */
-public abstract class AbValueProperty<T> {
+public class ValueProperty<T> {
 
     public static interface IChange<T> {
         void Change(T oldValue, T newValue);
@@ -22,9 +22,13 @@ public abstract class AbValueProperty<T> {
     private T value;
     private final List<IChange<T>> valueListeners;
 
-    public AbValueProperty(T value) {
+    public ValueProperty(T value) {
         this.value = value;
         valueListeners = new ArrayList<>();
+    }
+    public ValueProperty(){
+        this.value=null;
+        valueListeners=new ArrayList<>();
     }
 
     public T get() {

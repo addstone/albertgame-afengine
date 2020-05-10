@@ -9,7 +9,7 @@ package albertgame.afengine.util.property;
  *
  * @author albert-flex
  */
-public class LongProperty extends AbValueProperty<Long>{
+public class LongProperty extends ValueProperty<Long>{
 
     public LongProperty(Long value) {
         super(value);
