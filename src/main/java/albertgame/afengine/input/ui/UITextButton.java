@@ -17,8 +17,11 @@ import org.dom4j.Element;
 public class UITextButton extends UIButtonBase{        
     private StringProperty text;
     private IFont font;
-    private IColor fontColor;    
-      
+    private IColor fontColor;
+        
+    public UITextButton(String name,int x,int y,String text,IFont font,IColor color){
+        this(name,new Vector(x,y,0),new StringProperty(text),font,color);
+    }
     public UITextButton(String name,Vector pos,StringProperty text,IFont font,IColor color) {
         super(name, pos);
         this.text=text;
