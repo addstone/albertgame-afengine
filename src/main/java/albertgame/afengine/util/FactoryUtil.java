@@ -7,6 +7,7 @@ public class FactoryUtil {
 
     private static Map<String, String> oldObj;
 //afengine.part.message.MessageHandlerRoute
+
     static {
         oldObj = new HashMap<>();
         oldObj.put("afengine.component.render.GraphicsTech_Java2D",
@@ -16,11 +17,11 @@ public class FactoryUtil {
         oldObj.put("afengine.core.WindowApp$WindowAppBoot",
                 "albertgame.afengine.app.WindowApp$WindowAppBoot");
         oldObj.put("afengine.part.message.XMLMessagePartBoot",
-                "albertgame.afengine.app.message.XMLMessagePartBoot");        
+                "albertgame.afengine.app.message.XMLMessagePartBoot");
         oldObj.put("afengine.part.message.MessageHandlerRoute",
-                "albertgame.afengine.app.message.MessageHandlerRoute");        
+                "albertgame.afengine.app.message.MessageHandlerRoute");
         oldObj.put("afengine.component.render.SceneRenderComponentDraw",
-                "albertgame.afengine.scene.component.SceneRenderComponentDraw");        
+                "albertgame.afengine.scene.component.SceneRenderComponentDraw");
     }
 
     public static interface IFactory {
@@ -28,7 +29,8 @@ public class FactoryUtil {
         Object create(Object... args);
     }
 
-    private static final Map<String, IFactory> factoryMap= new HashMap<>();;
+    private static final Map<String, IFactory> factoryMap = new HashMap<>();
+    ;
     private static final String pac = ".";
 
     public static Map<String, IFactory> getFactoryMap() {
@@ -56,21 +58,41 @@ public class FactoryUtil {
         }
 
         Object obj = factory.create(args);
-        DebugUtil.log("create obj L:"+type+"-"+name+".");
+        DebugUtil.log("create obj L:" + type + "-" + name + ".");
         return obj;
     }
 
+    private static Map<String, Object> createdObjMap = new HashMap<>();
+
     //albertgame.afengine.app.App
-    //app,App1
+    //app,App1 默认放入已创建的对象Map
+    //app,App1,only
     public static Object create(String name, Object... args) {
         if (name.contains(",")) {
             String[] s = name.split(",");
-            if (s.length != 2) {
-                return null;
+            if (s.length == 3) {
+                if (s[2].equals("only")) {
+                    if (createdObjMap.containsKey(name)) {
+                        return createdObjMap.get(name);
+                    } else {
+                        String type = s[0];
+                        String typename = s[1];
+                        Object obj = create(type, typename, args);
+                        createdObjMap.put(name, obj);
+                        return obj;
+                    }
+                } else {
+                    DebugUtil.error("Object Parameter :" + s[2] + "Not Support Yet\n now support Are: \'only\'");
+                    return null;
+                }
             }
-            String type = s[0];
-            String typename = s[1];
-            return create(type, typename, args);
+            if (s.length == 2) {
+                String type = s[0];
+                String typename = s[1];
+                Object obj = create(type, typename, args);
+                createdObjMap.put(name, obj);
+                return obj;
+            }
         } else {
             String dest;
             if (oldObj.containsKey(name)) {
@@ -85,7 +107,7 @@ public class FactoryUtil {
             } catch (IllegalAccessException | InstantiationException ex) {
                 DebugUtil.error("class load error!");
             } catch (ClassNotFoundException ex) {
-                DebugUtil.error("class load error:class ["+dest+"] not found!");
+                DebugUtil.error("class load error:class [" + dest + "] not found!");
             }
         }
         return null;
