@@ -128,7 +128,6 @@ public class UIButtonBase extends UIActor{
     private boolean handleUp(boolean in,int mx,int my){        
         if(in){
             if(buttonState==DOWN){
-                normal();
                 cover();
                 return true;
             }else return false;
