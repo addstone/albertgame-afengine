@@ -8,18 +8,26 @@ import albertgame.afengine.input.UIActor;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.FactoryUtil;
 import albertgame.afengine.util.math.Vector;
+import albertgame.afengine.util.property.ValueProperty;
 import org.dom4j.Element;
 
 public class UIImageButton extends UIButtonBase{
     
+    private ValueProperty<ITexture> normalTextureValue,downTextureValue,coverTextureValue;
     private ITexture normalTexture,downTexture,coverTexture;
     private ITexture now;
     
+    public UIImageButton(String name,int x,int y,ITexture normal,ITexture down,ITexture cover){
+        this(name,new Vector(x,y,0),normal,down,cover);
+    }
     public UIImageButton(String name,Vector pos,ITexture normal,ITexture down,ITexture cover) {
         super(name, pos);
         this.normalTexture=normal;
         this.downTexture=down;
         this.coverTexture=cover;
+        this.normalTextureValue=new ValueProperty<>(normal);
+        this.coverTextureValue=new ValueProperty<>(cover);
+        this.downTextureValue=new ValueProperty<>(down);
         this.now=normalTexture;
         if(this.now!=null){
             super.width=this.now.getWidth();
@@ -27,28 +35,55 @@ public class UIImageButton extends UIButtonBase{
         }
     }
 
-    public ITexture getNormalTexture() {
-        return normalTexture;
+    public ITexture getNormalTexture(){        
+        return normalTextureValue.get();
     }
 
     public void setNormalTexture(ITexture normalTexture) {
-        this.normalTexture = normalTexture;
+        normalTextureValue.set(normalTexture);
+        this.normalTexture = normalTexture;        
     }
 
     public ITexture getDownTexture() {
-        return downTexture;
+        return downTextureValue.get();
     }
 
     public void setDownTexture(ITexture downTexture) {
-        this.downTexture = downTexture;
+        downTextureValue.set(downTexture);
+        this.downTexture=downTexture;
     }
 
     public ITexture getCoverTexture() {
-        return coverTexture;
+        return coverTextureValue.get();        
     }
 
     public void setCoverTexture(ITexture coverTexture) {
+        coverTextureValue.set(coverTexture);
         this.coverTexture = coverTexture;
+    }
+
+    public ValueProperty<ITexture> getNormalTextureValue() {
+        return normalTextureValue;
+    }
+
+    public void setNormalTextureValue(ValueProperty<ITexture> normalTextureValue) {
+        this.normalTextureValue = normalTextureValue;
+    }
+
+    public ValueProperty<ITexture> getDownTextureValue() {
+        return downTextureValue;
+    }
+
+    public void setDownTextureValue(ValueProperty<ITexture> downTextureValue) {
+        this.downTextureValue = downTextureValue;
+    }
+
+    public ValueProperty<ITexture> getCoverTextureValue() {
+        return coverTextureValue;
+    }
+
+    public void setCoverTextureValue(ValueProperty<ITexture> coverTextureValue) {
+        this.coverTextureValue = coverTextureValue;
     }
 
     

@@ -138,8 +138,5 @@ public class UIActor implements IHandler,IDrawStrategy{
     @Override
     public boolean handle(Message msg){
         return false;
-    }
-    
-    //need override
-    public void update(long time){}
+    }    
 }

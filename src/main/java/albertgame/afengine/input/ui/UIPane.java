@@ -16,19 +16,7 @@ public class UIPane extends UIActor{
     
     public UIPane(String name, Vector pos) {
         super(name, pos);
-    }
-
-    @Override
-    public void update(long time){        
-        if(back!=null){
-            super.width=back.getWidth();
-            super.height=back.getHeight();
-        }        
-        for(UIActor ui:super.children){
-            ui.update(time);
-        }
-    }
-        
+    }        
     
     @Override
     public boolean handle(Message msg){
@@ -40,6 +28,11 @@ public class UIPane extends UIActor{
 
     @Override
     public void draw(IGraphicsTech tech){
+        if(back!=null){
+            super.width=back.getWidth();
+            super.height=back.getHeight();
+        }        
+
         if(back!=null){
             int dx=super.getUiX();
             int dy=super.getUiY();

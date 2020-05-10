@@ -7,42 +7,54 @@ import albertgame.afengine.graphics.ITexture;
 import albertgame.afengine.input.UIActor;
 import albertgame.afengine.util.DebugUtil;
 import albertgame.afengine.util.math.Vector;
+import albertgame.afengine.util.property.ValueProperty;
 import org.dom4j.Element;
 
 public class UIImageLabel extends UIActor{
     
-    private ITexture texture;
+    private ValueProperty<ITexture> textureValue;
     private boolean dirty=false;
+    
+    public UIImageLabel(String name,int x,int y,ITexture texture){
+        this(name,new Vector(x,y,0));
+        textureValue=new ValueProperty<>(texture);
+    }
+    
     public UIImageLabel(String name, Vector pos) {
         super(name, pos);
     }
 
     public ITexture getTexture() {
-        return texture;
+        return textureValue.get();
     }
 
     public void setTexture(ITexture texture) {
-        this.texture = texture;
+        this.textureValue.set(texture);
         dirty=true;
     }
 
-    @Override
-    public void update(long time) {
-        if(dirty){
-            if(this.texture!=null){
-                super.width=texture.getWidth();
-                super.height=texture.getHeight();
-            }
-            dirty=false;
-        }
+    public ValueProperty<ITexture> getTextureValue() {
+        return textureValue;
+    }
+
+    public void setTextureValue(ValueProperty<ITexture> textureValue) {
+        this.textureValue = textureValue;
     }
     
     @Override
     public void draw(IGraphicsTech tech){
-        if(texture!=null){
+        if(dirty){
+            if(this.textureValue!=null){
+                super.width=textureValue.get().getWidth();
+                super.height=textureValue.get().getHeight();
+            }
+            dirty=false;
+        }
+
+        if(textureValue!=null){
             int dx=super.getUiX();
             int dy=super.getUiY();
-            tech.drawTexture(dx, dy, texture);
+            tech.drawTexture(dx, dy, textureValue.get());
         }        
     }    
     

@@ -25,6 +25,11 @@ public class UIToggle extends UIActor{
     private int index;
     private int addindex;
     private final int capacity;
+    
+    public UIToggle(String name,int x,int y,int length){
+        this(name,new Vector(x,y,0),length);
+    }
+
     public UIToggle(String name, Vector pos,int length) {
         super(name, pos);
         textures=new ITexture[length];
@@ -79,14 +84,6 @@ public class UIToggle extends UIActor{
         
         return textures[eindex];        
     }
-    @Override
-    public void update(long time){
-        ITexture text=textures[index];
-        if(text!=null){
-            super.width=text.getWidth();
-            super.height=text.getHeight();
-        }
-    }
     
     //INPUT_MOUSE_CLICK
     @Override
@@ -111,6 +108,11 @@ public class UIToggle extends UIActor{
     @Override
     public void draw(IGraphicsTech tech){
         ITexture text=textures[index];
+        if(text!=null){
+            super.width=text.getWidth();
+            super.height=text.getHeight();
+        }
+
         if(text!=null){
             int dx=super.getUiX();
             int dy=super.getUiY();

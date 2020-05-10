@@ -11,83 +11,112 @@ import albertgame.afengine.util.FactoryUtil;
 import albertgame.afengine.util.TextUtil;
 import albertgame.afengine.util.math.Vector;
 import albertgame.afengine.util.property.StringProperty;
+import albertgame.afengine.util.property.ValueProperty;
 import org.dom4j.Element;
 
+public class UITextButton extends UIButtonBase {
 
-public class UITextButton extends UIButtonBase{        
     private StringProperty text;
-    private IFont font;
-    private IColor fontColor;
-        
-    public UITextButton(String name,int x,int y,String text,IFont font,IColor color){
-        this(name,new Vector(x,y,0),new StringProperty(text),font,color);
+    private ValueProperty<IFont> fontValue;
+    private ValueProperty<IColor> fontColorValue;
+
+    public UITextButton(String name, int x, int y, String text, IFont font, IColor color) {
+        this(name, new Vector(x, y, 0), new StringProperty(text), font, color);
     }
-    public UITextButton(String name,Vector pos,StringProperty text,IFont font,IColor color) {
+
+    public UITextButton(String name, int x, int y, String text) {
+        this(name, x, y, text, null, null);
+    }
+
+    public UITextButton(String name, Vector pos, StringProperty text, IFont font, IColor color) {
         super(name, pos);
-        this.text=text;
-        this.font=font;
-        this.fontColor=color;
-        buttonState=NORMAL;
-        if(font!=null){
-            super.width=font.getFontWidth(text.get());
-            super.height=font.getFontHeight();
+        this.text = text;
+        this.fontValue = new ValueProperty<IFont>(font);
+        this.fontColorValue = new ValueProperty<IColor>(color);
+        buttonState = NORMAL;
+        if (font != null) {
+            super.width = font.getFontWidth(text.get());
+            super.height = font.getFontHeight();
         }
     }
 
-    @Override
-    public void update(long time) {
-        if(font!=null){
-            super.width=font.getFontWidth(text.get());
-            super.height=font.getFontHeight();            
-        }
-    }
-    
-    
     public StringProperty getText() {
         return text;
     }
+
     public void setText(StringProperty text) {
         this.text = text;
     }
 
     public IFont getFont() {
-        return font;
+        return fontValue.get();
     }
+
     public void setFont(IFont font) {
-        this.font = font;
+        this.fontValue.set(font);
     }
 
     public IColor getFontColor() {
-        return fontColor;
+        return fontColorValue.get();
     }
+
     public void setFontColor(IColor fontColor) {
-        this.fontColor = fontColor;
+        this.fontColorValue.set(fontColor);
     }
-    
+
+    public ValueProperty<IFont> getFontValue() {
+        return fontValue;
+    }
+
+    public void setFontValue(ValueProperty<IFont> fontValue) {
+        this.fontValue = fontValue;
+    }
+
+    public ValueProperty<IColor> getFontColorValue() {
+        return fontColorValue;
+    }
+
+    public void setFontColorValue(ValueProperty<IColor> fontColorValue) {
+        this.fontColorValue = fontColorValue;
+    }
+
     //figure out pos of render text.
     //draw text
     @Override
     public void draw(IGraphicsTech tech) {
-        IFont f=font;
-        IColor c=fontColor;
-        if(f==null){
-           f=tech.getFont();
-           setFont(f);
+        if (fontValue.get() == null) {
+            fontValue.set(tech.getFont());
         }
-        if(c==null){
-            c=tech.getColor();
-            fontColor=c;
+        if (fontColorValue.get() == null) {
+            fontColorValue.set(tech.getColor());
         }
 
-        int dx=this.getUiX();
-        int dy=this.getUiY();        
+        super.width = fontValue.get().getFontWidth(text.get());
+        super.height = fontValue.get().getFontHeight();
 
-        if(text!=null){
+        IFont f = fontValue.get();
+        IColor c = fontColorValue.get();
+        if (f == null) {
+            f = tech.getFont();
+            setFont(f);
+        }
+        if (c == null) {
+            c = tech.getColor();
+            fontColorValue.set(c);
+        }
+
+        int dx = this.getUiX();
+        int dy = this.getUiY();
+
+        if (text != null) {
             tech.drawText(dx, dy, f, c, text.get());
         }
-    }   
-    public static class UITextButtonCreator implements IUICreator{
-        private final IGraphicsTech tech=((WindowApp)App.getInstance()).getGraphicsTech();        
+    }
+
+    public static class UITextButtonCreator implements IUICreator {
+
+        private final IGraphicsTech tech = ((WindowApp) App.getInstance()).getGraphicsTech();
+
         /*
             <UITextButton name="" pos="">
         *      <text></text>
@@ -100,106 +129,108 @@ public class UITextButton extends UIButtonBase{
                     <docover action=""/>
                 </actions>
             </UITextButton>
-        */
+         */
         @Override
-        public UIActor createUi(Element element){
-            String name=element.attributeValue("name");
-            Vector pos =createPos(element);
-            if(pos==null)
-                pos=new Vector(10,10,0,0);
-            if(name==null)
-                name="DefaultUiName"+IDCreator.createId();
-            
+        public UIActor createUi(Element element) {
+            String name = element.attributeValue("name");
+            Vector pos = createPos(element);
+            if (pos == null) {
+                pos = new Vector(10, 10, 0, 0);
+            }
+            if (name == null) {
+                name = "DefaultUiName" + IDCreator.createId();
+            }
+
             StringProperty text;
             IFont font;
-            IColor color=null;
-            IColor backcolor=null;
+            IColor color = null;
+            IColor backcolor = null;
             Element texte = element.element("text");
-            if(texte!=null){
-                text=new StringProperty(TextUtil.getRealValue(texte.getText(),null));
-            }
-            else{
-                text=new StringProperty("DefaultText");
+            if (texte != null) {
+                text = new StringProperty(TextUtil.getRealValue(texte.getText(), null));
+            } else {
+                text = new StringProperty("DefaultText");
             }
             Element fonte = element.element("font");
             String sizes = element.elementText("size");
-            String path=null;
-            if(fonte==null){
-                font= ((IGraphicsTech)((WindowApp)App.getInstance())
+            String path = null;
+            if (fonte == null) {
+                font = ((IGraphicsTech) ((WindowApp) App.getInstance())
                         .getGraphicsTech()).createFont("Dialog",
                                 IFont.FontStyle.PLAIN, 30);
-            }
-            else if(fonte.attribute("path")!=null){
-                path=fonte.attributeValue("path");
-                    font = ((IGraphicsTech)((WindowApp)App.getInstance()).
-                        getGraphicsTech()).createFontByPath(fonte.getText(),IFont.FontStyle.PLAIN, Integer.parseInt(sizes));                        
-            }
-            else{
-                font= ((IGraphicsTech)((WindowApp)App.getInstance())
+            } else if (fonte.attribute("path") != null) {
+                path = fonte.attributeValue("path");
+                font = ((IGraphicsTech) ((WindowApp) App.getInstance()).
+                        getGraphicsTech()).createFontByPath(fonte.getText(), IFont.FontStyle.PLAIN, Integer.parseInt(sizes));
+            } else {
+                font = ((IGraphicsTech) ((WindowApp) App.getInstance())
                         .getGraphicsTech()).createFont("Dialog",
-                                IFont.FontStyle.PLAIN, 30);            
+                                IFont.FontStyle.PLAIN, 30);
             }
             Element colore = element.element("color");
             String colors;
 
-            if(colore==null){
-               colors=IColor.GeneraColor.ORANGE.toString();
+            if (colore == null) {
+                colors = IColor.GeneraColor.ORANGE.toString();
+            } else {
+                colors = element.elementText("color");
             }
-            else colors = element.elementText("color");
 
-            color=((IGraphicsTech)((WindowApp)App.getInstance()).
+            color = ((IGraphicsTech) ((WindowApp) App.getInstance()).
                     getGraphicsTech()).createColor(IColor.GeneraColor.valueOf(colors));
-                       
-            UITextButton button=new UITextButton(name,pos,text,font,color);
-            addActions(button,element.element("actions"));
-            return button;            
-        }                
-         private Vector createPos(Element element){
-            String poss=element.attributeValue("pos");
-            String[] posl=poss.split(",");
+
+            UITextButton button = new UITextButton(name, pos, text, font, color);
+            addActions(button, element.element("actions"));
+            return button;
+        }
+
+        private Vector createPos(Element element) {
+            String poss = element.attributeValue("pos");
+            String[] posl = poss.split(",");
             double x = Double.parseDouble(posl[0]);
             double y = Double.parseDouble(posl[1]);
-            return new Vector(x,y,0,0);
+            return new Vector(x, y, 0, 0);
         }
-       
-         /*
+
+        /*
             <actions>
                 
             </actions>
          */
-        private void addActions(UITextButton button,Element actions){
-            if(actions!=null){
-                Element docover=actions.element("dcover");
-                Element dodown=actions.element("dodown");
-                Element donormal=actions.element("donormal");
-                if(docover!=null){
-                    IUIAction coveraction=createAction(docover);
-                    if(coveraction!=null){
+        private void addActions(UITextButton button, Element actions) {
+            if (actions != null) {
+                Element docover = actions.element("dcover");
+                Element dodown = actions.element("dodown");
+                Element donormal = actions.element("donormal");
+                if (docover != null) {
+                    IUIAction coveraction = createAction(docover);
+                    if (coveraction != null) {
                         button.setToCoverAction(coveraction);
                     }
                 }
-                if(dodown!=null){
-                    IUIAction action=createAction(dodown);
-                    if(action!=null){
+                if (dodown != null) {
+                    IUIAction action = createAction(dodown);
+                    if (action != null) {
                         button.setToDownAction(action);
                     }
                 }
-                if(donormal!=null){
-                    IUIAction action=createAction(donormal);
-                    if(action!=null){
+                if (donormal != null) {
+                    IUIAction action = createAction(donormal);
+                    if (action != null) {
                         button.setToCoverAction(action);
                     }
                 }
-            }            
+            }
         }
-        private IUIAction createAction(Element element){
-            String action=element.attributeValue("action");
-            if(action==null){
+
+        private IUIAction createAction(Element element) {
+            String action = element.attributeValue("action");
+            if (action == null) {
                 DebugUtil.log("action for button not defined");
                 return null;
             }
-            IUIAction act=(IUIAction)FactoryUtil.create(action);
+            IUIAction act = (IUIAction) FactoryUtil.create(action);
             return act;
-        }                
+        }
     }
 }

@@ -70,7 +70,17 @@ public class UIFace implements IHandler{
         return reservedActorList.stream().anyMatch((ui) -> (ui.getUiName().equals(uiname)));
     }
     
-    public boolean addUiInAll(UIActor actor){
+    public boolean addUiInAll(UIActor ... actors){
+        boolean result=true;
+        for(UIActor actor: actors){
+            if(addUiInAllImpl(actor)==false){
+                result=false;
+            }
+        }
+        return result;
+    }
+    
+    private boolean addUiInAllImpl(UIActor actor){
         if(!containsUiInAll(actor.getUiName())){
             actorList.add(actor);
             actor.setFace(this);
@@ -81,13 +91,27 @@ public class UIFace implements IHandler{
             return false;
         }
     }    
-    public void addUiInAllAndReserve(UIActor actor){
+
+    public boolean addUiInAllAndReserve(UIActor ... actors){
+        boolean result=true;
+        for(UIActor actor: actors){
+            if(addUiInAllAndReserveImpl(actor)==false){
+                result=false;
+            }            
+        }
+        return result;
+    }
+
+    private boolean addUiInAllAndReserveImpl(UIActor actor){
         if(addUiInAll(actor)){
             reservedActorList.add(actor);
+            return true;
         }else{
             DebugUtil.log("add ui failed.");
+            return false;
         }
     }
+
     //删除列表里的ui之后，会自动将可访问的ui删除
     public void removeUiInAll(String uiname){
         UIActor dest=null;
