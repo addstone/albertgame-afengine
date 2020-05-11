@@ -14,6 +14,9 @@ import org.dom4j.Element;
 public class UIPane extends UIActor{
     private ITexture back;    
     
+    public UIPane(String name,int x,int y){
+        this(name,new Vector(x,y,0));
+    }
     public UIPane(String name, Vector pos) {
         super(name, pos);
     }        

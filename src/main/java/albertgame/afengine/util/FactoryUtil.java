@@ -30,7 +30,7 @@ public class FactoryUtil {
     }
 
     private static final Map<String, IFactory> factoryMap = new HashMap<>();
-    ;
+
     private static final String pac = ".";
 
     public static Map<String, IFactory> getFactoryMap() {
@@ -64,9 +64,9 @@ public class FactoryUtil {
 
     private static Map<String, Object> createdObjMap = new HashMap<>();
 
-    //albertgame.afengine.app.App
-    //app,App1 默认放入已创建的对象Map
-    //app,App1,only
+    //albertgame.afengine.app.App 使用反射, [since 0.1版本]
+    //app,App1 默认放入已创建的对象Map [since 1.0版本]
+    //app,App1,only  [since 1.0版本]
     public static Object create(String name, Object... args) {
         if (name.contains(",")) {
             String[] s = name.split(",");
@@ -90,6 +90,10 @@ public class FactoryUtil {
                 String type = s[0];
                 String typename = s[1];
                 Object obj = create(type, typename, args);
+                if (obj == null) {
+                    DebugUtil.error("Object Created Failed, Create Text:[" + name + "]");
+                    return null;
+                }
                 createdObjMap.put(name, obj);
                 return obj;
             }
@@ -99,7 +103,7 @@ public class FactoryUtil {
                 dest = oldObj.get(name);
             } else {
                 dest = name;
-            }
+            }          
             try {
                 Class<?> cls = Class.forName(dest);
                 Object obj = cls.newInstance();

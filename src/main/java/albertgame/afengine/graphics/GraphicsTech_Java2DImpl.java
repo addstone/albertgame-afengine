@@ -219,7 +219,7 @@ public class GraphicsTech_Java2DImpl implements IGraphicsTech {
         }
 
         NullRepaint.install();
-        buffer = window.getBufferStrategy();
+        buffer = window.getBufferStrategy();        
     }
 
     @Override

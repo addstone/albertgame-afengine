@@ -52,11 +52,14 @@ public class InputRoute implements IRoute {
                 return;
             }
         } else {
-            List<UIFace> activedFaces = center.getActivedfaceList();
-            for (UIFace face : activedFaces) {
-                if (face.handle(msg)) {
-                    return;
+            try {
+                List<UIFace> activedFaces = center.getActivedfaceList();
+                for (UIFace face : activedFaces) {
+                    if (face.handle(msg)) {
+                        return;
+                    }
                 }
+            } catch (Exception ex) {
             }
         }
 

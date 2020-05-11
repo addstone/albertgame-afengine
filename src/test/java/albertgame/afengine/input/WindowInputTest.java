@@ -23,8 +23,17 @@ public class WindowInputTest {
 
         MessageManager.getInstance().addRoute(new InputRoute());//add inputroute to messagemanager
         InputManager.getInstance().addPreServlet(InputServlet.EventCode_KeyUp, InputServlet.ExitServlet);
+        
         InputManager.getInstance().addPreServlet(InputServlet.EventCode_WindowActive,"window activet",(msg)->{
             DebugUtil.log("Window Actived!!");
+            return false;
+        });
+        InputManager.getInstance().addPreServlet(InputServlet.EventCode_MouseInWindow,"in window activet",(msg)->{
+            DebugUtil.log("Mouse In Window !!");
+            return false;
+        });
+        InputManager.getInstance().addPreServlet(InputServlet.EventCode_MouseExitWindow,"Exit window activet",(msg)->{
+            DebugUtil.log("Mouse Exit Window !!");
             return false;
         });
         InputManager.getInstance().addPreServlet(InputServlet.EventCode_WindowDeactive,"Window Deactived",(msg)->{
