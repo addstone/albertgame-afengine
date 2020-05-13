@@ -107,7 +107,7 @@ public class UIFace implements IHandler{
             reservedActorList.add(actor);
             return true;
         }else{
-            DebugUtil.log("add ui failed.");
+            DebugUtil.error("add ui failed.");
             return false;
         }
     }
@@ -122,7 +122,7 @@ public class UIFace implements IHandler{
             }                
         }
         if(dest==null){
-            DebugUtil.log("does not found "+uiname);
+            DebugUtil.warning("does not found "+uiname);
         }else{
             actorList.remove(dest);
             reservedActorList.remove(dest);

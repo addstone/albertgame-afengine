@@ -116,21 +116,21 @@ public class ButtonTest {
         UIFace face = new UIFace("Face1");
         face.addUiInAllAndReserve(blist);
         
-        if(face.containsUiInReserved(blist.getUiName())){
-            DebugUtil.log("add ButtonList And Reserve Successfully");
-        }
-        face.removeUiInReserved(blist.getUiName());
-        if(!face.containsUiInReserved(blist.getUiName())){
-            DebugUtil.log("remove ButtonList And Reserve Successfully");
-        }
-        if(face.containsUiInAll(blist.getUiName())){
-            DebugUtil.log("still have ButtonList In Face ,Successfully");
-        }
-        face.addUiInAllAndReserve(blist);
-        face.removeUiInAll(blist.getUiName());
-        if(!face.containsUiInAll(blist.getUiName())){
-            DebugUtil.log("Femove ButtonList In Face ,Successfully");
-        }
+//        if(face.containsUiInReserved(blist.getUiName())){
+//            DebugUtil.log("add ButtonList And Reserve Successfully");
+//        }
+//        face.removeUiInReserved(blist.getUiName());
+//        if(!face.containsUiInReserved(blist.getUiName())){
+//            DebugUtil.log("remove ButtonList And Reserve Successfully");
+//        }
+//        if(face.containsUiInAll(blist.getUiName())){
+//            DebugUtil.log("still have ButtonList In Face ,Successfully");
+//        }
+//        face.addUiInAllAndReserve(blist);
+//        face.removeUiInAll(blist.getUiName());
+//        if(!face.containsUiInAll(blist.getUiName())){
+//            DebugUtil.log("Femove ButtonList In Face ,Successfully");
+//        }
         
                
         face.addUiInAll(exit,  label, label2);
