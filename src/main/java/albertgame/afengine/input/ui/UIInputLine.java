@@ -45,6 +45,7 @@ public class UIInputLine extends UIActor {
         this.fontValue = new ValueProperty<>(font);
         this.backValue = new ValueProperty<>();
         this.curColorValue=new ValueProperty<>();
+        this.dirty=true;
         curpos = 0;
     }
 
@@ -178,7 +179,7 @@ public class UIInputLine extends UIActor {
             super.height = backValue.get().getHeight();
         }
         if (fontValue.get() != null && dirty) {
-            super.width = fontValue.get().getFontWidth(getText());
+            super.width = fontValue.get().getFontWidth("WP")*this.length;
             super.height = fontValue.get().getFontHeight();
             dirty = false;
         }
@@ -280,10 +281,10 @@ public class UIInputLine extends UIActor {
             boolean isIn = isPointInUi(mx, my);
             if (isOn && !isIn) {
                 isOn = false;
-                return true;
+                return false;//交给其他UI处理
             } else if (!isOn && isIn) {
                 isOn = true;
-                return true;
+                return false;//交给其他UI处理
             }
             return false;
         }
@@ -294,12 +295,12 @@ public class UIInputLine extends UIActor {
 
         /*
             <UIInputLine name pos secret="">
-                <backValue.get() path=""></backValue.get()>
-                <color></color>
-                <fontValue.get()></fontValue.get()>
-                <size></size>
-                <length></length>
-                <holder></holder>
+                <back path=""/> 可无
+                <color></color> 可无
+                <font></font> 可无
+                <size></size> 可无
+                <length></length> 可无
+                <holder></holder> 可无
             </UIInputLine>
          */
         @Override
@@ -315,8 +316,8 @@ public class UIInputLine extends UIActor {
 
             boolean bsecret = false;
             ITexture back = null;
-            int length = 0;
-            String holder = "";
+            int length = 10;
+            String holder = "Input";
             String esecret = element.attributeValue("secret");
             if (esecret != null && esecret.equals("true")) {
                 bsecret = true;
@@ -342,16 +343,22 @@ public class UIInputLine extends UIActor {
             IColor color = null;
             Element fonte = element.element("font");
             String sizes = element.elementText("size");
+            if(sizes==null)sizes="20";
+
             String path = null;
             if (fonte == null) {
-                font = tech.createFont("Dialog",
-                        IFont.FontStyle.PLAIN, 30);
+                font = ((IGraphicsTech) ((WindowApp) App.getInstance())
+                        .getGraphicsTech()).createFont("Dialog",
+                        IFont.FontStyle.PLAIN, Integer.parseInt(sizes));
             } else if (fonte.attribute("path") != null) {
                 path = fonte.attributeValue("path");
-                font = tech.createFontByPath(fonte.getText(), IFont.FontStyle.PLAIN, Integer.parseInt(sizes));
+                font = ((IGraphicsTech) ((WindowApp) App.getInstance()).
+                        getGraphicsTech()).createFontByPath(fonte.getText(),
+                        IFont.FontStyle.PLAIN, Integer.parseInt(sizes));
             } else {
-                font = tech.createFont("Dialog",
-                        IFont.FontStyle.PLAIN, 30);
+                font = ((IGraphicsTech) ((WindowApp) App.getInstance())
+                        .getGraphicsTech()).createFont("Dialog",
+                        IFont.FontStyle.PLAIN, Integer.parseInt(sizes));
             }
             Element colore = element.element("color");
             String colors;
@@ -361,11 +368,29 @@ public class UIInputLine extends UIActor {
             } else {
                 colors = element.elementText("color");
             }
+            if(colors.contains(",")){
+                String[] coloris=colors.split(",");
+                if(coloris.length!=3){
+                    color=((IGraphicsTech) ((WindowApp) App.getInstance()).
+                            getGraphicsTech()).createColor(IColor.GeneraColor.WHITE);
+                }
+                else{
+                    color=((IGraphicsTech) ((WindowApp) App.getInstance()).
+                            getGraphicsTech()).createColor(Integer.parseInt(coloris[0]),
+                            Integer.parseInt(coloris[1]),Integer.parseInt(coloris[2]),Integer.parseInt(coloris[3]));
+                }
+            }else{
+                color = ((IGraphicsTech) ((WindowApp) App.getInstance()).
+                        getGraphicsTech()).createColor(IColor.GeneraColor.valueOf(colors));
+            }
 
             color = tech.createColor(IColor.GeneraColor.valueOf(colors));
 
             UIInputLine line = new UIInputLine(name, pos, length, color, font);
-            line.setText(holder);
+            line.setPlaceHolder(new StringProperty(holder));
+            if(back!=null){
+                line.setBack(back);
+            }
             line.setBack(back);
             line.enableSecretMode(bsecret);
 

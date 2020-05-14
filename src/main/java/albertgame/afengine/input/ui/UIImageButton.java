@@ -11,6 +11,11 @@ import albertgame.afengine.util.math.Vector;
 import albertgame.afengine.util.property.ValueProperty;
 import org.dom4j.Element;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 public class UIImageButton extends UIButtonBase{
     
     private ValueProperty<ITexture> normalTextureValue,downTextureValue,coverTextureValue;
@@ -127,9 +132,9 @@ public class UIImageButton extends UIButtonBase{
         /*
             <UIImageButton name=""  pos="">
                 <textures/>
-                    <normal path=""/>
+                    <normal path=""/> asset/a.png or classpath:asset/a.png or url:https://www.baidu.com/ale.png
                     <cover path=""/>
-                    <down path=""/>        
+                    <down path="" />
                 </textures/>
                 <actions>
                     <donormal action=""/>
@@ -214,6 +219,22 @@ public class UIImageButton extends UIButtonBase{
             String path=element.attributeValue("path");
             if(path==null){
                 DebugUtil.log("path for texture is not defined.return null texture");
+                return null;
+            }
+            else if(path.startsWith("classpath:")){
+                String[] classpaths=path.split(":");
+                path=classpaths[1];
+                URL url=this.getClass().getClassLoader().getResource(path);
+                return tech.createTexture(url);
+            }else if(path.startsWith("url:")){
+                String[] classpaths=path.split(":");
+                path=classpaths[1];
+                try {
+                    URL url = new URL(path);
+                    return tech.createTexture(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
                 return null;
             }
             else return tech.createTexture(path);

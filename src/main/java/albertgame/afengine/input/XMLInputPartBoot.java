@@ -31,7 +31,7 @@ public class XMLInputPartBoot implements IXMLPartBoot{
                 </after>
             </InputServlets>
             <UIFaces>
-                <name path="" active=""/>
+                <face path="" active=""/>
                  ...
             </UIFaces>
         </UIInputPart>
@@ -97,7 +97,7 @@ public class XMLInputPartBoot implements IXMLPartBoot{
         return servletList;
     }
     /*
-         <name path="" active="true"/>    
+         <face path="" active="true"/>
     */    
     public static UIFace createFace(Element element,InputManager center){
         String facename=element.getName();
@@ -105,8 +105,7 @@ public class XMLInputPartBoot implements IXMLPartBoot{
         Document doc=XmlUtil.readXMLFileDocument(path,false);
         if(doc!=null){
             Element root=doc.getRootElement();
-            UIFace face=new UIFace(facename);
-            face=UIControlHelp.loadFace(face, root);
+            UIFace face=UIControlHelp.loadFace(root);
             String active=element.attributeValue("active");
             if(center!=null)
                 center.addFaceInAll(face);

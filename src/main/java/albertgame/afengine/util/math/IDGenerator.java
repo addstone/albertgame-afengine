@@ -5,6 +5,8 @@
  */
 package albertgame.afengine.util.math;
 
+import albertgame.afengine.util.DebugUtil;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,7 +29,7 @@ public class IDGenerator {
                 tmpID = tmpID + 1;
                 ltime = tmpID;
             }
-            return ltime;            
+            return ltime;
         }
     }
 }

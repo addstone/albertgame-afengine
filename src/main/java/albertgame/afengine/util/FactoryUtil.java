@@ -65,20 +65,20 @@ public class FactoryUtil {
     private static Map<String, Object> createdObjMap = new HashMap<>();
 
     //albertgame.afengine.app.App 使用反射, [since 0.1版本]
-    //app,App1 默认放入已创建的对象Map [since 1.0版本]
-    //app,App1,only  [since 1.0版本]
+    //app,App1 默认不放入已创建的对象Map [since 1.0版本]
+    //app,App1,only  [since 1.0版本]默认放入已创建的对象map,key为app,App1
     public static Object create(String name, Object... args) {
         if (name.contains(",")) {
             String[] s = name.split(",");
             if (s.length == 3) {
                 if (s[2].equals("only")) {
-                    if (createdObjMap.containsKey(name)) {
-                        return createdObjMap.get(name);
+                    if (createdObjMap.containsKey(s[0]+","+s[1])) {
+                        return createdObjMap.get(s[0]+","+s[1]);
                     } else {
                         String type = s[0];
                         String typename = s[1];
                         Object obj = create(type, typename, args);
-                        createdObjMap.put(name, obj);
+                        createdObjMap.put(s[0]+","+s[1], obj);
                         return obj;
                     }
                 } else {
@@ -94,7 +94,6 @@ public class FactoryUtil {
                     DebugUtil.error("Object Created Failed, Create Text:[" + name + "]");
                     return null;
                 }
-                createdObjMap.put(name, obj);
                 return obj;
             }
         } else {

@@ -26,7 +26,7 @@ import albertgame.afengine.util.property.StringProperty;
  */
 public class ButtonTest {
 
-    static boolean show = true;
+    private static boolean show = true;
 
     public static void main(String[] args) {
         DebugUtil.switchOn();//Open Debug
@@ -114,8 +114,8 @@ public class ButtonTest {
         blist.addUiButton(button2);
 
         UIFace face = new UIFace("Face1");
-        face.addUiInAllAndReserve(blist);
-        
+
+
 //        if(face.containsUiInReserved(blist.getUiName())){
 //            DebugUtil.log("add ButtonList And Reserve Successfully");
 //        }
@@ -133,7 +133,7 @@ public class ButtonTest {
 //        }
         
                
-        face.addUiInAll(exit,  label, label2);
+        face.addUiInAll(exit,label, label2);
 
         UIFace face2 = new UIFace("Face2");
         face2.addUiInAll(pane);

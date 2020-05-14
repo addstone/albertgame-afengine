@@ -79,7 +79,7 @@ public class UIPane extends UIActor{
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName"+new IDGenerator().createId();
+                name="DefaultUiName"+IDCreator.createId();
             String sback=element.attributeValue("back");
             ITexture back=null;
             if(sback!=null)

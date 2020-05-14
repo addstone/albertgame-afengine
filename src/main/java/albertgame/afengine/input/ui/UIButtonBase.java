@@ -121,21 +121,19 @@ public class UIButtonBase extends UIActor{
     private boolean handleDown(boolean in){
         if(in){
             down();
-            return true;
+            return false;//让其他UI继续处理，比如按钮的释放
         }
         return false;
     }
     private boolean handleUp(boolean in,int mx,int my){        
         if(in){
-            if(buttonState==DOWN){
+            if(buttonState==DOWN)
                 cover();
-                return true;
-            }else return false;
+                return false;//让其他的UI继续处理MouseUp，比如按钮
         }else{
-            if(buttonState==DOWN){
+            if(buttonState==DOWN)
                 normal();
-                return true;
-            }else return false;
+            return false;
         }
     }
     

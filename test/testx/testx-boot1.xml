@@ -3,7 +3,7 @@
     <afengine  debug="true" logicpath="testx.Test1Logic" type="window"
     typeboot="albertgame.afengine.app.WindowApp$WindowAppBoot"/>
     <window size="1280,760" title="TestX-Test1" 
-            tech="albertgame.afengine.graphics.GraphicsTech_Java2DImpl2"
+            tech="albertgame.afengine.graphics.GraphicsTech_Java2DImpl"
             icon="test/testx/1.png">
         <root class="albertgame.afengine.scene.component.render.SceneRenderComponentDraw"/>
         <after>

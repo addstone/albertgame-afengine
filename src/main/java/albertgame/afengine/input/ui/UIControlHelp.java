@@ -5,6 +5,8 @@ import albertgame.afengine.input.UIFace;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import albertgame.afengine.util.DebugUtil;
 import org.dom4j.Element;
 
 /**
@@ -32,7 +34,9 @@ public class UIControlHelp {
             </pane>
         </face>
     */
-    public static UIFace loadFace(UIFace face,Element faceroot){        
+    public static UIFace loadFace(Element faceroot){
+        String name=faceroot.attributeValue("name");
+        UIFace face=new UIFace(name);
         Iterator<Element> eiter=faceroot.elementIterator();
         while(eiter.hasNext()){
             Element ele=eiter.next();
@@ -53,7 +57,8 @@ public class UIControlHelp {
         String controlname=uiroot.getName();
         String name=uiroot.attributeValue("name");
         IUICreator uicreator=creatorMap.get(controlname);
-        UIActor ui=uicreator.createUi(uiroot);        
+        UIActor ui=uicreator.createUi(uiroot);
+        DebugUtil.log("Add UI :"+ui.getUiName());
         if(name!=null)
             face.addUiInAllAndReserve(ui);
         else face.addUiInAll(ui);

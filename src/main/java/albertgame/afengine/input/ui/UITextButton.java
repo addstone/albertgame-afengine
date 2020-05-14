@@ -119,12 +119,12 @@ public class UITextButton extends UIButtonBase {
 
         /*
             <UITextButton name="" pos="">
-        *      <text></text>
-        *      <font path=""></font>
-        *      <size></size>
-        *      <color></color>
-                <actions>
-                    <donormal action=""/>
+        *      <text></text> 可无，默认DefaultText
+        *      <font path=""></font> 可无，默认Dialog
+        *      <size></size> 可无,默认12
+        *      <color></color> 输入颜色名称，见IColor.GenerateColor 可无，默认 WHITE 支持r,g,b,a
+                <actions> 可无
+                    <donormal action=""/> 填入反射类对象路径，或者工厂名称[name1,name2]
                     <dodown action=""/>
                     <docover action=""/>
                 </actions>
@@ -141,6 +141,7 @@ public class UITextButton extends UIButtonBase {
                 name = "DefaultUiName" + IDCreator.createId();
             }
 
+
             StringProperty text;
             IFont font;
             IColor color = null;
@@ -153,19 +154,22 @@ public class UITextButton extends UIButtonBase {
             }
             Element fonte = element.element("font");
             String sizes = element.elementText("size");
+            if(sizes==null)sizes="12";
+
             String path = null;
             if (fonte == null) {
                 font = ((IGraphicsTech) ((WindowApp) App.getInstance())
                         .getGraphicsTech()).createFont("Dialog",
-                                IFont.FontStyle.PLAIN, 30);
+                                IFont.FontStyle.PLAIN, Integer.parseInt(sizes));
             } else if (fonte.attribute("path") != null) {
                 path = fonte.attributeValue("path");
                 font = ((IGraphicsTech) ((WindowApp) App.getInstance()).
-                        getGraphicsTech()).createFontByPath(fonte.getText(), IFont.FontStyle.PLAIN, Integer.parseInt(sizes));
+                        getGraphicsTech()).createFontByPath(fonte.getText(),
+                        IFont.FontStyle.PLAIN, Integer.parseInt(sizes));
             } else {
                 font = ((IGraphicsTech) ((WindowApp) App.getInstance())
                         .getGraphicsTech()).createFont("Dialog",
-                                IFont.FontStyle.PLAIN, 30);
+                                IFont.FontStyle.PLAIN, Integer.parseInt(sizes));
             }
             Element colore = element.element("color");
             String colors;
@@ -175,9 +179,22 @@ public class UITextButton extends UIButtonBase {
             } else {
                 colors = element.elementText("color");
             }
+            if(colors.contains(",")){
+                String[] coloris=colors.split(",");
+                if(coloris.length!=3){
+                    color=((IGraphicsTech) ((WindowApp) App.getInstance()).
+                            getGraphicsTech()).createColor(IColor.GeneraColor.WHITE);
+                }
+                else{
+                    color=((IGraphicsTech) ((WindowApp) App.getInstance()).
+                            getGraphicsTech()).createColor(Integer.parseInt(coloris[0]),
+                            Integer.parseInt(coloris[1]),Integer.parseInt(coloris[2]),Integer.parseInt(coloris[3]));
+                }
+            }else{
+                color = ((IGraphicsTech) ((WindowApp) App.getInstance()).
+                        getGraphicsTech()).createColor(IColor.GeneraColor.valueOf(colors));
+            }
 
-            color = ((IGraphicsTech) ((WindowApp) App.getInstance()).
-                    getGraphicsTech()).createColor(IColor.GeneraColor.valueOf(colors));
 
             UITextButton button = new UITextButton(name, pos, text, font, color);
             addActions(button, element.element("actions"));

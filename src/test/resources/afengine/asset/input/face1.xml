@@ -1,0 +1,50 @@
+<face name="face1">
+    <UIPane pos="50,50">
+        <UITextButton pos="50,50">
+            <text>Start New Game!</text>
+            <size>20</size>
+            <color>12,23,80,10</color>
+            <actions>
+                <dodown action="ui-menu,start"/>
+            </actions>
+        </UITextButton>
+        <UIImageButton pos="50,100">
+            <textures>
+                <down path="classpath:duke0.gif"/>
+                <normal path="classpath:duke1.gif"/>
+            </textures>
+            <actions>
+                <dodown action="ui-menu,continue,only"/>
+            </actions>
+        </UIImageButton>
+        <UITextButton pos="50,200">
+            <text>End Bad Game!</text>
+            <size>20</size>
+            <color>GREEN</color>
+            <actions>
+                <dodown action="ui-menu,end,only"/>
+            </actions>
+        </UITextButton>
+        <UIButtonList pos="50,300">
+            <UITextButton pos="0,50">
+                <text>Continue Bad Game!</text>
+                <size>20</size>
+                <color>GREEN</color>
+                <actions>
+                    <dodown action="ui-menu,continue,only"/>
+                </actions>
+            </UITextButton>
+            <UITextButton pos="0,100">
+                <text>Quit Awelsome Game!</text>
+                <size>20</size>
+                <actions>
+                    <dodown action="ui-menu,end,only"/>
+                </actions>
+            </UITextButton>
+        </UIButtonList>
+        <UIInputLine pos="50,0">
+            <length>20</length>
+            <holder>Input Some Character</holder>
+        </UIInputLine>
+    </UIPane>
+</face>
