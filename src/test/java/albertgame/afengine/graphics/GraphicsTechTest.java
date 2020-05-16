@@ -8,6 +8,7 @@ package albertgame.afengine.graphics;
 import albertgame.afengine.core.graphics.*;
 import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl;
+import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl2;
 
 import java.net.URL;
 
@@ -24,7 +25,7 @@ public class GraphicsTechTest implements IDrawStrategy {
     private ITexture texture1,texture2,texture3,texture4;
 
     public GraphicsTechTest() {
-        tech = new GraphicsTech_Java2DImpl();
+        tech = new GraphicsTech_Java2DImpl2();
     }
     
     public void init(){
@@ -54,7 +55,7 @@ public class GraphicsTechTest implements IDrawStrategy {
     getMouseIcon();
     setMouseIcon(ITexture texture);
  */        
-        tech.create(texture, "Hello");
+        tech.create(800,600,texture, "Hello");
         tech.setIcon(texture);
         tech.setMouseIcon(texture);
         tech.setTitle("GraphicsTechTest");
