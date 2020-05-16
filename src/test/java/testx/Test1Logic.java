@@ -1,19 +1,15 @@
 package testx;
 
-import albertgame.afengine.app.AppBoot;
-import albertgame.afengine.app.IAppLogic;
-import albertgame.afengine.app.message.Message;
-import albertgame.afengine.app.message.Message.IHandler;
-import albertgame.afengine.input.InputServlet;
-import albertgame.afengine.scene.Actor;
-import albertgame.afengine.scene.Scene;
-import albertgame.afengine.scene.SceneFileHelp;
-import albertgame.afengine.scene.SceneManager;
-import albertgame.afengine.scene.component.render.RenderComponent;
-import albertgame.afengine.util.DebugUtil;
-import albertgame.afengine.util.XmlUtil;
-import org.dom4j.Document;
-import org.dom4j.Element;
+import albertgame.afengine.core.app.AppBoot;
+import albertgame.afengine.core.app.IAppLogic;
+import albertgame.afengine.core.message.Message;
+import albertgame.afengine.core.message.Message.IHandler;
+import albertgame.afengine.core.input.InputServlet;
+import albertgame.afengine.in.parts.scene.Actor;
+import albertgame.afengine.in.parts.scene.Scene;
+import albertgame.afengine.in.parts.scene.SceneManager;
+import albertgame.afengine.in.components.render.RenderComponent;
+import albertgame.afengine.core.util.DebugUtil;
 
 /**
  *

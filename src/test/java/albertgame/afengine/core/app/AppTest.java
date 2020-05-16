@@ -1,0 +1,59 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package albertgame.afengine.core.app;
+
+import albertgame.afengine.core.graphics.IGraphicsTech;
+import albertgame.afengine.core.util.DebugUtil;
+/**
+ *
+ * @author Albert Flex
+ */
+public class AppTest {
+    
+    public static void main(String[] args) {
+        new AppTest().launchWindowTest();
+    }
+    
+    public void launchWindowTest(){
+        
+//        URL url=getClass().getClassLoader().getResource("duke0.gif");
+//        String title="Title1";
+        DebugUtil.switchOn();
+        WindowApp win=new WindowApp(null,"AppTest","src/test/resources/duke0.gif",800,600);
+        IGraphicsTech tech=win.getGraphicsTech();
+        tech.setRootDrawStrategy((tec)->{
+            tec.drawText(0,0, tech.getFont(), tech.getColor(),"FPS:"+tech.getFPS());
+        });
+        App.launch(win);
+    }
+    
+    public static void logicTest(){
+        IAppLogic logic=new IAppLogic(){
+            int i=0;
+            @Override
+            public boolean init() {
+                System.out.println("init logic!!!");
+                return true;
+            }
+            @Override
+            public boolean update(long time) {
+                ++i;
+                if(i>10){
+                    App.exit();
+                }
+                System.out.println("update logic!!!");
+                return true;
+            }
+            @Override
+            public boolean shutdown() {
+                System.out.println("shutdowm logic!!!");
+                return true;
+            }
+        };
+        App app=new App("service","app1",logic);
+        App.launch(app);
+    }
+}

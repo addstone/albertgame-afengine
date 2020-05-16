@@ -1,0 +1,21 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package albertgame.afengine.in.parts.scene;
+
+import java.util.Map;
+
+import albertgame.afengine.in.parts.scene.ActorComponent;
+import org.dom4j.Element;
+
+/**
+ * component factory<br>
+ * for xml config<br>
+ * @see ActorComponent
+ * @author Albert Flex
+ */
+public interface IComponentFactory {
+    public ActorComponent createComponent(Element element,Map<String,String> actordatas);
+}

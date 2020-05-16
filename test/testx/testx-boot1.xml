@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <app>
     <afengine  debug="true" logicpath="testx.Test1Logic" type="window"
-    typeboot="albertgame.afengine.app.WindowApp$WindowAppBoot"/>
+    typeboot="albertgame.afengine.core.app.WindowApp$WindowAppBoot"/>
     <window size="1280,760" title="TestX-Test1" 
-            tech="albertgame.afengine.graphics.GraphicsTech_Java2DImpl"
+            tech="albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl"
             icon="test/testx/1.png">
-        <root class="albertgame.afengine.scene.component.render.SceneRenderComponentDraw"/>
+        <root class="albertgame.afengine.in.components.render.SceneRenderComponentDraw"/>
         <after>
-           <draw pri="1" class="albertgame.afengine.util.DebugUtil$DebugDrawStrategy"/>            
+           <draw pri="1" class="albertgame.afengine.core.util.DebugUtil$DebugDrawStrategy"/>
         </after>
     </window>
     <partsboot>
-        <part name="MessagePart" path="albertgame.afengine.app.message.XMLMessagePartBoot"/>
-        <part name="ScenePart" path="albertgame.afengine.scene.XMLScenePartBoot"/>
-        <part name="UIInputPart" path="albertgame.afengine.input.XMLInputPartBoot"/>
+        <part name="MessagePart" path="albertgame.afengine.core.message.XMLMessagePartBoot"/>
+        <part name="ScenePart" path="albertgame.afengine.in.parts.scene.XMLScenePartBoot"/>
+        <part name="UIInputPart" path="albertgame.afengine.core.input.XMLInputPartBoot"/>
     </partsboot>
     <partsconfig>
         <MessagePart>
-            <Route path="albertgame.afengine.app.message.MessageHandlerRoute"/>            
-            <Route path="albertgame.afengine.input.InputRoute"/>
+            <Route path="albertgame.afengine.core.message.MessageHandlerRoute"/>
+            <Route path="albertgame.afengine.core.input.InputRoute"/>
         </MessagePart>
         <ScenePart main="Main">
             <ComponentFactoryList/>
@@ -29,7 +29,7 @@
         <UIInputPart>
             <InputServlets>
                 <before>
-                   <esc-servlet handler="albertgame.afengine.input.InputServlet$ExitHandler" types="1"/>
+                   <esc-servlet handler="albertgame.afengine.core.input.InputServlet$ExitHandler" types="1"/>
                    <move handler="testx.Test1Logic$MoveHandler" types="0"/>
                 </before>
             </InputServlets>

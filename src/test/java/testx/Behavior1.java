@@ -1,15 +1,15 @@
 package testx;
 
-import albertgame.afengine.app.App;
-import albertgame.afengine.app.WindowApp;
-import albertgame.afengine.graphics.IGraphicsTech;
-import albertgame.afengine.graphics.ITexture;
-import albertgame.afengine.scene.Actor;
-import albertgame.afengine.scene.component.behavior.ActorBehavior;
-import albertgame.afengine.scene.component.render.TextureRenderComponent;
-import albertgame.afengine.util.DebugUtil;
-import albertgame.afengine.util.XmlUtil;
-import albertgame.afengine.util.math.IDGenerator;
+import albertgame.afengine.core.app.App;
+import albertgame.afengine.core.app.WindowApp;
+import albertgame.afengine.core.graphics.IGraphicsTech;
+import albertgame.afengine.core.graphics.ITexture;
+import albertgame.afengine.in.parts.scene.Actor;
+import albertgame.afengine.in.components.behavior.ActorBehavior;
+import albertgame.afengine.in.components.render.TextureRenderComponent;
+import albertgame.afengine.core.util.DebugUtil;
+import albertgame.afengine.core.util.XmlUtil;
+import albertgame.afengine.core.util.math.IDGenerator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

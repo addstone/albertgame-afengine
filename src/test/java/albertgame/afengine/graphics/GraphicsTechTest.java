@@ -5,7 +5,10 @@
  */
 package albertgame.afengine.graphics;
 
-import albertgame.afengine.util.DebugUtil;
+import albertgame.afengine.core.graphics.*;
+import albertgame.afengine.core.util.DebugUtil;
+import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl;
+
 import java.net.URL;
 
 
