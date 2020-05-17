@@ -475,10 +475,7 @@ public class GraphicsTech_Java2DImpl2 implements IGraphicsTech {
 
     @Override
     public void callDraw() {
-        new Thread(() -> {
             content.repaint();
-            start = System.currentTimeMillis();
-        }).start();
     }
 
     @Override

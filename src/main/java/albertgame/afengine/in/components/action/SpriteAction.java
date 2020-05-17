@@ -34,6 +34,8 @@ public class SpriteAction extends ActionComponent.ActAction{
     @Override
     public void update(long time) {
         updateAnimate(time);
+        if(isEnd)return;
+
         ITexture nowTexture = getTexture();
         Actor actor = super.actionComp.getActor();
         TextureRenderComponent render = (TextureRenderComponent) actor.getComponent(RenderComponent.COMPONENT_NAME);

@@ -2,6 +2,7 @@ package albertgame.afengine.in.components.behavior;
 
 //actorbehavior extends actorcomponent,while it's not follow the rule for actorcomponent,but for behavior.
 
+import albertgame.afengine.core.util.math.IDGenerator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,9 +25,15 @@ public abstract class ActorBehavior{
     private boolean active;
     public Map<String,String> attributes;
     
+    private static IDGenerator IDCreator=new IDGenerator();
+    
     public ActorBehavior() {
+        this("behavior"+IDCreator.createId());
+    }
+    public ActorBehavior(String name){
+        this.name=name;
         active=false;
-        attributes=new HashMap<>();
+        attributes=new HashMap<>();        
     }
     
     public abstract void update(long time);

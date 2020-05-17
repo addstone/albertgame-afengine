@@ -35,7 +35,7 @@ public class WindowApp extends App {
 
     public WindowApp(IAppLogic logic, String title, String iconpath) {
         super(WindowApp.APPTYPE, title, logic);
-        IGraphicsTech tech = new GraphicsTech_Java2DImpl2();
+        IGraphicsTech tech = new GraphicsTech_Java2DImpl();
         graphicsTech = tech;
         icon = graphicsTech.createTexture(iconpath);
         this.title = title;
@@ -46,7 +46,7 @@ public class WindowApp extends App {
 
     public WindowApp(IAppLogic logic, String title, String iconpath, int width, int height) {
         super(WindowApp.APPTYPE, title, logic);
-        IGraphicsTech tech = new GraphicsTech_Java2DImpl2();
+        IGraphicsTech tech = new GraphicsTech_Java2DImpl();
         graphicsTech = tech;
         icon = graphicsTech.createTexture(iconpath);
         this.title = title;

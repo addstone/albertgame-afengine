@@ -99,10 +99,10 @@ public class ActionComponent extends ActorComponent{
         DebugUtil.log("->"+action.actionName);
         action.actionComp=this;
         ActAction ac = action.nextAction;
-        action.start();
+        action.doStart();
         while(ac!=null){
             ac.actionComp=this;
-            DebugUtil.log("->"+ac.actionName);
+            DebugUtil.log("->>"+ac.actionName);
             ac=ac.nextAction;
         }
     }

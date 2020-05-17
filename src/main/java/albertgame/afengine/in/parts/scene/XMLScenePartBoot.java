@@ -10,6 +10,7 @@ import albertgame.afengine.core.app.AppBoot.IXMLPartBoot;
 import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.core.util.FactoryUtil;
 import albertgame.afengine.core.util.XmlUtil;
+import albertgame.afengine.in.parts.scene.ActorComponent.IProcess;
 import albertgame.afengine.in.parts.scene.Scene.Loader;
 import java.util.Iterator;
 import org.dom4j.Document;
@@ -30,20 +31,20 @@ public class XMLScenePartBoot implements IXMLPartBoot {
 
     /**
      * <ScenePart main="">
-        * <ComponentFactoryList>
-            * <Component name="" class="" loader=""/>
-            * <Component name="" class=""/>
-            * <Component name="" class=""/>
-        * </ComponentFactoryList>
-        * <SceneList>
-            * <Scene id="" name="" class="" or path="" loader="" output="true"/>
-            * <Scene id="" name="" class="" or path="" loader=""/>
-        * </SceneList>
-        * <ComponentMethods>
-            * <method class=""/>
-            * ...
-        * </ComponentMethods>
-        * <StaticActors path=""/>
+     * <ComponentFactoryList>
+     * <Component name="" class="" loader="" process="disable"/>
+     * <Component name="" class=""/>
+     * <Component name="" class=""/>
+     * </ComponentFactoryList>
+     * <SceneList>
+     * <Scene id="" name="" class="" or path="" loader="" output="true"/>
+     * <Scene id="" name="" class="" or path="" loader=""/>
+     * </SceneList>
+     * <ComponentMethods>
+     * <method class=""/>
+     * ...
+     * </ComponentMethods>
+     * <StaticActors path=""/>
      * </ScenePart>
      *
      * @param element
@@ -63,6 +64,15 @@ public class XMLScenePartBoot implements IXMLPartBoot {
             ActorComponent.addFactory(name, fac);
             DebugUtil.log("Add ComponentFactory :" + name);
             String loader = ele.attributeValue("loader");
+            String process = ele.attributeValue("process");
+            //没有就代表使用默认
+            //如果为disable则为放弃该组件的场景层面的操作,否则使用该字段实例化Process
+            if (process == null){
+                ActorComponent.componentMethodList.add(new ActorComponent.AdapterProcess(name));
+            }else if(!process.equals("disable")){                
+                IProcess processin = (IProcess) FactoryUtil.create(process);
+                ActorComponent.componentMethodList.add(processin);
+            }
             if (loader != null) {
                 IComponentFactoryLoader floader = loadfactory(loader);
                 floader.loadFactory(ele);
@@ -105,22 +115,21 @@ public class XMLScenePartBoot implements IXMLPartBoot {
             }
         }
 
-        
         //load componentmethods
         /*
         * <ComponentMethods>
             * <method class=""/>
             * ...
         * </ComponentMethods>        
-        */
-        Element compms=element.element("ComponentMethods");
-        if(compms!=null){
-            Iterator<Element> eiter=compms.elementIterator();
-            while(eiter.hasNext()){
-                Element e=eleiter.next();
-                String clss=e.attributeValue("class");
-                ActorComponent.IProcess process=(ActorComponent.IProcess) FactoryUtil.create(clss);
-                if(process!=null){
+         */
+        Element compms = element.element("ComponentMethods");
+        if (compms != null) {
+            Iterator<Element> eiter = compms.elementIterator();
+            while (eiter.hasNext()) {
+                Element e = eleiter.next();
+                String clss = e.attributeValue("class");
+                ActorComponent.IProcess process = (ActorComponent.IProcess) FactoryUtil.create(clss);
+                if (process != null) {
                     ActorComponent.componentMethodList.add(process);
                 }
             }
@@ -143,14 +152,14 @@ public class XMLScenePartBoot implements IXMLPartBoot {
             loader = (Loader) FactoryUtil.create(loaderc);
         }
         if (classpath != null) {
-            scene=(Scene)FactoryUtil.create(classpath);
-                String name = sceneEle.attributeValue("name");
-                scene.setName(name);
+            scene = (Scene) FactoryUtil.create(classpath);
+            String name = sceneEle.attributeValue("name");
+            scene.setName(name);
         } else {
             //load scene from xml file 
             String path = sceneEle.attributeValue("path");
             if (path != null) {
-                Document scenedoc = XmlUtil.readXMLFileDocument(path,false);
+                Document scenedoc = XmlUtil.readXMLFileDocument(path, false);
                 if (scenedoc != null) {
                     Element root = scenedoc.getRootElement();
                     if (root != null && root.getName().equals("scene")) {

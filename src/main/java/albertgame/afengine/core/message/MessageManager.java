@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * 消息管理器，只有一个实例，可以添加消息路由器以处理消息，被App集成
  * @author Albert Flex
  */
 public class MessageManager {

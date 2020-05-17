@@ -29,7 +29,7 @@
         </dependency>
         <!-- http://mvnrepository.com/artifact/javax.xml/jaxb-api -->
         <dependency>
-            <groupId>javax.xml</groupId>
+            <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.1</version>
         </dependency>

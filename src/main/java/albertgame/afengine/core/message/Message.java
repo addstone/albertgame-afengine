@@ -6,15 +6,21 @@
 package albertgame.afengine.core.message;
 
 /**
- *
+ * 表示一个可以传输的消息，提供核心部分的消息处理
  * @author albert-flex
  */
 public class Message{
     
+    /**
+     * 提供对消息路由转发的功能
+     */
     public static interface IRoute{
         long getRouteType();
         void routeMessage(Message msg);
     }
+    /**
+     * 提供对消息进行处理的功能
+     */
     public static interface IHandler{
         boolean handle(Message msg);
     }

@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * 内置的根据消息类型-消息内容转发消息的路由
  * @author Albert Flex
  */
 public class MessageHandlerRoute implements Message.IRoute {

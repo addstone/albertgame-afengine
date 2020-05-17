@@ -20,7 +20,8 @@ public class BehaviorBeanComponentFactory implements IComponentFactory{
     @Override
     public ActorComponent createComponent(Element element,Map<String,String> datas) {
         /**
-         * <BehaviorBean>
+
+* <BehaviorBean>
          *      <BehaviorName1 class="">
          *          <key value="value"/>
          *          ...

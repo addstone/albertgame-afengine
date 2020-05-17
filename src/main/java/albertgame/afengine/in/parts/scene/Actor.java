@@ -117,7 +117,7 @@ public class Actor {
         Iterator<ActorComponent> compiter = componentsMap.values().iterator();
         while (compiter.hasNext()) {
             ActorComponent comp = compiter.next();
-            comp.toSleep();
+            comp.asleep();
         }
 
         Iterator<Actor> childiter = children.iterator();

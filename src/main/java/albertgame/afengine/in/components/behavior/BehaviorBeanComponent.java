@@ -32,6 +32,15 @@ public class BehaviorBeanComponent extends ActorComponent{
             be.awake();
         }
     }        
+
+    @Override
+    public void toSleep() {
+        Iterator<ActorBehavior> beiter = behaviorMap.values().iterator();
+        while(beiter.hasNext()){
+            ActorBehavior be = beiter.next();
+            be.asleep();
+        }
+    }
         
     /**
      * update all behaviors

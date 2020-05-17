@@ -22,9 +22,7 @@ import org.dom4j.Element;
 public class AppBoot {
     
     public static void main(String[] args) {
-        boot("afengine.xml");
-    }
-    static{
+        boot("boot.xml");
     }
 
     /**

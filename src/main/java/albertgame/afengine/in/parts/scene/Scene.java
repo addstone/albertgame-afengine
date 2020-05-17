@@ -11,53 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- *
- * @author Albert Flex
- */
-/**
- * 场景配置
- * <scene name="" loader-fac="">
-    * <actors>
-        * <actor name="" modpath="" mod="a,b,c" or bigactor="">
-            * <transform pos="" anchor="" rotate="" scale=""/>
-            * <settings>
-                * <setting name="" value=""/>
-            * </settings>
-        * </actor>
-        * ...
-    * </actors>
-    * <map>
-        * <actor name="">
-            * <actor name=""/>
-            * <actor name="">
-               * <actor name=""/>
-            * </actor>
-        * </actor>
-    * </map>
- * </scene>
- *
- * 静态实体配置
- * <staticactors>
-    * <actors>
-        * <actor name="" value=""/>
-        * ...
-    * </actors>
- * </staticactors>
- *
- * 组件模组配置
- * <modlibs>
-    * <mod name="">
-        * <component name="">
-            * <settings>
-            * <setting name="" value=""/>
-            * </settings>
-        * </component>
-    * </mod>
-    * <mod .../>
- * </modlibs>
- * @author Albert Flex
- */
 public class Scene{
 
     public static interface Loader {
