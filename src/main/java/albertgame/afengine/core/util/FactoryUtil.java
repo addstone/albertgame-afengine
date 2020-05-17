@@ -11,17 +11,17 @@ public class FactoryUtil {
     static {
         oldObj = new HashMap<>();
         oldObj.put("afengine.component.render.GraphicsTech_Java2D",
-                "GraphicsTech_Java2DImpl");
+                "albertgame.in.core.graphics.GraphicsTech_Java2DImpl");
         oldObj.put("afengine.core.util.Debug$DebugDrawStrategy",
-                "albertgame.afengine.util.DebugUtil$DebugDrawStrategy");
+                "albertgame.afengine.core.util.DebugUtil$DebugDrawStrategy");
         oldObj.put("afengine.core.WindowApp$WindowAppBoot",
-                "albertgame.afengine.app.WindowApp$WindowAppBoot");
+                "albertgame.afengine.core.app.WindowApp$WindowAppBoot");
         oldObj.put("afengine.part.message.XMLMessagePartBoot",
-                "XMLMessagePartBoot");
+                "albertgame.afengine.core.message.XMLMessagePartBoot");
         oldObj.put("afengine.part.message.MessageHandlerRoute",
-                "MessageHandlerRoute");
+                "albertgame.afengine.core.message.MessageHandlerRoute");
         oldObj.put("afengine.component.render.SceneRenderComponentDraw",
-                "albertgame.afengine.scene.component.SceneRenderComponentDraw");
+                "albertgame.afengine.in.components.render.SceneRenderComponentDraw");
     }
 
     public static interface IFactory {
@@ -31,7 +31,7 @@ public class FactoryUtil {
 
     private static final Map<String, IFactory> factoryMap = new HashMap<>();
 
-    private static final String pac = ".";
+    private static final String pac = ",";
 
     public static Map<String, IFactory> getFactoryMap() {
         return factoryMap;

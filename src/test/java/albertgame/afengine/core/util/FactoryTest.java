@@ -81,7 +81,7 @@ public class FactoryTest {
     @Test
     public void testCreate(){
         FactoryUtil.putFactory("boot","boot1",new CreateClass());
-        Class1 clss1=(Class1)FactoryUtil.create("albertgame.afengine.util.FactoryTest$Class1");
+        Class1 clss1=(Class1)FactoryUtil.create("albertgame.afengine.core.util.FactoryTest$Class1");
         Class1 clss2=(Class1)FactoryUtil.create("boot,boot1");
         System.out.println(clss1);
         System.out.println(clss2);
