@@ -12,7 +12,6 @@ import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.in.components.action.ActionComponent;
 import albertgame.afengine.in.components.action.SpriteAction;
 import albertgame.afengine.in.components.action.TimeAction;
-import albertgame.afengine.in.components.render.RenderComponent;
 import albertgame.afengine.in.components.render.SceneRenderComponentDraw;
 import albertgame.afengine.in.components.render.TextureRenderComponent;
 import albertgame.afengine.in.parts.input.InputManager;
@@ -45,7 +44,7 @@ public class ActionComponentTest {
         Scene root=SceneManager.getInstance().getRunningScene();
         root.getRootList().add(actor);
 
-        App.launch(app);
+        App.launch();
     }
 
     private static void initKey(){
