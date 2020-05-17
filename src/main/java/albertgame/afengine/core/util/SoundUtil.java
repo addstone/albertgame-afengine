@@ -205,7 +205,6 @@ public class SoundUtil {
                 try {
                     while (count-- > 0) {
                         InputStream source = new ByteArrayInputStream(sound.getSamples());
-                        // TODO Auto-generated method stub
                         // use a short, 100ms (1/10th sec) buffer for real-time
                         // change to the sound stream
                         int bufferSize = sound.getFormat().getFrameSize()

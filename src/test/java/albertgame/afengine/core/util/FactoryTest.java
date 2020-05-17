@@ -27,10 +27,10 @@ public class FactoryTest {
         FactoryUtil.putFactory("test","hello", fac);
         FactoryUtil.putFactory("test","hello2", fac2);
         
-        String text=(String) FactoryUtil.create("test", "hello",null);
+        String text=(String) FactoryUtil.create("test", "hello",new Object[]{});
         Assert.assertEquals(text, "Hello", "text failed");
         
-        Vector v=(Vector) FactoryUtil.create("test","hello2",null);
+        Vector v=(Vector) FactoryUtil.create("test","hello2",new Object[]{});
         Assert.assertEquals(v,new Vector(), "vector failed");
     }
     
