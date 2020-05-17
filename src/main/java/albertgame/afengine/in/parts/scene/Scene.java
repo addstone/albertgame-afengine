@@ -5,6 +5,7 @@
  */
 package albertgame.afengine.in.parts.scene;
 
+import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.core.util.math.Vector;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -200,6 +201,7 @@ public class Scene{
     public void removeDeadActor() {
         shouldremoves.forEach((a) -> {
             if (rootList.contains(a)) {
+                DebugUtil.log("remove dead actor:"+a.getName());
                 rootList.remove(a);
             } else {
                 Actor p = a.getParent();
