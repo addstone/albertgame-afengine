@@ -31,7 +31,7 @@ public class BehaviorComponentTest {
 
     public static void main(String[] args) {
         DebugUtil.switchOn();
-        WindowApp app = new WindowApp(new IAppLogic.AppLogicBase(), "ActionComponentTest", "src/test/resources/duke0.gif", 800, 600);
+        WindowApp app = new WindowApp(new IAppLogic.AppLogicBase(), "BehaviorBeanComponentTest", "src/test/resources/duke0.gif", 800, 600);
         App.setInstance(app);
         //添加场景进程，否则无法更新场景内容
         app.getProcessManager().attachProcess(new SceneManager.SceneProcess());

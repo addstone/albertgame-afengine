@@ -23,7 +23,7 @@ public class GraphicsTechTest implements IDrawStrategy {
     private ITexture texture1,texture2,texture3,texture4;
 
     public GraphicsTechTest() {
-        tech = new GraphicsTech_Java2DImpl2();
+        tech = new GraphicsTech_Java2DImpl();
     }
     
     public void init(){
