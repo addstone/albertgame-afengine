@@ -1,8 +1,13 @@
 package albertgame.afengine.in.core.graphics;
 
 import albertgame.afengine.core.graphics.*;
+import albertgame.afengine.core.input.InputServlet;
+import albertgame.afengine.core.message.Message;
+import albertgame.afengine.core.message.MessageManager;
 import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.core.util.DebugUtil.LogType;
+import albertgame.afengine.in.parts.input.InputRoute;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
@@ -144,6 +149,7 @@ public class  GraphicsTech_Java2DImpl implements IGraphicsTech {
             ((JComponent) con).setOpaque(false);
         }
         buffer = window.getBufferStrategy();
+        addListeners();
     }
 
     private void setRenderFull() {
@@ -182,6 +188,16 @@ public class  GraphicsTech_Java2DImpl implements IGraphicsTech {
         }
         width = displayMode.getWidth();
         height = displayMode.getHeight();
+        addListeners();
+    }
+
+    private void addListeners(){
+        InputAdapter adapter = new InputAdapter();
+        window.addKeyListener(adapter);
+        window.addMouseListener(adapter);
+        window.addMouseMotionListener(adapter);
+        window.addMouseWheelListener(adapter);
+        window.addWindowListener(adapter);
     }
 
     private void setFrame() {
@@ -419,48 +435,9 @@ public class  GraphicsTech_Java2DImpl implements IGraphicsTech {
         return this.valueMap.get(name);
     }
 
-    KeyListener keyl;
-    MouseListener mousel;
-    MouseMotionListener mousemovel;
-    MouseWheelListener mousewheell;
-    WindowListener windowl;
-
     @Override
     public void setValue(String name, Object[] obj) {
-        switch (name) {
-            case "keylistener": {
-                KeyListener listener = (KeyListener) (obj[0]);
-                window.addKeyListener(listener);
-                valueMap.put(name, obj);
-                break;
-            }
-            case "mouselistener": {
-                MouseListener listener = (MouseListener) (obj[0]);
-                window.addMouseListener(listener);
-                valueMap.put(name, obj);
-                break;
-            }
-            case "mousemovelistener": {
-                MouseMotionListener listener = (MouseMotionListener) (obj[0]);
-                window.addMouseMotionListener(listener);
-                valueMap.put(name, obj);
-                break;
-            }
-            case "mousewheellistener": {
-                MouseWheelListener listener = (MouseWheelListener) (obj[0]);
-                window.addMouseWheelListener(listener);
-                valueMap.put(name, obj);
-                break;
-            }
-            case "windowlistener":
-                WindowListener windowlistener = (WindowListener) (obj[0]);
-                window.addWindowListener(windowlistener);
-                valueMap.put(name, obj);
-                break;
-            default:
-                System.out.println("Do not support this value.");
-                break;
-        }
+        this.valueMap.put(name,obj);
     }
 
     @Override
@@ -944,4 +921,144 @@ public class  GraphicsTech_Java2DImpl implements IGraphicsTech {
             return new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         }
     }
+    class InputAdapter implements KeyListener, MouseListener,
+            MouseMotionListener, MouseWheelListener, WindowListener {
+
+        private void sendMsg(long type, Object ... obj) {
+            Message msg = new Message(InputRoute.Route_Input, type, 0, "",obj);
+            MessageManager.getInstance().pushMessage(msg);
+        }
+
+        private void sendMsg(long type) {
+            Message msg = new Message(InputRoute.Route_Input, type, 0, "", new Object[]{});
+            MessageManager.getInstance().pushMessage(msg);
+        }
+
+        //content-eventcode,exobj[keychar]
+        @Override
+        public void keyTyped(KeyEvent e) {
+            //DebugUtil.log("key typed " + e.getKeyChar());
+//        System.out.println("key type");
+            sendMsg(InputServlet.EventCode_KeyType, e.getKeyChar());
+        }
+
+        //content-eventcode,exobj[keycode]
+        @Override
+        public void keyPressed(KeyEvent e) {
+            //DebugUtil.log("key pressed " + e.paramString());
+            sendMsg(InputServlet.EventCode_KeyDown, e.getKeyCode());
+        }
+
+        //content-eventcode,exobj[keycode]
+        @Override
+        public void keyReleased(KeyEvent e) {
+            //DebugUtil.log("key released " + e.paramString());
+            sendMsg(InputServlet.EventCode_KeyUp,e.getKeyCode());
+        }
+
+        //content-eventcode,exobj[mousex,mousey]
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            //DebugUtil.log("mouse clicked " + e.paramString());
+            sendMsg(InputServlet.EventCode_MouseClick, e.getX(), e.getY(),e.getButton());
+        }
+
+        //content-eventcode,exobj[mousex,mousey,keycode]
+        @Override
+        public void mousePressed(MouseEvent e) {
+            //DebugUtil.log("mouse pressed " + e.paramString());
+            sendMsg(InputServlet.EventCode_MouseDown, e.getX(), e.getY(), e.getButton());
+        }
+
+        //content-eventcode,exobj[mousex,mousey,keycode]
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            //DebugUtil.log("mouse released " + e.paramString());
+            sendMsg(InputServlet.EventCode_MouseUp, e.getX(), e.getY(), e.getButton());
+        }
+
+        //content-eventcode
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            //DebugUtil.log("mouse enter windows");
+            sendMsg(InputServlet.EventCode_MouseInWindow);
+        }
+
+        //content-eventcode
+        @Override
+        public void mouseExited(MouseEvent e) {
+            //DebugUtil.log("mouse exit windows");
+            sendMsg(InputServlet.EventCode_MouseExitWindow);
+        }
+
+        //content-eventcode,exobjs[mousex,mousey]
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            //DebugUtil.log("mouse dragged to [" + e.getX() + "," + e.getY() + "]");
+            sendMsg(InputServlet.EventCode_MouseDrag, e.getX(), e.getY());
+        }
+
+        //content-eventcode,exobjs[mousex,mousey]
+        @Override
+        public void mouseMoved(MouseEvent e) {
+//        //DebugUtil.log("mouse moved to ["+e.getX()+","+e.getY()+"]") ;
+            sendMsg(InputServlet.EventCode_MouseMove, e.getX(), e.getY());
+        }
+
+        //content-eventcode
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e) {
+            int r = e.getWheelRotation();
+            if (r > 0) {
+                //DebugUtil.log("mousewheel up");
+                sendMsg(InputServlet.EventCode_MouseWheelUp);
+            } else if (r < 0) {
+                //DebugUtil.log("mousewheel down");
+                sendMsg(InputServlet.EventCode_MouseWheelDown);
+            }
+        }
+
+        @Override
+        public void windowOpened(WindowEvent e) {
+            //DebugUtil.log("window opened");
+//        sendMsg(InputServlet.EventCode_WindowOpened);
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            //DebugUtil.log("window closing");
+//        sendMsg(InputServlet.EventCode_WindowClosing);
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e) {
+            //DebugUtil.log("window closed");
+//        sendMsg(InputServlet.EventCode_WindowClose);
+        }
+
+        @Override
+        public void windowIconified(WindowEvent e) {
+            //DebugUtil.log("window iconified");
+            sendMsg(InputServlet.EventCode_WindowIconed);
+        }
+
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+            //DebugUtil.log("window deiconified");
+            sendMsg(InputServlet.EventCode_WindowDeiconed);
+        }
+
+        @Override
+        public void windowActivated(WindowEvent e) {
+            //DebugUtil.log("window actived");
+            sendMsg(InputServlet.EventCode_WindowActive);
+        }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+            //DebugUtil.log("window deactived");
+            sendMsg(InputServlet.EventCode_WindowDeactive);
+        }
+    }
+
 }

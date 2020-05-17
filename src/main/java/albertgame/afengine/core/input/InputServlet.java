@@ -38,7 +38,7 @@ public class InputServlet {
     public static final  long EventCode_KeyDown=0;
     public static final  long EventCode_KeyUp=1;
     public static final  long EventCode_KeyType=2;
-    
+
     public static final  long EventCode_MouseDown=3;
     public static final  long EventCode_MouseUp=4;
     public static final  long EventCode_MouseClick=5;
@@ -48,12 +48,12 @@ public class InputServlet {
     public static final  long EventCode_MouseInWindow=18;
     public static final  long EventCode_MouseExitWindow=19;
     public static final  long EventCode_MouseMove=20;
-    
+
     public static final  long EventCode_WindowIconed=10;
     public static final  long EventCode_WindowDeiconed=11;
     public static final  long EventCode_WindowActive=12;
     public static final  long EventCode_WindowDeactive=13;
-    
+
     public static final  long KeyCode_Tab=KeyEvent.VK_TAB;
     public static final  long KeyCode_Shift=KeyEvent.VK_SHIFT;
     public static final  long KeyCode_Ctrl=KeyEvent.VK_CONTROL;
@@ -73,11 +73,11 @@ public class InputServlet {
     public static final  long KeyCode_Enter=KeyEvent.VK_ENTER;
     public static final  long KeyCode_BackSpace=KeyEvent.VK_BACK_SPACE;
     public static final  long KeyCode_Esc=KeyEvent.VK_ESCAPE;
-    
+
     public static final  long MouseButton_Left=MouseEvent.BUTTON1;
     public static final  long MouseButton_Center=MouseEvent.BUTTON2;
     public static final  long MouseButton_Right=MouseEvent.BUTTON3;
-    
+
     //just for A~Z ; , . / [ ] \  - = 0~9
     public static final  long CharCode(char word){
         return word;

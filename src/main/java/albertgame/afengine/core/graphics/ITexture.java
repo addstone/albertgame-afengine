@@ -6,7 +6,10 @@
 package albertgame.afengine.core.graphics;
 
 /**
- *
+ * The Plaint Texture Interface of GraphicsTech,
+ * you could use this interface to manipulate the image or something.
+ * you can create on GraphicsCreate interface which supported by GraphicsTech
+ * @See IGraphicsCreate
  * @author Albert Flex
  */
 public interface ITexture {

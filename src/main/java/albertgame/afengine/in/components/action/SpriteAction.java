@@ -18,14 +18,14 @@ import java.util.Map;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
-public class SpriteAction extends ActionComponent.ActAction {
+public class SpriteAction extends ActionComponent.ActAction{
+
     public SpriteAction(String name,boolean repeat) {
         super(name);
         shapeList=new ArrayList<>();
         this.repeat=repeat;
     }
 
-    
     @Override
     public boolean isEnd() {
         return isEnd;
@@ -66,11 +66,12 @@ public class SpriteAction extends ActionComponent.ActAction {
         return shapeList.get(index).texture;
     }
     
-    public void addAnimate(ITexture texture,long delttime)
+    public SpriteAction addAnimate(ITexture texture,long delttime)
     {
         totaltime+=delttime;
         ++size;
         shapeList.add(new AnimateShape(texture,totaltime));
+        return this;
     }
     private class AnimateShape
     {

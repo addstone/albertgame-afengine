@@ -7,17 +7,21 @@ package albertgame.afengine.core.app;
 
 import albertgame.afengine.core.graphics.IGraphicsTech;
 import albertgame.afengine.core.graphics.ITexture;
-import albertgame.afengine.core.input.InputAdapter;
 import albertgame.afengine.core.app.AppBoot.IXMLAppTypeBoot;
-import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.core.graphics.IDrawStrategy;
 import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.core.util.FactoryUtil;
+import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl2;
 import java.util.Iterator;
 
 import org.dom4j.Element;
 
+/**
+ * Inner Implement App is WindowApp,and it contains GraphicsTech for the Window and graphics resources.
+ * you should set AppLogic for the App Run, and the window properties for the WindowApp,such as width,height icon and so on.
+ * you can @See albertgame.afengine.core.graphics package
+ */
 public class WindowApp extends App {
 
     public static final String APPTYPE = "Window";
@@ -139,12 +143,6 @@ public class WindowApp extends App {
                     graphicsTech.create(x, y, width, height, icon, title);
                 }
             }
-            InputAdapter adapter = new InputAdapter();
-            graphicsTech.setValue("keylistener", new Object[]{adapter});
-            graphicsTech.setValue("mouselistener", new Object[]{adapter});
-            graphicsTech.setValue("mousemovelistener", new Object[]{adapter});
-            graphicsTech.setValue("mousewheellistener", new Object[]{adapter});
-            graphicsTech.setValue("windowlistener", new Object[]{adapter});
             created = true;
         }
     }

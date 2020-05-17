@@ -6,7 +6,7 @@
 package albertgame.afengine.core.graphics;
 
 /**
- *
+ * the Color Interface for GraphicsTech,support,used by GraphicsTech
  * @author Administrator
  */
 public interface IColor {

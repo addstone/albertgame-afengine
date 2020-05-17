@@ -13,12 +13,12 @@
     <partsboot>
         <part name="MessagePart" path="albertgame.afengine.core.message.XMLMessagePartBoot"/>
         <part name="ScenePart" path="albertgame.afengine.in.parts.scene.XMLScenePartBoot"/>
-        <part name="UIInputPart" path="albertgame.afengine.core.input.XMLInputPartBoot"/>
+        <part name="UIInputPart" path="albertgame.afengine.in.parts.input.XMLInputPartBoot"/>
     </partsboot>
     <partsconfig>
         <MessagePart>
             <Route path="albertgame.afengine.core.message.MessageHandlerRoute"/>
-            <Route path="albertgame.afengine.core.input.InputRoute"/>
+            <Route path="albertgame.afengine.in.parts.input.InputRoute"/>
         </MessagePart>
         <ScenePart main="Main">
             <ComponentFactoryList/>

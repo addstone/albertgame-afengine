@@ -6,7 +6,8 @@
 package albertgame.afengine.core.graphics;
 
 /**
- *
+ * the plain Window Method for GraphicsTech,you could use following methods to manipulate the
+ * window on graphicstech
  * @author Administrator
  */
 public interface IGraphicsWindow {

@@ -231,6 +231,11 @@ public class Actor {
 
     public void dead() {
         Scene.setActorDead(this);
+        childMap.clear();
+        children.clear();
+        if(parent!=null){
+            parent.removeChild(this.id);
+        }
     }
 
     public double getAbsoluteX() {

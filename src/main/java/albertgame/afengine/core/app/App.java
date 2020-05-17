@@ -6,6 +6,12 @@ import albertgame.afengine.core.util.process.ProcessManager;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * App class is the Run Entry for Engine,you should instance a App,set app by App.setInstance(app),and then App.run()
+ * the run loop is call init(),loop(),and shutdown() methods on different life cycle.
+ * if you want to terminal the app,you should use App.exit() method to terminal the instance of App,then all is done.
+ *
+ */
 public class App {
 
     private static App instance = null;
@@ -108,6 +114,9 @@ public class App {
             }
         }
 
+
+        //shutdown all processmanager
+        this.processManager.abortAllProcess();
         if (shutdownApp() == false) {
             System.out.println("The App :name[" + this.appName + "],type[" + this.appType + "] Shutdown is Failed.");
             return;
@@ -135,6 +144,8 @@ public class App {
 
             //update message manager
             this.msgManager.updateSendMessage(deltatime);
+            //update process manager
+            this.processManager.updateAllProcess(deltatime);
 
             //update app methods
             if (updateApp(deltatime) == false) {

@@ -6,7 +6,9 @@
 package albertgame.afengine.core.graphics;
 
 /**
- *
+ * The State of GraphicsTech, Such as RenderName,now Font,now Color,
+ * and you also get/set the Value for Somethings. such as inner implement of GraphicsTech,
+ * you can set Input
  * @author Administrator
  */
 public interface IGraphicsState {

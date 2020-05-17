@@ -27,9 +27,19 @@ public class ActionComponent extends ActorComponent{
         super(ActionComponent.COMPONENT_NAME);
         actionMap=new HashMap<>();
     }
+
+    public static interface ActionStart {
+        public void start(ActAction action);
+    }
+    public static interface ActionEnd{
+        public void end(ActAction action);
+    }
     
     //use action linkedlist
     public static abstract class ActAction{
+        private ActionStart start;
+        private ActionEnd end;
+
         protected ActionComponent actionComp;
         protected String actionName;
         protected ActAction nextAction;
@@ -37,11 +47,31 @@ public class ActionComponent extends ActorComponent{
             this.actionName=name;
             nextAction=null;
         }
+        public void doStart(){
+            start();
+            if(start!=null){
+                start.start(this);
+            }
+        }
         public void start(){}
+        public void doEnd(){
+            end();
+            if(end!=null){
+                end.end(this);
+            }
+        }
         public void end(){}
         public void handle(String cmd){}
 
-        public abstract boolean isEnd(); 
+        public void setStart(ActionStart start) {
+            this.start = start;
+        }
+
+        public void setEnd(ActionEnd end) {
+            this.end = end;
+        }
+
+        public abstract boolean isEnd();
         public abstract void update(long time);
         public void setNextAction(ActAction action){
             nextAction=action;
@@ -112,11 +142,11 @@ public class ActionComponent extends ActorComponent{
         actioniter = shoulddeletelist.iterator();
         while(actioniter.hasNext()){
             ActAction action =actioniter.next();
-            action.end();
+            action.doEnd();
             actionMap.remove(action.actionName);            
             if(action.getNextAction()!=null){
                 ActAction act = action.nextAction;
-                act.start();
+                act.doStart();
                 actionMap.put(act.actionName,act);
                 DebugUtil.log("to - "+act.actionName);
             }

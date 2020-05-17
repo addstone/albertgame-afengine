@@ -15,6 +15,7 @@ import java.util.Map;
 import org.dom4j.Element;
 
 /**
+ * The AppBoot class provide several useful boot method for App
  *
  * @author Administrator
  */
@@ -48,7 +49,6 @@ public class AppBoot {
      * </app>
      *
      * @see App
-     * @see XMLEngineBoot
      * @author Albert Flex
      */
     interface IXMLAppTypeBoot {
@@ -81,8 +81,6 @@ public class AppBoot {
         * </partsconfig>
      * </app>
      *
-     * @see XMLEngineBoot
-     * @see AbPartSupport
      * @author Albert Flex
      */
     public interface IXMLPartBoot {
@@ -98,9 +96,15 @@ public class AppBoot {
     /**
      * <app>
         * <afengine debug="" logicpath="" typeboot="" type=""/>
-        * window <window title="" icon="" size="800,600" render=""/>
-        * or window <window title="" icon="" full="true" render=""/>
-        * or service <service name=""/>
+         <window size="full" or size="800,600" tech="" title="" icon="">
+             <before>
+                 <draw pri="" class="" />
+             </before>
+             <root class=""/>
+             <after>
+                 <draw pri="" class=""/>
+             </after>
+         </window>
         * <partsboot>
             * <part name="" path=""/>
             * <part name="" path=""/>

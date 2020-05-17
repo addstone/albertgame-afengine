@@ -5,13 +5,29 @@
  */
 package albertgame.afengine.core.graphics;
 
+import albertgame.afengine.core.app.App;
+import albertgame.afengine.core.app.WindowApp;
+
 /**
- *
+ * The Draw Methods for Graphics,Provide Basic Draw Function,
+ * Such as Draw Point,Line,Polygon,Oval,Rect,Texture and so on.
  * @author Albert Flex
  */
 public interface IGraphicsDraw {
-
+    public static IGraphicsDraw draw(){
+        return ((WindowApp) App.getInstance()).getGraphicsTech();
+    }
+    /**
+     * When GraphicsTech is Drawing(called callDraw),this methods will return true,
+     * and when callDraw method is done,this method will return false
+     * @return
+     */
     public boolean isDrawing();
+
+    /**
+     * You should call this method,if you want to use the drawstrategy,and when you call this method
+     * then graphics draw will call inner drawstrategies you setted.
+     */
     public void callDraw();//绘制图形
     
     public void setRootDrawStrategy(IDrawStrategy strategy);

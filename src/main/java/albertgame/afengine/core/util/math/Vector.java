@@ -36,27 +36,30 @@ public class Vector {
         return x;
     }
 
-    public synchronized void setX(double x) {
+    public synchronized Vector setX(double x) {
         cachedirty = true;
         this.x = x;
+        return this;
     }
 
     public synchronized double getY() {
         return y;
     }
 
-    public synchronized void setY(double y) {
+    public synchronized Vector setY(double y) {
         cachedirty = true;
         this.y = y;
+        return this;
     }
 
     public synchronized double getZ() {
         return z;
     }
 
-    public synchronized void setZ(double z) {
+    public synchronized Vector setZ(double z) {
         cachedirty = true;
         this.z = z;
+        return this;
     }
 
     public synchronized double getA() {

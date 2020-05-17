@@ -6,7 +6,7 @@
 package albertgame.afengine.core.graphics;
 
 /**
- *
+ * the plain Font for GraphicsTech graphics resources.
  * @author Administrator
  */
 public interface IFont {

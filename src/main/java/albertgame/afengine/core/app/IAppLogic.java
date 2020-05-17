@@ -6,7 +6,8 @@
 package albertgame.afengine.core.app;
 
 /**
- *
+ * logic of App, you must implement one ,and setup at App
+ * @See  App
  * @author Albert Flex
  */
 public interface IAppLogic {

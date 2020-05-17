@@ -117,7 +117,7 @@ public class Growing extends JPanel {
 
     public static void main(String[] args) {
         Growing gr = new Growing();
-        gr.create("Test2");
+        gr.create(800,600,"Test2");
         Thread the = new Thread(() -> {
             while (true) {
                 gr.repaint();

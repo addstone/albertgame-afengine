@@ -23,9 +23,13 @@ public class SceneRenderComponentDraw implements IDrawStrategy {
         Scene scene = sceneCenter.getRunningScene();
         List<Actor> actormap = scene.rootList;
         Iterator<Actor> entryiter = actormap.iterator();
-        while (entryiter.hasNext()) {
-            Actor actor = entryiter.next();
-            renderActor(actor, tech, scene.getCamera());
+        try {
+            while (entryiter.hasNext()) {
+                Actor actor = entryiter.next();
+                renderActor(actor, tech, scene.getCamera());
+            }
+        }catch (Exception ex){
+
         }
     }
 

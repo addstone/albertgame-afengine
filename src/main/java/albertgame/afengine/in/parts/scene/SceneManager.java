@@ -6,11 +6,26 @@
 package albertgame.afengine.in.parts.scene;
 
 import albertgame.afengine.core.util.DebugUtil;
+import albertgame.afengine.core.util.math.IDGenerator;
+import albertgame.afengine.core.util.process.AbProcess;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
 public class SceneManager {
+
+    public static class SceneProcess extends AbProcess{
+
+        public SceneProcess() {
+            super(new IDGenerator().createId(),"Scene","Process for Update Scene ");
+        }
+
+        @Override
+        public void updateAct(long delttime) {
+            SceneManager.getInstance().update(delttime);
+        }
+    }
 
     private static SceneManager in;
     public static SceneManager getInstance(){

@@ -5,6 +5,7 @@
  */
 package albertgame.afengine.in.parts.scene;
 
+import albertgame.afengine.core.app.App;
 import albertgame.afengine.core.app.AppBoot.IXMLPartBoot;
 import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.core.util.FactoryUtil;
@@ -124,6 +125,7 @@ public class XMLScenePartBoot implements IXMLPartBoot {
                 }
             }
         }
+        App.getInstance().getProcessManager().attachProcess(new SceneManager.SceneProcess());
     }
 
     private IComponentFactoryLoader loadfactory(String factoryclass) {

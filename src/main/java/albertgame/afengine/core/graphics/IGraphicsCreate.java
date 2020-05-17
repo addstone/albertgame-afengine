@@ -5,13 +5,19 @@
  */
 package albertgame.afengine.core.graphics;
 
+import albertgame.afengine.core.app.App;
+import albertgame.afengine.core.app.WindowApp;
+
 import java.net.URL;
 
 /**
- *
+ * The Create for GraphicsTech Resource,such as IColor,IFont,ITexture resource
  * @author Albert Flex
  */
 public interface IGraphicsCreate {
+    public static IGraphicsCreate create(){
+        return ((WindowApp) App.getInstance()).getGraphicsTech();
+    }
 
     public ITexture createTexture(String iconPath);
     public ITexture createTexture(String iconPath, int cutFromX, int cutFromY, int cutWidth, int cutHeight);

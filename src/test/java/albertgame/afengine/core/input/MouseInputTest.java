@@ -10,6 +10,8 @@ import albertgame.afengine.core.app.IAppLogic;
 import albertgame.afengine.core.app.WindowApp;
 import albertgame.afengine.core.message.MessageManager;
 import albertgame.afengine.core.util.DebugUtil;
+import albertgame.afengine.in.parts.input.InputManager;
+import albertgame.afengine.in.parts.input.InputRoute;
 
 /**
  *

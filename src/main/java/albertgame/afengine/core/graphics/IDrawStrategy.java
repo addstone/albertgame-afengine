@@ -6,7 +6,7 @@
 package albertgame.afengine.core.graphics;
 
 /**
- *
+ * the plain method for draw
  * @author Administrator
  */
 public interface IDrawStrategy {
