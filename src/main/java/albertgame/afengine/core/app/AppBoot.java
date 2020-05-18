@@ -7,7 +7,9 @@ package albertgame.afengine.core.app;
 
 import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.core.util.FactoryUtil;
+import albertgame.afengine.core.util.TextUtil;
 import albertgame.afengine.core.util.XmlUtil;
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,7 +22,7 @@ import org.dom4j.Element;
  * @author Administrator
  */
 public class AppBoot {
-    
+
     public static void main(String[] args) {
         boot("boot.xml");
     }
@@ -33,23 +35,24 @@ public class AppBoot {
      * and you get a element of xml app relatived config.<br>
      * use it Impl class path to xml config, such as following.<br>
      * <app>
-        * <afengine typeboot="test.test1.AppTypeBoot1 or boot,boot1" type="type1" 默认为window/>
-        * <type1 attri1="" attri2="">
-          * <key1>values</key1>
-          * <key1>values</key1>
-          * ...some nodes.
-        * </type1>
-        * <settings>
-        *   <setting key="" value=""/>
-        *   <setting key="" value=""/>
-        *   ...
-        * </settings>
+     * <afengine typeboot="test.test1.AppTypeBoot1 or boot,boot1" type="type1" 默认为window/>
+     * <type1 attri1="" attri2="">
+     * <key1>values</key1>
+     * <key1>values</key1>
+     * ...some nodes.
+     * </type1>
+     * <settings>
+     * <setting key="" value=""/>
+     * <setting key="" value=""/>
+     * ...
+     * </settings>
      * </app>
      *
      * @see App
      * @author Albert Flex
      */
     interface IXMLAppTypeBoot {
+
         public App bootApp(Element element);
     }
 
@@ -66,17 +69,17 @@ public class AppBoot {
      * xmlconfig<br>
      * as following<br>
      * <app>
-        * <afengine />
-        * <apptype />
-        * <partsboot>
-            * <part name="PartName1" path="test.test1.XMLPartBoot1"/>
-            * <part name="PartName2" path="test.test1.XMLPartBoot2"/>
-        * </partsboot>
-        * <partsconfig>
-            * <PartName1 />
-            * <PartName2 />
-            * ...
-        * </partsconfig>
+     * <afengine />
+     * <apptype />
+     * <partsboot>
+     * <part name="PartName1" path="test.test1.XMLPartBoot1"/>
+     * <part name="PartName2" path="test.test1.XMLPartBoot2"/>
+     * </partsboot>
+     * <partsconfig>
+     * <PartName1 />
+     * <PartName2 />
+     * ...
+     * </partsconfig>
      * </app>
      *
      * @author Albert Flex
@@ -93,33 +96,37 @@ public class AppBoot {
 
     /**
      * <app>
-        * <afengine debug="" logicpath="" typeboot="" type=""/>
-         <window size="full" or size="800,600" tech="" title="" icon="">
-             <before>
-                 <draw pri="" class="" />
-             </before>
-             <root class=""/>
-             <after>
-                 <draw pri="" class=""/>
-             </after>
-         </window>
-        * <partsboot>
-            * <part name="" path=""/>
-            * <part name="" path=""/>
-            * <part name="" path=""/>
-            * <part name="" path=""/>
-        * </partsboot>
-        * <partsconfig>
-            * <PartName/>
-            * <PartName/>
-            * <PartName/>
-            * ...
-        * </partsconfig>
-        * <settings>
-        *   <setting key="" value=""/>
-        *   <setting key="" value=""/>
-        *   ...
-        * </settings>
+     * <afengine debug="" logicpath="" typeboot="" type=""/>
+     * <window size="full" or size="800,600" tech="" title="" icon="">
+     * <before>
+     * <draw pri="" class="" />
+     * </before>
+     * <root class=""/>
+     * <after>
+     * <draw pri="" class=""/>
+     * </after>
+     * </window>
+     * <partsboot>
+     * <part name="" path=""/>
+     * <part name="" path=""/>
+     * <part name="" path=""/>
+     * <part name="" path=""/>
+     * </partsboot>
+     * <partsconfig>
+     * <PartName/>
+     * <PartName/>
+     * <PartName/>
+     * ...
+     * </partsconfig>
+     * <settings>
+     * <setting key="" value=""/>
+     * <setting key="" value=""/>
+     * ...
+     * </settings>
+     * <langs main="langname">
+     * <lang name="" path=""/>
+     * <lang name="" path=""/>
+     * </langs>
      * </app>
      */
     public static void bootEngineFromXML(Element element) {
@@ -142,6 +149,9 @@ public class AppBoot {
             System.out.println("typeboot:" + typeboot);
             appboot = (IXMLAppTypeBoot) FactoryUtil.create(typeboot);
         }
+        if (appboot == null) {
+            appboot = new WindowApp.WindowAppBoot();
+        }
         String type = afe.attributeValue("type");
         if (type == null) {
             type = WindowApp.APPTYPE;
@@ -149,7 +159,7 @@ public class AppBoot {
 
         Element typee = element.element(type);
         if (typee == null) {
-            DebugUtil.log(DebugUtil.LogType.SEVER, "app type is not found,auto set to service");
+            DebugUtil.log(DebugUtil.LogType.SEVER, "app type is not found,auto set to windowboot");
         } else {
             app = appboot.bootApp(typee);
         }
@@ -158,10 +168,10 @@ public class AppBoot {
             System.out.println("app create error!");
             return;
         }
-        
+
         //设置实例
         App.setInstance(app);
-        
+
         DebugUtil.log("boot app type:" + app.getAppType());
         DebugUtil.log("set app name:" + app.getAppName());
 
@@ -171,13 +181,13 @@ public class AppBoot {
         Iterator<Element> eleiter = null;
         if (partlist != null) {
             eleiter = partlist.elementIterator();
-            while (eleiter.hasNext()){
+            while (eleiter.hasNext()) {
                 Element ele = eleiter.next();
                 String path = ele.attributeValue("path");
                 String bootname = ele.attributeValue("name");
                 IXMLPartBoot boot = (IXMLPartBoot) FactoryUtil.create(path);
                 bootMap.put(bootname, boot);
-                DebugUtil.log("add partboot:"+bootname);
+                DebugUtil.log("add partboot:" + bootname);
             }
         }
         //part boot
@@ -192,45 +202,69 @@ public class AppBoot {
                 if (boot == null) {
                     DebugUtil.log("no boot for:" + ename);
                     continue;
-                }else{
+                } else {
                     boot.bootPart(ele);
                 }
                 DebugUtil.log("boot part - " + ename);
             }
         }
-        
+
         DebugUtil.log("-start settings-");
-        Element settings=element.element("settings");
-        if(settings!=null){
-            eleiter=settings.elementIterator();
+        Element settings = element.element("settings");
+        if (settings != null) {
+            eleiter = settings.elementIterator();
             while (eleiter.hasNext()) {
                 Element ele = eleiter.next();
                 String ekey = ele.attributeValue("key");
-                String evalue=ele.attributeValue("value");
+                String evalue = ele.attributeValue("value");
                 app.getSettings().put(ekey, evalue);
-                DebugUtil.log("add setting - " + ekey+" to "+evalue);
+                DebugUtil.log("add setting - " + ekey + " to " + evalue);
             }
         }
-        
+
+        DebugUtil.log("--start language--");
+        Element lang = element.element("langs");
+        if (lang != null) {
+            eleiter = lang.elementIterator("lang");
+            while (eleiter.hasNext()) {
+                Element ele = eleiter.next();
+                String name = ele.attributeValue("name");
+                String path = ele.attributeValue("path");
+                try {
+                    URL url = new File(path).toURI().toURL();
+                    TextUtil.get().addLangConfig(name, url);
+                    DebugUtil.log("add lang - " + name + " to " + url.toString());
+                } catch (Exception ex) {
+                }
+            }
+            String main = lang.attributeValue("main");
+            if (main != null) {
+                TextUtil.get().setLang(main);
+                DebugUtil.log("set main lang - " + main);
+            }
+        }
+
         //create logic and run.
         String logicpath = afe.attributeValue("logicpath");
         IAppLogic logic = null;
         if (logicpath != null) {
-            logic = (IAppLogic) FactoryUtil.create(logicpath);
+            if (logicpath != null) {
+                logic = (IAppLogic) FactoryUtil.create(logicpath);
+            }
+            if (logic != null) {
+                app.setLogic(logic);
+            }
         }
-        if (logic != null) {
-            app.setLogic(logic);
-        }
-        
+
         DebugUtil.log("launch app");
         App.launch();
     }
-    
-    public static void boot(URL xmlurl){
-        Element root = XmlUtil.readXMLFileDocument(xmlurl,false).getRootElement();
+
+    public static void boot(URL xmlurl) {
+        Element root = XmlUtil.readXMLFileDocument(xmlurl, false).getRootElement();
         if (root != null) {
             bootEngineFromXML(root);
-        }        
+        }
     }
 
     public static void boot(String xmlpath) {

@@ -35,7 +35,7 @@ public class KeyInputTest {
                     }
                     return false;
                 });
-
+        
         InputManager.getInstance().addAfterServlet(InputServlet.EventCode_KeyUp,
                 "KeyUp2", (msg) -> {
                     int keycode = (int) ((Integer) msg.extraObjs[0]);

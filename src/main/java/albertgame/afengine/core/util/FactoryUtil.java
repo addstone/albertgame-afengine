@@ -1,5 +1,12 @@
 package albertgame.afengine.core.util;
 
+import albertgame.afengine.core.app.WindowApp;
+import albertgame.afengine.core.input.InputServlet;
+import albertgame.afengine.core.message.XMLMessagePartBoot;
+import albertgame.afengine.in.components.render.SceneRenderComponentDraw;
+import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl;
+import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl2;
+import albertgame.afengine.in.parts.input.InputRoute;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +15,37 @@ public class FactoryUtil {
     private static Map<String, String> oldObj;
 //afengine.part.message.MessageHandlerRoute
 
+    public static void initEngineFactory(){
+        
+        //--type-boot--
+        putFactory("type-boot","win",(args)->new WindowApp.WindowAppBoot());
+        
+        //--graphicstech---
+        //add graphicstech:graphicstech,java2dimpl 
+        //add graphicstech:graphicstech,java2dimp2 
+        putFactory("graphicstech","java2dimpl",(args)->new GraphicsTech_Java2DImpl());
+        putFactory("graphicstech","java2dimpl2",(args)->new GraphicsTech_Java2DImpl2());
+        
+        //--draw--
+        //add debugdrawstrategy:drawstrategy,debug
+        //add scenedrawstrategy:drawstrategy,scene        
+        putFactory("drawstrategy","debug",(args)->new DebugUtil.DebugDrawStrategy());
+        putFactory("drawstrategy","scene",(args)->new SceneRenderComponentDraw());
+        
+        
+        //--xmlpart--
+        //add xmlmessagepart:xmlpart,msg        
+        putFactory("xmlpart","msg",(args)->new XMLMessagePartBoot());
+        
+        
+        //add route:msg-route,input
+        //add exit-handler:input,exit
+        putFactory("msg-route","input",(args)->new InputRoute());
+        putFactory("input","exit",(args)->new InputServlet.ExitHandler());        
+        
+        
+    }
+    
     static {
         oldObj = new HashMap<>();
         oldObj.put("afengine.component.render.GraphicsTech_Java2D",

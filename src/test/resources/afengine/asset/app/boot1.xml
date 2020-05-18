@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <app>
     <afengine debug="true" type="window" logicpath="boot,boot1" 
               typeboot="type-boot,win"/>    
@@ -22,6 +21,10 @@
         <setting key="language-path" value="classpath:lang"/>
         <setting key="asset-path" value="classpath:asset"/>
     </settings>
+    <langs main="chinese">
+        <lang name="chinese" path="chinese"/>
+        <lang name="english" path="english"/>        
+    </langs>
 </app>
 
 

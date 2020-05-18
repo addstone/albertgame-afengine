@@ -4,6 +4,7 @@ import albertgame.afengine.core.app.App;
 import albertgame.afengine.core.app.WindowApp;
 import albertgame.afengine.core.graphics.IColor;
 import albertgame.afengine.core.graphics.IFont;
+import albertgame.afengine.core.graphics.IGraphicsCreate;
 import albertgame.afengine.core.graphics.IGraphicsTech;
 import albertgame.afengine.core.graphics.ITexture;
 import albertgame.afengine.in.parts.scene.ActorComponent;
@@ -45,7 +46,7 @@ public class RenderComponentFactory implements IComponentFactory {
         RenderComponent comp;
         switch (element.attributeValue("type")) {
             case "Text":
-                comp = createStringProperty(element, datas);
+                comp = createText(element, datas);
                 break;
             case "Texture":
                 comp = createTexture(element, datas);
@@ -97,7 +98,7 @@ public class RenderComponentFactory implements IComponentFactory {
     }
 
     /**
-     * <Render type="StringProperty">
+     * <Render type="Text">
      * <text></text>
      * <font path=""></font>
      * <size></size>
@@ -105,7 +106,7 @@ public class RenderComponentFactory implements IComponentFactory {
      *      //<backcolor></backcolor>
      * </Render>
      */
-    private RenderComponent createStringProperty(Element element, Map<String, String> datas) {
+    private RenderComponent createText(Element element, Map<String, String> datas) {
         StringProperty text;
         IFont font;
         IColor color = null;
@@ -126,8 +127,15 @@ public class RenderComponentFactory implements IComponentFactory {
                             IFont.FontStyle.PLAIN, siz);
         } else if (fonte.attribute("path") != null) {
             path = TextUtil.getRealValue(fonte.attributeValue("path"), datas);
+            if(path.startsWith("classpath:")){
+                String[] tx=path.split(":");
+                path=tx[1];
+                font=IGraphicsCreate.create().createFont(RenderComponentFactory.class.getClassLoader().getResource(path),
+                        IFont.FontStyle.BOLD, siz);
+            }else{
             font = ((IGraphicsTech) ((WindowApp) App.getInstance())
-                    .getGraphicsTech()).createFontByPath(path,IFont.FontStyle.PLAIN, siz);
+                    .getGraphicsTech()).createFontByPath(path,IFont.FontStyle.PLAIN, siz);                
+            }
         } else {
             font = ((IGraphicsTech) ((WindowApp) App.getInstance())
                     .getGraphicsTech()).createFont("Dialog",
@@ -225,7 +233,7 @@ public class RenderComponentFactory implements IComponentFactory {
     }
 
     /**
-     * <Render type="StringPropertyure">
+     * <Render type="Texture">
      * <texture>path</texture>
      *      //<cutsize x="" y="" width="" height=""/>
      * </Render>
@@ -233,15 +241,22 @@ public class RenderComponentFactory implements IComponentFactory {
     private RenderComponent createTexture(Element element, Map<String, String> datas) {
         String texturepath = TextUtil.getRealValue(element.elementText("texture"), datas);
         DebugUtil.log("texturepath:" + texturepath);
-        ITexture texture = ((IGraphicsTech) ((WindowApp) App.getInstance())
+        ITexture texture=null;
+        if(texturepath.startsWith("classpath:")){
+            String[] tx=texturepath.split(":");
+            String path=tx[1];
+            texture=IGraphicsCreate.create().createTexture(RenderComponentFactory.class.getClassLoader().getResource(path));
+        }else{
+            texture = ((IGraphicsTech) ((WindowApp) App.getInstance())
                     .getGraphicsTech()).createTexture(texturepath);
+        }
         Element cut = element.element("cutsize");
         if (cut != null) {
             String x = cut.attributeValue("x");
             String y = cut.attributeValue("y");
             String width = cut.attributeValue("width");
             String height = cut.attributeValue("height");
-            if (x != null && y != null && width != null && height != null) {
+            if (x != null && y != null && width != null && height != null && texture!=null) {
                 texture = texture.cutInstance(Integer.parseInt(TextUtil.getRealValue(x, datas)),
                         Integer.parseInt(TextUtil.getRealValue(height, datas)),
                         Integer.parseInt(TextUtil.getRealValue(width, datas)),

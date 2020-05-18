@@ -76,7 +76,7 @@ public class TextUtil{
     }    
 
     public void addLangConfig(String lang,URL url){
-        langconfigs.put(lang,url);
+        langconfigs.put(lang,url);                
     }
     public void setLang(String lang){
         if(this.lang==lang)return;
