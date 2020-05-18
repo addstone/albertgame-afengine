@@ -22,6 +22,7 @@ import albertgame.afengine.in.parts.input.InputRoute;
 import albertgame.afengine.in.parts.scene.Actor;
 import albertgame.afengine.in.parts.scene.ActorComponent;
 import albertgame.afengine.in.parts.scene.Scene;
+import albertgame.afengine.in.parts.scene.SceneCamera;
 import albertgame.afengine.in.parts.scene.SceneManager;
 
 public class ActionComponentTest {
@@ -37,8 +38,7 @@ public class ActionComponentTest {
         ActorComponent.componentMethodList.add(new ActorComponent.
                 AdapterProcess(ActionComponent.COMPONENT_NAME));
         ActorComponent.componentMethodList.add(new ActorComponent.
-                AdapterProcess(BehaviorBeanComponent.COMPONENT_NAME));
-        
+                AdapterProcess(BehaviorBeanComponent.COMPONENT_NAME));        
         
         //添加输入路由支持，否则无法支持键盘输入
         MessageManager.getInstance().addRoute(new InputRoute());
@@ -60,6 +60,25 @@ public class ActionComponentTest {
             if(code==InputServlet.KeyCode_Enter){
                 Actor bloom=createBloom();
                 SceneManager.getInstance().getRunningScene().getRootList().add(bloom);
+                return true;
+            }else if(code==InputServlet.CharCode('W')){
+                SceneCamera cam=SceneManager.getInstance().getRunningScene().getCamera();
+                double y=cam.getPos().getY();
+                cam.getPos().setY(y-50);
+            }else if(code==InputServlet.CharCode('S')){
+                SceneCamera cam=SceneManager.getInstance().getRunningScene().getCamera();
+                double y=cam.getPos().getY();
+                cam.getPos().setY(y+50.0);
+                return true;
+            }else if(code==InputServlet.CharCode('A')){
+                SceneCamera cam=SceneManager.getInstance().getRunningScene().getCamera();
+                double x=cam.getPos().getX();
+                cam.getPos().setX(x-50);
+                return true;
+            }else if(code==InputServlet.CharCode('D')){
+                SceneCamera cam=SceneManager.getInstance().getRunningScene().getCamera();
+                double x=cam.getPos().getX();
+                cam.getPos().setX(x+50);
                 return true;
             }
             return false;
@@ -93,7 +112,7 @@ public class ActionComponentTest {
             BehaviorComponentTest.class.getClassLoader().getResource("sound1.wav"));
     private static Actor createBloom(){
         Actor bloom=new Actor("bloom");
-        bloom.getTransform().position.setX(200).setY(100);
+        bloom.getTransform().position.setX(100).setY(100);
         ActionComponent action=new ActionComponent();
 
         SpriteAction spriteAction=new SpriteAction("bloom",false);
@@ -132,7 +151,7 @@ public class ActionComponentTest {
         bloom.addComponent(action,true);
         bloom.addComponent(render,true);
         bloom.addComponent(bbean,true);
-                
+        
         return bloom;
     }
 }
