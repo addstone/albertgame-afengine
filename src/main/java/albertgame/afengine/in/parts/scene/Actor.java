@@ -202,6 +202,8 @@ public class Actor {
 
     //添加到直属孩子节点之中
     public final void addChild(Actor child) {
+        if(child==this)return;
+        
         if (childMap.containsKey(child.id)) {
             return;
         }
@@ -231,11 +233,6 @@ public class Actor {
 
     public void dead() {
         Scene.setActorDead(this);
-        childMap.clear();
-        children.clear();
-        if(parent!=null){
-            parent.removeChild(this.id);
-        }
     }
 
     public double getAbsoluteX() {
