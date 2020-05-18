@@ -6,7 +6,9 @@
 package albertgame.afengine.in.parts.input;
 
 import albertgame.afengine.core.input.InputServlet;
+import albertgame.afengine.core.message.Message;
 import albertgame.afengine.core.message.Message.IHandler;
+import albertgame.afengine.core.message.MessageManager;
 import albertgame.afengine.core.util.DebugUtil;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -145,6 +147,10 @@ public class InputManager {
             return;            
         }
         
+        //send mouse move to unlock button state
+        Message msg=new Message(InputRoute.Route_Input,
+                InputServlet.EventCode_MouseUp,0,"mouse move",new Object[]{0,0});
+        MessageManager.getInstance().pushMessage(msg);
         popupFace=null;
     }
     
