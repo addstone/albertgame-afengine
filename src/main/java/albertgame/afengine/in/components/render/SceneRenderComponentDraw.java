@@ -41,7 +41,7 @@ public class SceneRenderComponentDraw implements IDrawStrategy {
         List<Actor> children = actor.getChildren();
         children.forEach((ac) -> {
             renderActor(ac, tech, camera);
-        });
+        });                
     }
 //
 //    private void updateOrder(Actor actor) {
