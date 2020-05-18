@@ -3,10 +3,15 @@ package albertgame.afengine.core.util;
 import albertgame.afengine.core.app.WindowApp;
 import albertgame.afengine.core.input.InputServlet;
 import albertgame.afengine.core.message.XMLMessagePartBoot;
+import albertgame.afengine.in.components.action.ActionComponent;
+import albertgame.afengine.in.components.behavior.BehaviorBeanComponent;
 import albertgame.afengine.in.components.render.SceneRenderComponentDraw;
 import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl2;
 import albertgame.afengine.in.parts.input.InputRoute;
+import albertgame.afengine.in.parts.input.XMLInputPartBoot;
+import albertgame.afengine.in.parts.scene.ActorComponent;
+import albertgame.afengine.in.parts.scene.XMLScenePartBoot;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,13 +41,17 @@ public class FactoryUtil {
         //--xmlpart--
         //add xmlmessagepart:xmlpart,msg        
         putFactory("xmlpart","msg",(args)->new XMLMessagePartBoot());
+        putFactory("xmlpart","input",(args)->new XMLInputPartBoot());
+        putFactory("xmlpart","scene",(args)->new XMLScenePartBoot());
+        
+        
+        //--component process--
         
         
         //add route:msg-route,input
         //add exit-handler:input,exit
         putFactory("msg-route","input",(args)->new InputRoute());
         putFactory("input","exit",(args)->new InputServlet.ExitHandler());        
-        
         
     }
     

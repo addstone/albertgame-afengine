@@ -40,10 +40,6 @@ public class XMLScenePartBoot implements IXMLPartBoot {
      * <Scene id="" name="" class="" or path="" loader="" output="true"/>
      * <Scene id="" name="" class="" or path="" loader=""/>
      * </SceneList>
-     * <ComponentMethods>
-     * <method class=""/>
-     * ...
-     * </ComponentMethods>
      * <StaticActors path=""/>
      * </ScenePart>
      *
@@ -71,7 +67,8 @@ public class XMLScenePartBoot implements IXMLPartBoot {
                 ActorComponent.componentMethodList.add(new ActorComponent.AdapterProcess(name));
             }else if(!process.equals("disable")){                
                 IProcess processin = (IProcess) FactoryUtil.create(process);
-                ActorComponent.componentMethodList.add(processin);
+                if(processin!=null)
+                    ActorComponent.componentMethodList.add(processin);
             }
             if (loader != null) {
                 IComponentFactoryLoader floader = loadfactory(loader);
@@ -115,25 +112,6 @@ public class XMLScenePartBoot implements IXMLPartBoot {
             }
         }
 
-        //load componentmethods
-        /*
-        * <ComponentMethods>
-            * <method class=""/>
-            * ...
-        * </ComponentMethods>        
-         */
-        Element compms = element.element("ComponentMethods");
-        if (compms != null) {
-            Iterator<Element> eiter = compms.elementIterator();
-            while (eiter.hasNext()) {
-                Element e = eleiter.next();
-                String clss = e.attributeValue("class");
-                ActorComponent.IProcess process = (ActorComponent.IProcess) FactoryUtil.create(clss);
-                if (process != null) {
-                    ActorComponent.componentMethodList.add(process);
-                }
-            }
-        }
         App.getInstance().getProcessManager().attachProcess(new SceneManager.SceneProcess());
     }
 
