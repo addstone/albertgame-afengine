@@ -14,6 +14,7 @@ import albertgame.afengine.in.parts.input.UIFace;
 import albertgame.afengine.core.message.MessageManager;
 import albertgame.afengine.core.graphics.IColor;
 import albertgame.afengine.core.graphics.IFont;
+import albertgame.afengine.core.graphics.IGraphicsCreate;
 import albertgame.afengine.core.graphics.IGraphicsTech;
 import albertgame.afengine.core.graphics.ITexture;
 import albertgame.afengine.core.util.DebugUtil;
@@ -52,22 +53,12 @@ public class ButtonTest {
             button.setFontColor(redc);
         });
 
-        button.setToDownAction((ui) -> {
-            DebugUtil.log("Down!!");
-            button.setFontColor(bluec);
-            if (show) {
-                InputManager.getInstance().activeFace("Face2");
-            } else {
-                InputManager.getInstance().hideFace("Face2");
-            }
-            show = !show;
-        });
         button.setToNormalAction((ui) -> {
             DebugUtil.log("Normal!!");
             button.setFontColor(orangec);
         });
 
-        UIInputLine line = new UIInputLine("inputline", 400, 200, 20,
+        UIInputLine line = new UIInputLine("inputline", 100, 200, 20,
                 redc, gr.createFont("Dialog", IFont.FontStyle.BOLD, 20));
         ITexture img = gr.createTexture(ButtonTest.class.getClassLoader().getResource("img.JPG"), 200, 200, 120, 40);
         line.setBack(img);
@@ -89,7 +80,7 @@ public class ButtonTest {
             line.enableSecretMode(true);
         });
 
-        UIToggle toggle = new UIToggle("toggle", 300, 300, 2);
+        UIToggle toggle = new UIToggle("toggle", 100, 100, 3);
         toggle.pushToggle(texture1, (ui) -> {
             DebugUtil.log("Toggle 1!!");
         });
@@ -98,12 +89,15 @@ public class ButtonTest {
         });
         toggle.pushToggle(texture3, (ui) -> {
             DebugUtil.log("Toggle 3!!");
+            InputManager.getInstance().removePopupFace();
         });
 
         UITextLabel label = new UITextLabel("label1", 100, 300, "Label !!!");
         UIImageLabel label2 = new UIImageLabel("label2", 200, 400, texture2);
 
         UIPane pane = new UIPane("pane", 200, 200);
+        pane.setBack(IGraphicsCreate.create().createTexture(
+                ButtonTest.class.getClassLoader().getResource("img.JPG")));
         pane.addChild(toggle);
         pane.addChild(line);
 
@@ -116,10 +110,13 @@ public class ButtonTest {
         face.addUiInAll(blist,exit,label, label2);
 
         UIFace face2 = new UIFace("Face2");
-        face2.addUiInAll(pane);
+        face2.addUiInAll(pane);        
 
         InputManager.getInstance().addFaceInAll(face);
-        InputManager.getInstance().addFaceInAll(face2);
+        button.setToDownAction((ui)->{
+            button.setFontColor(bluec);
+            InputManager.getInstance().showPopupFace(face2);
+        });
 
         InputManager.getInstance().activeFace("Face1");
 

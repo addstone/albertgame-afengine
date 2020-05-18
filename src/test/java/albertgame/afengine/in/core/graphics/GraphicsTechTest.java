@@ -149,10 +149,10 @@ public class GraphicsTechTest implements IDrawStrategy {
     drawText(int x,int y,IFont font,IColor color,String text);
     drawTexts(int[] x,int[] y,IFont[] font,IColor[] color,String[] text); 
  */  
-        tech.drawTexture(300,250, texture1);
-        tech.drawTexture(300,300, texture2);
-        tech.drawTexture(300,400, texture3);
-        tech.drawTexture(300,500, texture4);
+        tech.drawTexture(0,0, texture1);
+        tech.drawTexture(50,50, texture2);
+        tech.drawTexture(10,100, texture3);
+        tech.drawTexture(150,150, texture4);
 
         tech.drawPoint(200,200);
         tech.drawLine(0,0,300,350);
