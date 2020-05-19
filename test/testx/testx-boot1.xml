@@ -21,7 +21,11 @@
             <Route path="albertgame.afengine.in.parts.input.InputRoute"/>
         </MessagePart>
         <ScenePart main="Main">
-            <ComponentFactoryList/>
+            <ComponentFactoryList>
+                <Component name="Render" class="comp-fac,render"/>
+                <Component name="Action" class="comp-fac,action"/>
+                <Component name="BehaviorBean" class="comp-fac,behaviorbean"/>
+            </ComponentFactoryList>
             <SceneList>
                 <Scene name="Main" path="test/testx/test1-scene.xml"/>
             </SceneList>

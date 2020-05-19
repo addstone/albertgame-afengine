@@ -4,7 +4,10 @@ import albertgame.afengine.core.app.WindowApp;
 import albertgame.afengine.core.input.InputServlet;
 import albertgame.afengine.core.message.XMLMessagePartBoot;
 import albertgame.afengine.in.components.action.ActionComponent;
+import albertgame.afengine.in.components.action.ActionComponentFactory;
 import albertgame.afengine.in.components.behavior.BehaviorBeanComponent;
+import albertgame.afengine.in.components.behavior.BehaviorBeanComponentFactory;
+import albertgame.afengine.in.components.render.RenderComponentFactory;
 import albertgame.afengine.in.components.render.SceneRenderComponentDraw;
 import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl;
 import albertgame.afengine.in.core.graphics.GraphicsTech_Java2DImpl2;
@@ -45,7 +48,10 @@ public class FactoryUtil {
         putFactory("xmlpart","scene",(args)->new XMLScenePartBoot());
         
         
-        //--component process--
+        //--component-factory--
+        putFactory("comp-fac","render",(args)->new RenderComponentFactory());
+        putFactory("comp-fac","behaviorbean",(args)->new BehaviorBeanComponentFactory());
+        putFactory("comp-fac","action",(args)->new ActionComponentFactory());
         
         
         //add route:msg-route,input

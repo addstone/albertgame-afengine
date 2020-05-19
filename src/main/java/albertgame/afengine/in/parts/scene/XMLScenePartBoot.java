@@ -37,7 +37,7 @@ public class XMLScenePartBoot implements IXMLPartBoot {
      * <Component name="" class=""/>
      * </ComponentFactoryList>
      * <SceneList>
-     * <Scene id="" name="" class="" or path="" loader="" output="true"/>
+     * <Scene id="" name="" class="" or path="" loader=""/>
      * <Scene id="" name="" class="" or path="" loader=""/>
      * </SceneList>
      * <StaticActors path=""/>

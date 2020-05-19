@@ -10,6 +10,8 @@ import albertgame.afengine.in.parts.scene.Scene;
 import albertgame.afengine.in.parts.scene.SceneManager;
 import albertgame.afengine.in.components.render.RenderComponent;
 import albertgame.afengine.core.util.DebugUtil;
+import albertgame.afengine.core.util.FactoryUtil;
+import albertgame.afengine.in.components.render.RenderComponentFactory;
 
 /**
  *
@@ -18,6 +20,7 @@ import albertgame.afengine.core.util.DebugUtil;
 public class Test1Logic implements IAppLogic{
 
     public static void main(String[] args) {
+        FactoryUtil.initEngineFactory();
         AppBoot.boot("test/testx/testx-boot1.xml");
     }
     
