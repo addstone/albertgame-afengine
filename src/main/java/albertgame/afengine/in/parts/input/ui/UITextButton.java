@@ -9,6 +9,7 @@ import albertgame.afengine.in.parts.input.UIActor;
 import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.core.util.FactoryUtil;
 import albertgame.afengine.core.util.TextUtil;
+import albertgame.afengine.core.util.math.IDGenerator;
 import albertgame.afengine.core.util.math.Vector;
 import albertgame.afengine.core.util.property.StringProperty;
 import albertgame.afengine.core.util.property.ValueProperty;
@@ -138,7 +139,7 @@ public class UITextButton extends UIButtonBase {
                 pos = new Vector(10, 10, 0, 0);
             }
             if (name == null) {
-                name = "DefaultUiName" + UIActor.IDCreator.createId();
+                name = "DefaultUiName" + IDGenerator.createId();
             }
 
 

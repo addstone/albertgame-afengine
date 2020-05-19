@@ -15,13 +15,12 @@ import java.util.Map;
  */
 public class ActionComponent extends ActorComponent{
     
-    private static IDGenerator IDCreator=new IDGenerator();
     public static final String COMPONENT_NAME="Action";
     //the action will send message when action is start,or end.
-    public static final long MESSAGE_TYPE_ACTION=IDCreator.createId();
+    public static final long MESSAGE_TYPE_ACTION=IDGenerator.createId();
 
-    public static final long ACTION_START=IDCreator.createId();
-    public static final long ACTION_END=IDCreator.createId();
+    public static final long ACTION_START=IDGenerator.createId();
+    public static final long ACTION_END=IDGenerator.createId();
 
     public ActionComponent() {
         super(ActionComponent.COMPONENT_NAME);

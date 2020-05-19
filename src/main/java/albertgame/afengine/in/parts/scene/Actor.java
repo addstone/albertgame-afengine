@@ -45,7 +45,9 @@ public class Actor {
     }
 
     public Actor(String name, Transform trans) {
-        this(new IDGenerator().createId(), name, trans);
+        this.id = IDGenerator.createId();
+        this.name = name;
+        this.transform = transform;
     }
 
     public Actor(long id, String name, Transform transform) {

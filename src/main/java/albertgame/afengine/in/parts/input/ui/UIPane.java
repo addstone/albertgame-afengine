@@ -7,6 +7,7 @@ import albertgame.afengine.core.message.Message;
 import albertgame.afengine.core.graphics.IGraphicsTech;
 import albertgame.afengine.core.graphics.ITexture;
 import albertgame.afengine.core.util.DebugUtil;
+import albertgame.afengine.core.util.math.IDGenerator;
 import albertgame.afengine.core.util.math.Vector;
 import org.dom4j.Element;
 
@@ -78,7 +79,7 @@ public class UIPane extends UIActor {
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName"+IDCreator.createId();
+                name="DefaultUiName"+IDGenerator.createId();
             String sback=element.attributeValue("back");
             ITexture back=null;
             if(sback!=null)

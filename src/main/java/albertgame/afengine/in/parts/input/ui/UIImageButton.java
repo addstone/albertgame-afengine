@@ -7,6 +7,7 @@ import albertgame.afengine.core.graphics.ITexture;
 import albertgame.afengine.in.parts.input.UIActor;
 import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.core.util.FactoryUtil;
+import albertgame.afengine.core.util.math.IDGenerator;
 import albertgame.afengine.core.util.math.Vector;
 import albertgame.afengine.core.util.property.ValueProperty;
 import org.dom4j.Element;
@@ -148,7 +149,7 @@ public class UIImageButton extends UIButtonBase{
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName"+ UIActor.IDCreator.createId();
+                name="DefaultUiName"+ IDGenerator.createId();
             Element textures=element.element("textures");            
             ITexture normalimage=null,downimage=null,coverimage=null;
             if(textures==null){

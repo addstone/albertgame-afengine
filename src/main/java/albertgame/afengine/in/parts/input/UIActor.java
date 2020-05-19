@@ -16,7 +16,6 @@ public class UIActor implements IHandler,IDrawStrategy{
     private String uiName;
     private UIFace face;
     
-    protected static IDGenerator IDCreator=new IDGenerator();
     
     //理论上来说，只有容器的界面才能有子节点，容器的消息处理和绘制处理交由容器自己管理
     protected final List<UIActor> children=new LinkedList<>();

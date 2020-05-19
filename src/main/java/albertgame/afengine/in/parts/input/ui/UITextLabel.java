@@ -7,6 +7,7 @@ import albertgame.afengine.core.graphics.IFont;
 import albertgame.afengine.core.graphics.IGraphicsTech;
 import albertgame.afengine.in.parts.input.UIActor;
 import albertgame.afengine.core.util.TextUtil;
+import albertgame.afengine.core.util.math.IDGenerator;
 import albertgame.afengine.core.util.math.Vector;
 import albertgame.afengine.core.util.property.StringProperty;
 import albertgame.afengine.core.util.property.ValueProperty;
@@ -120,7 +121,7 @@ public class UITextLabel extends UIActor {
                 pos = new Vector(10, 10, 0, 0);
             }
             if (name == null) {
-                name = "DefaultUiName" + IDCreator.createId();
+                name = "DefaultUiName" + IDGenerator.createId();
             }
 
             StringProperty text;

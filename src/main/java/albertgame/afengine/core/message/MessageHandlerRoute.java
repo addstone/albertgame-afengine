@@ -27,11 +27,10 @@ public class MessageHandlerRoute implements Message.IRoute {
     }
 
     private final Map<Long, MessageHandler> typeHandlerMap;
-    public static final long Route_Handler=new IDGenerator().createId();
+    public static final long Route_Handler=IDGenerator.createId();
 
     public MessageHandlerRoute() {
         this.typeHandlerMap = new HashMap<>();
-        IDGenerator ge = new IDGenerator();
     }
 
     public void addTypeContentHandler(long type, long content, Message.IHandler handler) {

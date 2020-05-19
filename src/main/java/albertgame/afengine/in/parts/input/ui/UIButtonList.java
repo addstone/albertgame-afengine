@@ -6,6 +6,7 @@ import albertgame.afengine.core.graphics.IGraphicsTech;
 import albertgame.afengine.core.graphics.ITexture;
 import albertgame.afengine.in.parts.input.UIActor;
 import albertgame.afengine.core.util.DebugUtil;
+import albertgame.afengine.core.util.math.IDGenerator;
 import albertgame.afengine.core.util.math.Vector;
 import java.util.Iterator;
 import org.dom4j.Element;
@@ -89,7 +90,7 @@ public class UIButtonList extends UIPane {
                 pos = new Vector(10, 10, 0, 0);
             }
             if (name == null) {
-                name = "DefaultUiName" + UIActor.IDCreator.createId();
+                name = "DefaultUiName" + IDGenerator.createId();
             }
             UIButtonList list = new UIButtonList(name, pos);
             Iterator<Element> eleiter = element.elementIterator();

@@ -25,10 +25,8 @@ public abstract class ActorBehavior{
     private boolean active;
     public Map<String,String> attributes;
     
-    private static IDGenerator IDCreator=new IDGenerator();
-    
     public ActorBehavior() {
-        this("behavior"+IDCreator.createId());
+        this("behavior"+IDGenerator.createId());
     }
     public ActorBehavior(String name){
         this.name=name;

@@ -6,6 +6,7 @@ import albertgame.afengine.core.graphics.IGraphicsTech;
 import albertgame.afengine.core.graphics.ITexture;
 import albertgame.afengine.in.parts.input.UIActor;
 import albertgame.afengine.core.util.DebugUtil;
+import albertgame.afengine.core.util.math.IDGenerator;
 import albertgame.afengine.core.util.math.Vector;
 import albertgame.afengine.core.util.property.ValueProperty;
 import org.dom4j.Element;
@@ -71,7 +72,7 @@ public class UIImageLabel extends UIActor {
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName"+IDCreator.createId();
+                name="DefaultUiName"+IDGenerator.createId();
             Element texture=element.element("texture");            
             ITexture normalimage=null;
             if(texture==null){

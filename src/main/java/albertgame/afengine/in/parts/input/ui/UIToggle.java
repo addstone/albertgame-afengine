@@ -10,6 +10,7 @@ import albertgame.afengine.core.graphics.IGraphicsTech;
 import albertgame.afengine.core.graphics.ITexture;
 import albertgame.afengine.core.util.DebugUtil;
 import albertgame.afengine.core.util.FactoryUtil;
+import albertgame.afengine.core.util.math.IDGenerator;
 import albertgame.afengine.core.util.math.Vector;
 import java.util.Iterator;
 import org.dom4j.Element;
@@ -148,7 +149,7 @@ public class UIToggle extends UIActor {
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName"+IDCreator.createId();
+                name="DefaultUiName"+IDGenerator.createId();
             int length=1;
             String slength=element.attributeValue("length");
             if(slength!=null){

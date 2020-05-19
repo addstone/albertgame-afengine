@@ -18,7 +18,7 @@ public class SceneManager {
     public static class SceneProcess extends AbProcess{
 
         public SceneProcess() {
-            super(new IDGenerator().createId(),"Scene","Process for Update Scene ");
+            super(IDGenerator.createId(),"Scene","Process for Update Scene ");
         }
 
         @Override

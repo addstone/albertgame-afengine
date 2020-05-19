@@ -191,7 +191,7 @@ public class Behavior1 extends ActorBehavior{
 //            DebugUtil.log("not found image by index:"+index);
             return null;
         }
-        Actor actor=new Actor("tile"+index+"-"+new IDGenerator().createId());
+        Actor actor=new Actor("tile"+index+"-"+IDGenerator.createId());
         actor.getTransform().position.setX(x);
         actor.getTransform().position.setY(y);
         ITexture render=set.getByIndex(index);

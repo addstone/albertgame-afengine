@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class InputRoute implements IRoute {
 
-    public static long Route_Input = new IDGenerator().createId();
+    public static long Route_Input = IDGenerator.createId();
 
     private final InputManager center;
 
