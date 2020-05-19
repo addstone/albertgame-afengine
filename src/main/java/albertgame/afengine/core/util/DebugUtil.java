@@ -115,6 +115,8 @@ public class DebugUtil {
         IColor color;
         @Override
         public void draw(IGraphicsTech tech) {
+            if(DebugUtil.on==false)return;
+            
             if(color==null){
                 color=tech.createColor(IColor.GeneraColor.RED);
             }
