@@ -55,24 +55,28 @@ public class XMLScenePartBoot implements IXMLPartBoot {
         while (eleiter.hasNext()) {
             Element ele = eleiter.next();
             String name = ele.attributeValue("name");
-            String classname = ele.attributeValue("class");
-            IComponentFactory fac = (IComponentFactory) FactoryUtil.create(classname);
+            String loader = ele.attributeValue("loader");
+            IComponentFactory fac=null;
+            if (loader != null) {
+                IComponentFactoryLoader floader = loadfactory(loader);
+                fac = floader.loadFactory(ele);
+                ActorComponent.addFactory(name, fac);
+            }else{
+                String classname = ele.attributeValue("class");
+                fac = (IComponentFactory) FactoryUtil.create(classname);                
+            }
             ActorComponent.addFactory(name, fac);
             DebugUtil.log("Add ComponentFactory :" + name);
-            String loader = ele.attributeValue("loader");
             String process = ele.attributeValue("process");
             //没有就代表使用默认
             //如果为disable则为放弃该组件的场景层面的操作,否则使用该字段实例化Process
-            if (process == null){
+            if (process == null) {
                 ActorComponent.componentMethodList.add(new ActorComponent.AdapterProcess(name));
-            }else if(!process.equals("disable")){                
+            } else if (!process.equals("disable")) {
                 IProcess processin = (IProcess) FactoryUtil.create(process);
-                if(processin!=null)
+                if (processin != null) {
                     ActorComponent.componentMethodList.add(processin);
-            }
-            if (loader != null) {
-                IComponentFactoryLoader floader = loadfactory(loader);
-                floader.loadFactory(ele);
+                }
             }
         }
 
@@ -112,11 +116,12 @@ public class XMLScenePartBoot implements IXMLPartBoot {
             }
         }
 
+        //注册场景进程到应用进程中
         App.getInstance().getProcessManager().attachProcess(new SceneManager.SceneProcess());
     }
 
-    private IComponentFactoryLoader loadfactory(String factoryclass) {
-        IComponentFactoryLoader loader = (IComponentFactoryLoader) FactoryUtil.create(factoryclass);
+    private IComponentFactoryLoader loadfactory(String loaderpath) {
+        IComponentFactoryLoader loader = (IComponentFactoryLoader) FactoryUtil.create(loaderpath);
         return loader;
     }
 
