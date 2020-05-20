@@ -25,6 +25,7 @@ public abstract class ActorBehavior{
     private String name;
     private boolean active;
     public Map<String,String> attributes;
+    public Map<String,Object> settings;
     
     public ActorBehavior() {
         this("behavior"+IDGenerator.createId());
@@ -33,6 +34,7 @@ public abstract class ActorBehavior{
         this.name=name;
         active=false;
         attributes=new HashMap<>();        
+        settings=new HashMap<>();
     }
     
     public abstract void update(long time);
