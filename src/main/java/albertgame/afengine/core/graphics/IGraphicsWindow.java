@@ -5,12 +5,18 @@
  */
 package albertgame.afengine.core.graphics;
 
+import albertgame.afengine.core.app.App;
+import albertgame.afengine.core.app.WindowApp;
+
 /**
  * the plain Window Method for GraphicsTech,you could use following methods to manipulate the
  * window on graphicstech
  * @author Administrator
  */
 public interface IGraphicsWindow {
+    public static IGraphicsWindow window(){
+        return ((WindowApp) App.getInstance()).getGraphicsTech();        
+    }
     public void create(int x,int y,int w,int h,ITexture icon,String title);
     public void create(int w,int h,ITexture icon,String title);
     public void create(ITexture icon,String title);
