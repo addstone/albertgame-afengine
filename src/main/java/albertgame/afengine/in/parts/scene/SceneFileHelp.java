@@ -47,7 +47,8 @@ public class SceneFileHelp{
             });
         }        
         
-        scene.awakeAllActors();
+        //唤醒实体和组件交由场景管理器处理
+//        scene.awakeAllActors();
         return scene;
     }
     //导入实体
@@ -232,7 +233,7 @@ public class SceneFileHelp{
             Iterator<Actor> actoriter=Actor.staticActorList.iterator();
             while(actoriter.hasNext()){
                 Actor a=actoriter.next();
-                a.awakeAllComponents();
+                a.awakeAllComponents();//静态实体无关场景
             }        
         }
     }

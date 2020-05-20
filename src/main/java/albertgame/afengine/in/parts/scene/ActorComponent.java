@@ -1,11 +1,5 @@
 package albertgame.afengine.in.parts.scene;
 
-import albertgame.afengine.in.components.action.ActionComponent;
-import albertgame.afengine.in.components.action.ActionComponentFactory;
-import albertgame.afengine.in.components.behavior.BehaviorBeanComponent;
-import albertgame.afengine.in.components.behavior.BehaviorBeanComponentFactory;
-import albertgame.afengine.in.components.render.RenderComponent;
-import albertgame.afengine.in.components.render.RenderComponentFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

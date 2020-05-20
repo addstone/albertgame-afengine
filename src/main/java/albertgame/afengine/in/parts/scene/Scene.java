@@ -142,6 +142,20 @@ public class Scene{
             actor.awakeAllComponents();
         }
     }
+    public final void sleepAllActors(){
+        //唤醒静态
+        Iterator<Actor> actoriter = Actor.staticActorList.iterator();
+        while (actoriter.hasNext()) {
+            Actor actor = actoriter.next();
+            actor.sleepAllComponents();
+        }
+
+        actoriter = rootList.iterator();
+        while (actoriter.hasNext()) {
+            Actor actor = actoriter.next();
+            actor.sleepAllComponents();
+        }        
+    }
 
     public String getName() {
         return name;

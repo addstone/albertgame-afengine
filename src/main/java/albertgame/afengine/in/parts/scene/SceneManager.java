@@ -52,6 +52,7 @@ public class SceneManager {
             preparedSceneMap.put(scene.getName(), scene);
             scene.getLoader().load(scene);
             scene.getLoader().pause(scene);
+            scene.sleepAllActors();//沉睡所有的实体
         } else {
             DebugUtil.error("scene already prepared!");
         }
@@ -62,10 +63,12 @@ public class SceneManager {
         if (!sceneStack.contains(scene)) {
             if (!sceneStack.isEmpty()) {
                 Scene before = sceneStack.peek();
-                before.getLoader().pause(before);
+                before.getLoader().pause(before);                
+                before.sleepAllActors();//沉睡所有的实体
             }
             sceneStack.push(scene);
             scene.getLoader().resume(scene);
+            scene.awakeAllActors();//唤醒所有的实体
 
             runningScene = scene;
         } else {
@@ -81,6 +84,7 @@ public class SceneManager {
             }
             sceneStack.push(scene);
             scene.getLoader().resume(scene);
+            scene.awakeAllActors();//唤醒所有的实体
 
             runningScene = scene;
         } else {
