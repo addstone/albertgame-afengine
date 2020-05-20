@@ -124,7 +124,7 @@ public class Actor {
         Iterator<Actor> childiter = children.iterator();
         while (childiter.hasNext()) {
             Actor child = childiter.next();
-            child.awakeAllComponents();
+            child.awakeAllComponents(scene);
         }
     }
     
