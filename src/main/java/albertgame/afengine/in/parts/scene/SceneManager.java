@@ -15,10 +15,10 @@ import java.util.Stack;
 
 public class SceneManager {
 
-    public static class SceneProcess extends AbProcess{
+    public static class SceneProcess extends AbProcess {
 
         public SceneProcess() {
-            super(IDGenerator.createId(),"Scene","Process for Update Scene ");
+            super(IDGenerator.createId(), "Scene", "Process for Update Scene ");
         }
 
         @Override
@@ -28,12 +28,14 @@ public class SceneManager {
     }
 
     private static SceneManager in;
-    public static SceneManager getInstance(){
-        if(in==null)
-            in=new SceneManager(new Scene("root"));
+
+    public static SceneManager getInstance() {
+        if (in == null) {
+            in = new SceneManager(new Scene("root"));
+        }
         return in;
     }
-    
+
     private final Map<String, Scene> preparedSceneMap;
     private final Stack<Scene> sceneStack;
     private Scene rootScene;
@@ -52,22 +54,23 @@ public class SceneManager {
             preparedSceneMap.put(scene.getName(), scene);
             scene.getLoader().load(scene);
             scene.getLoader().pause(scene);
-            scene.sleepAllActors();//沉睡所有的实体
+            scene.awakeActorsFromScene(scene);//从场景中唤醒实体
+            scene.sleepAllActors();//沉睡所有的实体组件
         } else {
             DebugUtil.error("scene already prepared!");
         }
     }
-    
-    
+
     public void pushScene(Scene scene) {
         if (!sceneStack.contains(scene)) {
             if (!sceneStack.isEmpty()) {
                 Scene before = sceneStack.peek();
-                before.getLoader().pause(before);                
+                before.getLoader().pause(before);
                 before.sleepAllActors();//沉睡所有的实体
             }
             sceneStack.push(scene);
             scene.getLoader().resume(scene);
+            scene.awakeActorsFromScene(scene);
             scene.awakeAllActors();//唤醒所有的实体
 
             runningScene = scene;
@@ -84,6 +87,7 @@ public class SceneManager {
             }
             sceneStack.push(scene);
             scene.getLoader().resume(scene);
+            scene.awakeActorsFromScene(scene);
             scene.awakeAllActors();//唤醒所有的实体
 
             runningScene = scene;
@@ -91,9 +95,9 @@ public class SceneManager {
             DebugUtil.error("you just add scene before!");
         }
     }
-    
-    public void changeRoot(Scene newRoot){
-        this.rootScene=newRoot;
+
+    public void changeRoot(Scene newRoot) {
+        this.rootScene = newRoot;
     }
 
     public void popScene() {
@@ -107,19 +111,18 @@ public class SceneManager {
             runningScene = rootScene;
         }
         //最后继续场景的运行
+        runningScene.awakeActorsFromScene(runningScene);//从场景中唤醒
         runningScene.getLoader().resume(runningScene);
     }
 
     public void update(long time) {
         if (runningScene != null) {
             runningScene.updateScene(time);
-        }else{
+        } else {
             DebugUtil.error("runningScene is null!!");
         }
     }
 
-    
-    
     public Scene findPreparedScene(String name) {
         return this.preparedSceneMap.get(name);
     }

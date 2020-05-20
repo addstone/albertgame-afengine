@@ -19,7 +19,7 @@ import java.util.Comparator;
  */
 public class RenderComponent extends ActorComponent{
     public static final String COMPONENT_NAME="Render";
-    
+    private boolean moveWithCamera;
 
     private static Comparator<Actor> comparator=(Actor o1, Actor o2) -> {
         RenderComponent r1=(RenderComponent) o1.getComponent(RenderComponent.COMPONENT_NAME);
@@ -41,6 +41,14 @@ public class RenderComponent extends ActorComponent{
     public static void setComparator(Comparator<Actor> comparator) {
         RenderComponent.comparator = comparator;
     }
+
+    public boolean isMoveWithCamera() {
+        return moveWithCamera;
+    }
+
+    public void setMoveWithCamera(boolean moveWithCamera) {
+        this.moveWithCamera = moveWithCamera;
+    }
     
     public static final Comparator<Actor> orderComparator=(Actor o1, Actor o2) -> {
         RenderComponent r1=(RenderComponent) o1.getComponent(RenderComponent.COMPONENT_NAME);
@@ -59,6 +67,7 @@ public class RenderComponent extends ActorComponent{
     public RenderComponent() {
         super(RenderComponent.COMPONENT_NAME);
         renderOrder=0;
+        this.moveWithCamera=true;
     }    
             
     protected int renderWidth,renderHeight;
@@ -93,6 +102,10 @@ public class RenderComponent extends ActorComponent{
         return !(py<dy||py>(dy+height));
     }
     public int getRenderX(SceneCamera camera){
+        if(!moveWithCamera){
+            return (int) super.getActor().getAbsoluteX();
+        }
+
         double dx = super.getActor().getAbsoluteX();
         double cx = camera.getPos().getX();
         double ox = camera.getWidthOffSize();
@@ -107,6 +120,10 @@ public class RenderComponent extends ActorComponent{
         return (int)(offx+winwidth*ox);
     }
     public int getRenderY(SceneCamera camera){
+        if(!moveWithCamera){
+            return (int) super.getActor().getAbsoluteY();
+        }
+
         double dy = super.getActor().getAbsoluteY();
         double cy = camera.getPos().getY();
         double oy = camera.getHeightOffSize();

@@ -114,6 +114,20 @@ public class Actor {
             child.awakeAllComponents();
         }
     }
+    public final void awakeAllComponents(Scene scene) {
+        Iterator<ActorComponent> compiter = componentsMap.values().iterator();
+        while (compiter.hasNext()) {
+            ActorComponent comp = compiter.next();
+            comp.awakeFromScene(scene);
+        }
+
+        Iterator<Actor> childiter = children.iterator();
+        while (childiter.hasNext()) {
+            Actor child = childiter.next();
+            child.awakeAllComponents();
+        }
+    }
+    
 
     public final void sleepAllComponents() {
         Iterator<ActorComponent> compiter = componentsMap.values().iterator();

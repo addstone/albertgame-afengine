@@ -2,6 +2,7 @@ package albertgame.afengine.in.components.behavior;
 
 import albertgame.afengine.in.parts.scene.ActorComponent;
 import albertgame.afengine.core.util.DebugUtil;
+import albertgame.afengine.in.parts.scene.Scene;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -41,7 +42,18 @@ public class BehaviorBeanComponent extends ActorComponent{
             be.asleep();
         }
     }
-        
+
+    @Override
+    public void awakeFromScene(Scene scene) {
+        Iterator<ActorBehavior> beiter = behaviorMap.values().iterator();
+        while(beiter.hasNext()){
+            ActorBehavior be = beiter.next();
+            be.awakeFromScene(scene);
+        }        
+    }
+
+
+    
     /**
      * update all behaviors
      * @param time

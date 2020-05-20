@@ -49,6 +49,7 @@ public class SceneFileHelp{
         
         //唤醒实体和组件交由场景管理器处理
 //        scene.awakeAllActors();
+        scene.awakeActorsFromScene(scene);
         return scene;
     }
     //导入实体

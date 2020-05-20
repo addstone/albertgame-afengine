@@ -38,7 +38,7 @@ public class RenderComponentFactory implements IComponentFactory {
     public static final Map<String, IRenderCreator> extraCreatorMap = new HashMap<>();
 
     /*
-        <Render type="" render-creator="" order="0" useroderclass=""/>
+        <Render type="" render-creator="" order="0" useroderclass="" move="false"/>
         </Render>
      */
     @Override
@@ -60,9 +60,13 @@ public class RenderComponentFactory implements IComponentFactory {
         }
         if (comp != null) {
             String order = element.attributeValue("order");
+            String move=element.attributeValue("move");            
             if (order != null) {
                 int orderi = Integer.parseInt(TextUtil.getRealValue(order, datas));
                 comp.setRenderOrder(orderi);
+            }            
+            if(move!=null&&move.equals("false")){                
+                comp.setMoveWithCamera(false);
             }
         }
         String userorderclass = element.attributeValue("userorderclass");

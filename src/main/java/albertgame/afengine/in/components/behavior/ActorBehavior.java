@@ -3,6 +3,7 @@ package albertgame.afengine.in.components.behavior;
 //actorbehavior extends actorcomponent,while it's not follow the rule for actorcomponent,but for behavior.
 
 import albertgame.afengine.core.util.math.IDGenerator;
+import albertgame.afengine.in.parts.scene.Scene;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +46,9 @@ public abstract class ActorBehavior{
         return active;
     }
 
+    public void awakeFromScene(Scene scene){
+        
+    }
     public final void awake() {
         if (active) {
             return;

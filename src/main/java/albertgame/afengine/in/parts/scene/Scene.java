@@ -126,6 +126,13 @@ public class Scene{
 
         return null;
     }
+    public void awakeActorsFromScene(Scene scene) {
+        Iterator<Actor> actoriter = rootList.iterator();
+        while (actoriter.hasNext()) {
+            Actor actor = actoriter.next();
+            actor.awakeAllComponents(scene);
+        }        
+    }
 
     public final void awakeAllActors() {
 

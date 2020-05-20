@@ -81,17 +81,21 @@ public class ActorComponent {
         active = true;
         toWake();
     }
-
+    
     public final void asleep() {
         if (active == false) {
             return;
         }
         active = false;
         toSleep();
-    }
+    }        
 
     public final void setActor(Actor actor) {
         this.actor = actor;
+    }
+    
+    public void awakeFromScene(Scene scene){
+        
     }
 
     public void update(long time) {
