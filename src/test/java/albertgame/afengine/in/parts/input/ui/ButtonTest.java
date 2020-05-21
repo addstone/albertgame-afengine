@@ -30,7 +30,7 @@ public class ButtonTest {
     public static void main(String[] args) {
         DebugUtil.switchOn();//Open Debug
 
-        WindowApp app = new WindowApp(new IAppLogic.AppLogicBase(), "KeyInputTest", "", 1200, 900);//instance a window app
+        WindowApp app = new WindowApp(new IAppLogic.AppLogicBase(), "KeyInputTest", "", 800, 600);//instance a window app
         App.setInstance(app);
 
         MessageManager.getInstance().addRoute(new InputRoute());//add inputroute to messagemanager
@@ -41,6 +41,7 @@ public class ButtonTest {
         final IColor redc = gr.createColor(IColor.GeneraColor.RED);
         final IColor bluec = gr.createColor(IColor.GeneraColor.BLUE);
         final IColor orangec = gr.createColor(IColor.GeneraColor.ORANGE);
+        final IColor pop = gr.createColor(100,100,100,100);
 
         UITextButton button = new UITextButton("text-button", 100, 100, "Text Button");
         UITextButton exit = new UITextButton("text-button", 10, 10, "OOO");
@@ -115,7 +116,7 @@ public class ButtonTest {
         InputManager.getInstance().addFaceInAll(face);
         button.setToDownAction((ui)->{
             button.setFontColor(bluec);
-            InputManager.getInstance().showPopupFace(face2);
+            InputManager.getInstance().showPopupFace(face2,pop);
         });
 
         InputManager.getInstance().activeFace("Face1");

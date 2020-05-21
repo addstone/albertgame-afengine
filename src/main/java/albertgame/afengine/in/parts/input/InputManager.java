@@ -5,6 +5,7 @@
  */
 package albertgame.afengine.in.parts.input;
 
+import albertgame.afengine.core.graphics.IColor;
 import albertgame.afengine.core.input.InputServlet;
 import albertgame.afengine.core.message.Message;
 import albertgame.afengine.core.message.Message.IHandler;
@@ -141,6 +142,22 @@ public class InputManager {
 
         popupFace=face;
     }
+    private IColor popupbackColor;
+    public void showPopupFace(UIFace face,IColor background){
+        if(popupFace!=null){
+            DebugUtil.log("poopup is not unlock,please unlock then show.");
+            return;
+        }
+
+        popupFace=face;
+        popupbackColor=background;
+    }
+
+    public IColor getPopupbackColor() {
+        return popupbackColor;
+    }
+
+    
     public void removePopupFace(){
         if(popupFace==null){
             DebugUtil.log("poopup is  unlock already,do not remove again.");
@@ -152,7 +169,8 @@ public class InputManager {
                 InputServlet.EventCode_MouseUp,0,"mouse move",new Object[]{0,0});
         MessageManager.getInstance().pushMessage(msg);
         popupFace=null;
-    }
+        popupbackColor=null;
+    }    
     
     private void addServlet(boolean pre,Long type,InputServlet servlet){
         List<InputServlet> servletList;
